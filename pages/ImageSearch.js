@@ -18,7 +18,6 @@ const ImageSearch = () =>{
       });
   
       return () => {
-
         showSubscription.remove();
         hideSubscription.remove();
       };
