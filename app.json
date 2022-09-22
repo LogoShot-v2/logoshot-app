@@ -28,6 +28,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "是否讓 Logoshot 存取您的圖片以用於圖片搜尋功能？",
+          "cameraPermission": "是否讓 Logoshot 存取您的相機以用於圖片搜尋功能？"
+        }
+      ]
+    ]
   }
 }
