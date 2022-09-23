@@ -8,7 +8,15 @@ import Animated, {
 } from "react-native-reanimated";
 import { useAnimatedGestureHandler } from "react-native-reanimated";
 
-const LgsDraggablePin = ({ children, X, Y, onDrag, onDrop }) => {
+const LgsDraggablePin = ({
+  children,
+  X,
+  Y,
+  onDrag,
+  onDrop,
+  imageWidth,
+  imageHeight,
+}) => {
   const x = useSharedValue(X);
   const y = useSharedValue(Y);
   const drag = useAnimatedGestureHandler({
@@ -17,8 +25,14 @@ const LgsDraggablePin = ({ children, X, Y, onDrag, onDrop }) => {
       c.y = y.value;
     },
     onActive: (e, c) => {
-      x.value = e.translationX + c.x;
-      y.value = e.translationY + c.y;
+      x.value =
+        Math.abs(e.translationX + c.x) > imageWidth / 2
+          ? (Math.sign(e.translationX + c.x) * imageWidth) / 2
+          : e.translationX + c.x;
+      y.value =
+        Math.abs(e.translationY + c.y) > imageHeight / 2
+          ? (Math.sign(e.translationY + c.y) * imageHeight) / 2
+          : e.translationY + c.y;
       runOnJS(onDrag)(x.value, y.value);
     },
     onEnd: (e) => {

@@ -36,7 +36,6 @@ const LgsPhotoIndicator = ({
     // setIndicator(x, y);
   };
   const drop = (x, y) => {
-    // console.log("dragging", x, y);
     setIndicator(x, y);
   };
 
@@ -76,7 +75,14 @@ const LgsPhotoIndicator = ({
         }}
       />
       {source.uri && (
-        <LgsDraggablePin X={0} Y={0} onDrag={drag} onDrop={drop}>
+        <LgsDraggablePin
+          X={0}
+          Y={0}
+          onDrag={drag}
+          onDrop={drop}
+          imageWidth={width}
+          imageHeight={height}
+        >
           <Text>+</Text>
         </LgsDraggablePin>
       )}
