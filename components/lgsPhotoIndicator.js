@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   TextInput,
   Text,
@@ -8,25 +8,54 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LgsDraggablePin from "./lgsDraggablePin";
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import {
   GestureHandlerRootView,
   PanGestureHandler,
 } from "react-native-gesture-handler";
 
-const LgsPhotoIndicator = ({ style, source }) => {
-  const [containerX, setContainerX] = useState();
-  const [containerY, setContainerY] = useState();
+// const windowWidth = Dimensions.get("window").width;
+// const windowHeight = Dimensions.get("window").height;
+
+const LgsPhotoIndicator = ({
+  style,
+  source,
+  width,
+  height,
+  setWidth,
+  setHeight,
+  setIndicator,
+}) => {
+  // const [width, setWidth] = useState(0);
+  // const [height, setHeight] = useState(0);
 
   const drag = (x, y) => {
-    console.log("dragging", x, y);
+    // console.log("dragging", x, y);
+    // setIndicator(x, y);
   };
   const drop = (x, y) => {
-    console.log("dragging", x, y);
+    // console.log("dragging", x, y);
+    setIndicator(x, y);
   };
+
+  useEffect(() => {
+    Image.getSize(
+      source.uri,
+      (srcWidth, srcHeight) => {
+        const maxHeight = Dimensions.get("window").height * 0.7; // or something else
+        const maxWidth = Dimensions.get("window").width * 0.7;
+
+        const ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+        setWidth(srcWidth * ratio);
+        setHeight(srcHeight * ratio);
+      },
+      (error) => {
+        console.log("error:", error);
+      }
+    );
+  }, [source.uri]);
 
   return (
     <GestureHandlerRootView
@@ -39,16 +68,18 @@ const LgsPhotoIndicator = ({ style, source }) => {
       }}
     >
       <Image
+        resizeMode="cover"
         source={source}
         style={{
-          resizeMode: "contain",
-          width: windowWidth * 0.7,
-          height: windowWidth * 0.7,
+          width: width,
+          height: height,
         }}
       />
-      <LgsDraggablePin X={0} Y={0} onDrag={drag} onDrop={drop}>
-        <Text>+</Text>
-      </LgsDraggablePin>
+      {source.uri && (
+        <LgsDraggablePin X={0} Y={0} onDrag={drag} onDrop={drop}>
+          <Text>+</Text>
+        </LgsDraggablePin>
+      )}
     </GestureHandlerRootView>
   );
 };

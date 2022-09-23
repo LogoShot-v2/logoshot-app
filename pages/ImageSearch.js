@@ -28,7 +28,11 @@ const ImageSearch = () => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState({ uri: "" });
+  const [imageWidth, setImageWidth] = useState(0);
+  const [imgaeHeight, setImageHeight] = useState(0);
+  const [indicatorX, setIndicatorX] = useState(0);
+  const [indicatorY, setIndicatorY] = useState(0);
 
   /* inputs */
   const [type, setType] = useState("");
@@ -70,9 +74,14 @@ const ImageSearch = () => {
     console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setImage(result);
       setIsImagePickerDrawerVisible(false);
     }
+  };
+
+  const setIndicator = (x, y) => {
+    setIndicatorX(x);
+    setIndicatorY(y);
   };
 
   useEffect(() => {
@@ -99,6 +108,10 @@ const ImageSearch = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    console.log("back param", imageWidth, imgaeHeight, indicatorX, indicatorY);
+  }, [imageWidth, imgaeHeight, indicatorX, indicatorY]);
+
   return (
     <>
       <View style={style.statusBarBlank}></View>
@@ -109,8 +122,13 @@ const ImageSearch = () => {
           onPress={() => setIsImagePickerDrawerVisible(true)}
         ></LgsButton>
         <LgsPhotoIndicator
+          width={imageWidth}
+          height={imgaeHeight}
+          setWidth={setImageWidth}
+          setHeight={setImageHeight}
+          setIndicator={setIndicator}
           style={style.input}
-          source={{ uri: image }}
+          source={image}
         ></LgsPhotoIndicator>
         <LgsTextInput
           style={style.input}
