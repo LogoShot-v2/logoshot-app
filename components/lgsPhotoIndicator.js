@@ -83,7 +83,10 @@ const LgsPhotoIndicator = ({
           imageWidth={width}
           imageHeight={height}
         >
-          <Text>+</Text>
+          <Image
+            source={require("../assets/indicator.png")}
+            style={{ width: 10, height: 10 }}
+          ></Image>
         </LgsDraggablePin>
       )}
     </GestureHandlerRootView>
@@ -92,4 +95,11 @@ const LgsPhotoIndicator = ({
 
 export default LgsPhotoIndicator;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  // indicator: {
+  //   color: "white",
+  //   textShadowColor: "#585858",
+  //   textShadowRadius: 10,
+  //   textShadowOffset: { width: 1, height: 1 },
+  // },
+});
