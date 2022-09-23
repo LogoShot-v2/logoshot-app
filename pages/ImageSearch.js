@@ -10,6 +10,8 @@ import {
   ImageStore,
   TouchableOpacity,
   Alert,
+  ScrollView,
+  StatusBar,
 } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { BottomSheet, ListItem } from "@rneui/themed";
@@ -17,6 +19,10 @@ import { Chip, ThemeProvider, Button } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 import * as ImagePicker from "expo-image-picker";
 import LgsTextInput from "../components/lgsTextInput";
+import LgsPhotoIndicator from "../components/lgsPhotoIndicator";
+// import { ScrollView } from "react-native-gesture-handler";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import LgsButton from "../components/lgsButton";
 
 const ImageSearch = () => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
@@ -94,107 +100,78 @@ const ImageSearch = () => {
   }, []);
 
   return (
-    <SafeAreaProvider style={style.container}>
-      <Text>圖片商標查詢</Text>
-      <Button
-        title="圖片商標查詢"
-        onPress={() => setIsImagePickerDrawerVisible(true)}
-      ></Button>
-      {image && <Image source={{ uri: image }} style={{ flex: 1 }}></Image>}
-      <View>
-        <Text>應用商品類別</Text>
-        <RNPickerSelect
-          placeholder="select here"
-          onValueChange={(value) => console.log(value)}
-          items={[
-            { label: "1", value: "1" },
-            { label: "2", value: "2" },
-            { label: "3", value: "3" },
-          ]}
-        />
-      </View>
-      <View>
-        <Text>商標色彩</Text>
-        <RNPickerSelect
-          placeholder="select here"
-          onValueChange={(value) => console.log(value)}
-          items={[
-            { label: "1", value: "1" },
-            { label: "2", value: "2" },
-            { label: "3", value: "3" },
-          ]}
-        />
-      </View>
-      <LgsTextInput
-        title={"輸入商標路徑"}
-        style={style.input}
-        value={path}
-        onChangeText={(t) => setPath(t)}
-        placeholder="輸入商標路徑"
-      ></LgsTextInput>
-      <LgsTextInput
-        title={"文字商標查詢"}
-        style={style.input}
-        placeholder={"輸入申請人"}
-      ></LgsTextInput>
-      <View>
-        <Text> 商標註冊期間</Text>
-        <View style={{ flexDirection: "row" }}>
-          <View style={style.twoinput}>
-            <TextInput
-              placeholder="yyyy/mm/dd"
-              style={{ justifyContent: "flex-start" }}
-            />
-          </View>
-          <Text>~</Text>
-          <View style={style.twoinput}>
-            <TextInput
-              placeholder="yyy/mm/dd"
-              style={{ justifyContent: "flex-end" }}
-            />
-          </View>
-        </View>
-        <Text style={style.status}>{keyboardStatus}</Text>
-      </View>
-
-      <Button
-        title="Press me"
-        onPress={() => Alert.alert("Simple Button pressed")}
-      />
-
-      <BottomSheet
-        modalProps={{}}
-        isVisible={isImagePickerDrawerVisible}
-        onBackdropPress={() => setIsImagePickerDrawerVisible(false)}
-      >
-        {list.map((l, i) => (
-          <ListItem
-            key={i}
-            containerStyle={l.containerStyle}
-            onPress={l.onPress}
-          >
-            <ListItem.Content>
-              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
-        ))}
-      </BottomSheet>
-    </SafeAreaProvider>
+    <>
+      <View style={style.statusBarBlank}></View>
+      <ScrollView style={style.container}>
+        <LgsButton
+          style={style.input}
+          title={"新增圖片"}
+          onPress={() => setIsImagePickerDrawerVisible(true)}
+        ></LgsButton>
+        <LgsPhotoIndicator
+          style={style.input}
+          source={{ uri: image }}
+        ></LgsPhotoIndicator>
+        <LgsTextInput
+          style={style.input}
+          placeholder={"應用商品類別"}
+        ></LgsTextInput>
+        <LgsTextInput
+          style={style.input}
+          placeholder={"商標色彩"}
+        ></LgsTextInput>
+        <LgsTextInput
+          style={style.input}
+          placeholder={"輸入商標路徑"}
+        ></LgsTextInput>
+        <LgsTextInput
+          style={style.input}
+          placeholder={"輸入申請人"}
+        ></LgsTextInput>
+        <LgsButton style={style.input} title={"搜尋"}></LgsButton>
+        <BottomSheet
+          isVisible={isImagePickerDrawerVisible}
+          onBackdropPress={() => setIsImagePickerDrawerVisible(false)}
+        >
+          {list.map((l, i) => (
+            <ListItem
+              key={i}
+              containerStyle={l.containerStyle}
+              onPress={l.onPress}
+            >
+              <ListItem.Content>
+                <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
+              </ListItem.Content>
+            </ListItem>
+          ))}
+        </BottomSheet>
+      </ScrollView>
+    </>
   );
 };
 const style = StyleSheet.create({
+  statusBarBlank: {
+    height: StatusBar.currentHeight,
+    backgroundColor: "red",
+  },
+  image: {
+    marginTop: 10,
+    //backgroundColor: "red",
+  },
   container: {
-    flex: 1,
-    padding: 36,
+    paddingHorizontal: 36,
+    // paddingTop: StatusBar.currentHeight,
   },
   input: {
     marginTop: 10,
+    // backgroundColor: "yellow",
   },
   twoinput: {
-    flex: 1,
-    padding: 10,
+    // flex: 1,
+    width: "45%",
+    height: 40,
     borderWidth: 0.5,
-    borderRadius: 8,
+    borderRadius: 20,
   },
 
   status: {

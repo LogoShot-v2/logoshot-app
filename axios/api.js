@@ -52,7 +52,9 @@ export async function GET_IMAGE2() {
       // console.log(res.data.metadatas[0]);
       // console.log(res.data.metadatas[1]);
       const metadatas = res.data.metadatas;
-      const base64Images = res.data.base64Images.map((base64Image) => `data:image/jpeg;base64,${base64Image}`);
+      const base64Images = res.data.base64Images.map(
+        (base64Image) => `data:image/jpeg;base64,${base64Image}`
+      );
       let photos = {
         metadatas: [],
         base64Images: [],
@@ -60,7 +62,10 @@ export async function GET_IMAGE2() {
       var steps = metadatas.length / 2;
       for (var i = 0; i < steps; i++) {
         photos.metadatas.push([metadatas[2 * i], metadatas[2 * i + 1]]);
-        photos.base64Images.push([base64Images[2 * i], base64Images[2 * i + 1]]);
+        photos.base64Images.push([
+          base64Images[2 * i],
+          base64Images[2 * i + 1],
+        ]);
       }
       // console.log(photos.metadatas);
       return photos;
@@ -105,12 +110,42 @@ export async function Searching(ImageURL, searchQuery, checkList) {
     })
     .then((res) => {
       const metadatas1 = res.data.metadatas1;
-      const base64Images1 = res.data.base64Images1.map((base64Image) => `data:image/jpeg;base64,${base64Image}`);
+      const base64Images1 = res.data.base64Images1.map(
+        (base64Image) => `data:image/jpeg;base64,${base64Image}`
+      );
       const metadatas2 = res.data.metadatas2;
-      const base64Images2 = res.data.base64Images2.map((base64Image) => `data:image/jpeg;base64,${base64Image}`);
+      const base64Images2 = res.data.base64Images2.map(
+        (base64Image) => `data:image/jpeg;base64,${base64Image}`
+      );
       let photos1 = ImagePreprocessing(metadatas1, base64Images1);
       let photos2 = ImagePreprocessing(metadatas2, base64Images2);
       return { photos1: photos1, photos2: photos2, initial: initial };
+    });
+}
+
+export async function ImageSearch(ImageURL) {
+  const data = new FormData();
+  var initial = "Image Search";
+  data.append("name", Date.now());
+  if (ImageURL !== "") {
+    const base64 = await FileSystem.readAsStringAsync(ImageURL.uri, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+    data.append("file_attachment", base64);
+  }
+
+  return await axios
+    .post("/postImageSearch", data, {
+      headers: { "Content-Type": "multipart/form-data; " },
+      responseType: "json",
+    })
+    .then((res) => {
+      const metadatas = res.data.metadatas;
+      const base64Images = res.data.base64Images.map(
+        (base64Image) => `data:image/jpeg;base64,${base64Image}`
+      );
+      let photos = ImagePreprocessing(metadatas, base64Images);
+      return { photos: photos, initial: initial };
     });
 }
 
@@ -123,7 +158,9 @@ export async function GET_IMAGE3(label) {
       },
     })
     .then((res) => {
-      const base64Images = res.data.base64Images.map((base64Image) => `data:image/jpeg;base64,${base64Image}`);
+      const base64Images = res.data.base64Images.map(
+        (base64Image) => `data:image/jpeg;base64,${base64Image}`
+      );
       return base64Images;
     });
 }
