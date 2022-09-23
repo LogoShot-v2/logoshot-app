@@ -1,12 +1,14 @@
 import React from "react";
 import {
   TextInput,
+  Text,
   StyleSheet,
   View,
   Keyboard,
   Image,
   Dimensions,
 } from "react-native";
+import { useState } from "react";
 import LgsDraggablePin from "./lgsDraggablePin";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -16,13 +18,24 @@ import {
 } from "react-native-gesture-handler";
 
 const LgsPhotoIndicator = ({ style, source }) => {
+  const [containerX, setContainerX] = useState();
+  const [containerY, setContainerY] = useState();
+
+  const drag = (x, y) => {
+    console.log("dragging", x, y);
+  };
+  const drop = (x, y) => {
+    console.log("dragging", x, y);
+  };
+
   return (
     <GestureHandlerRootView
       style={{
-        ...style,
+        position: "relative",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "red",
+        // backgroundColor: "red",
+        ...style,
       }}
     >
       <Image
@@ -33,7 +46,9 @@ const LgsPhotoIndicator = ({ style, source }) => {
           height: windowWidth * 0.7,
         }}
       />
-      <LgsDraggablePin></LgsDraggablePin>
+      <LgsDraggablePin X={0} Y={0} onDrag={drag} onDrop={drop}>
+        <Text>+</Text>
+      </LgsDraggablePin>
     </GestureHandlerRootView>
   );
 };

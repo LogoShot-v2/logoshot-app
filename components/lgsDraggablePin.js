@@ -1,60 +1,50 @@
-import React, { Component } from "react";
-import { Animated, Dimensions } from "react-native";
-import {
-  GestureHandlerRootView,
-  PanGestureHandler,
-} from "react-native-gesture-handler";
+import React, { FunctionComponent } from "react";
+import { View } from "react-native";
+import { PanGestureHandler } from "react-native-gesture-handler";
+import Animated, {
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+} from "react-native-reanimated";
+import { useAnimatedGestureHandler } from "react-native-reanimated";
 
-const { width, height } = Dimensions.get("screen");
+const LgsDraggablePin = ({ children, X, Y, onDrag, onDrop }) => {
+  const x = useSharedValue(X);
+  const y = useSharedValue(Y);
+  const drag = useAnimatedGestureHandler({
+    onStart: (_, c) => {
+      c.x = x.value;
+      c.y = y.value;
+    },
+    onActive: (e, c) => {
+      x.value = e.translationX + c.x;
+      y.value = e.translationY + c.y;
+      runOnJS(onDrag)(x.value, y.value);
+    },
+    onEnd: (e) => {
+      console.log("drop", e.translationX, e.translationY);
+      runOnJS(onDrop)(x.value, y.value);
+    },
+  });
 
-const circleRadius = 30;
-
-class LgsDraggablePin extends Component {
-  _touchX = new Animated.Value(width / 2 - circleRadius);
-  _touchY = new Animated.Value(height / 2 - circleRadius);
-
-  _onPanGestureEvent = Animated.event(
-    [{ nativeEvent: { x: this._touchX, y: this._touchY } }],
-    {
-      useNativeDriver: true,
-    }
+  return (
+    <PanGestureHandler onGestureEvent={drag}>
+      <Animated.View
+        style={[
+          {
+            position: "absolute",
+          },
+          useAnimatedStyle(() => {
+            return {
+              transform: [{ translateX: x.value }, { translateY: y.value }],
+            };
+          }),
+        ]}
+      >
+        {children}
+      </Animated.View>
+    </PanGestureHandler>
   );
-
-  render() {
-    return (
-      //   <GestureHandlerRootView>
-      <PanGestureHandler onGestureEvent={this._onPanGestureEvent}>
-        <Animated.View
-          style={{
-            height: 150,
-            justifyContent: "center",
-          }}
-        >
-          <Animated.View
-            style={[
-              {
-                backgroundColor: "#42a5f5",
-                borderRadius: circleRadius,
-                height: circleRadius * 2,
-                width: circleRadius * 2,
-              },
-              {
-                transform: [
-                  {
-                    translateX: Animated.add(
-                      this._touchX,
-                      new Animated.Value(-circleRadius)
-                    ),
-                  },
-                ],
-              },
-            ]}
-          />
-        </Animated.View>
-      </PanGestureHandler>
-      //   </GestureHandlerRootView>
-    );
-  }
-}
+};
 
 export default LgsDraggablePin;
