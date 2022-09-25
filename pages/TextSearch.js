@@ -36,89 +36,83 @@ const TextSearch = () => {
   return (
 
     <View style={style.container}>
-      <View style={{ height: "10%" }}>
-        <Text style={{ ...FONTS.h2, marginBottom: SIZES.padding / 4, lineHeight: 68 }}>文字商標查詢</Text>
-        <LgsTextInput
-          placeholder='Click here…'
-          onSubmitEditing={Keyboard.dismiss}
-        />
-      </View>
-      <View style={{ height: "18%", flexDirection: 'row', alignItems: "center" }}>
-        <LgsCheckbox
+      <View style={{ justifyContent: 'space-between' }}>
+        <View style={{ marginTop: 40, paddingHorizontal: 20 }}>
+          <Text style={{ ...FONTS.h2, marginBottom: SIZES.padding / 4, lineHeight: 68 }}>文字商標查詢</Text>
+          <LgsTextInput
+            placeholder='Click here…'
+            onSubmitEditing={Keyboard.dismiss}
+          />
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 40, paddingHorizontal: 20 }}>
+          <LgsCheckbox
 
-          value={isSelected}
-          onValueChange={setSelection}
-        />
-        <LgsCheckbox>
-          value={isSelected}
-          onValueChange={setSelection}
+            value={isSelected}
+            onValueChange={setSelection}
+          />
+          <Text style={{ fontSize: FONTS.h4, }}>Family</Text>
+          <LgsCheckbox>
+            value={isSelected}
+            onValueChange={setSelection}
 
+
+          </LgsCheckbox>
           <Text style={{ fontSize: 4, }}>Family</Text>
-        </LgsCheckbox>
 
 
 
-        <Chip style={{ margin: 4 }}>
-          <Text style={{}}>Adventure</Text>
-        </Chip>
-
-        <Chip style={{ margin: 4 }}>
-          <Text style={{}}>Family</Text>
-        </Chip>
-
-        <Chip style={{ margin: 4 }}>
-          <Text style={{}}>Fantasy</Text>
-        </Chip>
-
-      </View>
 
 
-
-      <View style={{ height: "25%" }}>
-        <Text style={{ ...FONTS.h2, marginBottom: SIZES.padding / 6, lineHeight: 68 }}
-        >應用商品類別</Text>
-        <RNPickerSelect
-          placeholder={{ label: "Select here", value: null }}
-          onValueChange={(value) => console.log(value)}
-          items={[
-            { label: '1', value: '1' },
-            { label: '2', value: '2' },
-            { label: '3', value: '3' },
-          ]} />
-
-        <Text style={{ ...FONTS.h2, marginBottom: SIZES.padding / 6, lineHeight: 68 }}>混淆基準</Text>
-        <RNPickerSelect
-          placeholder={{ label: "Select here", value: null }}
-          onValueChange={(value) => console.log(value)}
-          items={[
-            { label: '1', value: '1' },
-            { label: '2', value: '2' },
-            { label: '3', value: '3' },
-          ]} />
-      </View>
-      <View style={{ flex: 1 }} >
-
-        <Text style={{ ...FONTS.h2, marginBottom: SIZES.padding / 6, lineHeight: 68 }}>商標註冊期間</Text>
-        <View style={{ flexDirection: "row" }}>
-          <View style={style.twoinput}>
-            <LgsTextInput placeholder="yyyy/mm/dd" style={{ justifyContent: 'flex-start', }} />
-          </View>
-          <Text>~</Text>
-          <View style={style.twoinput}>
-            <LgsTextInput placeholder="yyy/mm/dd" style={{ justifyContent: 'flex-end', }} />
-          </View>
         </View>
 
-      </View >
+
+
+        <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
+          <Text style={{ ...FONTS.h2, marginBottom: SIZES.padding / 6, lineHeight: 68 }}
+          >應用商品類別</Text>
+          <RNPickerSelect
+            placeholder={{ label: "Select here", value: null }}
+            onValueChange={(value) => console.log(value)}
+            items={[
+              { label: '1', value: '1' },
+              { label: '2', value: '2' },
+              { label: '3', value: '3' },
+            ]} />
+
+          <Text style={{ ...FONTS.h2, marginBottom: SIZES.padding / 6, lineHeight: 68 }}>混淆基準</Text>
+          <RNPickerSelect
+            placeholder={{ label: "Select here", value: null }}
+            onValueChange={(value) => console.log(value)}
+            items={[
+              { label: '1', value: '1' },
+              { label: '2', value: '2' },
+              { label: '3', value: '3' },
+            ]} />
+        </View>
+        <View style={{ marginTop: 20, paddingHorizontal: 20 }} >
+
+          <Text style={{ ...FONTS.h2, marginBottom: SIZES.padding / 6, lineHeight: 68 }}>商標註冊期間</Text>
+          <View style={{ flexDirection: "row" }}>
+            <View style={style.twoinput}>
+              <LgsTextInput placeholder="yyyy/mm/dd" style={{ justifyContent: 'flex-start', }} />
+            </View>
+            <Text>~</Text>
+            <View style={style.twoinput}>
+              <LgsTextInput placeholder="yyy/mm/dd" style={{ justifyContent: 'flex-end', }} />
+            </View>
+          </View>
+
+        </View >
+      </View>
 
       <LgsButton
-        style={{ width: "100%", height: 70 }}
+        style={{ width: "100%", marginTop: 40, paddingHorizontal: 20 }}
         title="Press me"
         onPress={() => Alert.alert('Simple Button pressed')}
       />
 
 
-    </View>
+    </View >
 
 
   );
@@ -129,7 +123,7 @@ const style = StyleSheet.create({
 
     flex: 1,
     padding: 50,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
 
   },
   input: {
@@ -145,6 +139,15 @@ const style = StyleSheet.create({
   status: {
     padding: 10,
     textAlign: "center"
+  },
+  chip: {
+    backgroundColor: "#2096F3",
+    margin: 4,
+    width: 150
+
+  },
+  chipText: {
+    color: "#ffffff"
   }
 
 });

@@ -1,18 +1,23 @@
 import * as React from 'react';
 import { Checkbox } from 'react-native-paper';
-import { StyleSheet } from 'react-native-web';
+import { StyleSheet, Text, SafeAreaView } from 'react-native';
+
 
 const MyComponent = () => {
     const [checked, setChecked] = React.useState(false);
 
     return (
-        <Checkbox
-            style={styles.checkbox}
-            status={checked ? 'checked' : 'unchecked'}
-            onPress={() => {
-                setChecked(!checked);
-            }}
-        />
+        <SafeAreaView style={styles.container}>
+            <Checkbox
+                status={checked ? 'checked' : 'unchecked'}
+                onPress={() => {
+                    setChecked(!checked);
+                }}
+                color={'green'}
+
+            />
+        
+        </SafeAreaView>
     );
 };
 
