@@ -170,7 +170,7 @@ const ImageSearch = () => {
 const style = StyleSheet.create({
   statusBarBlank: {
     height: StatusBar.currentHeight,
-    backgroundColor: "red",
+    // backgroundColor: "red",
   },
   image: {
     marginTop: 10,

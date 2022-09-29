@@ -85,7 +85,7 @@ const LgsPhotoIndicator = ({
         >
           <Image
             source={require("../assets/indicator.png")}
-            style={{ width: 10, height: 10 }}
+            style={{ width: 30, height: 30 }}
           ></Image>
         </LgsDraggablePin>
       )}
