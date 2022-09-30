@@ -2,10 +2,10 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 
-const Login = () =>{
+const Login = () => {
     return (
         <View>
-            <Text>Login</Text>
+            <Text>Login!!!!!!!!!!!!</Text>
         </View>
     )
 }
