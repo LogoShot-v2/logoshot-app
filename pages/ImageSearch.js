@@ -23,6 +23,8 @@ import LgsPhotoIndicator from "../components/lgsPhotoIndicator";
 // import { ScrollView } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import LgsButton from "../components/lgsButton";
+import { async } from "rxjs";
+import { SearchImage, Searching } from "../axios/api";
 
 const ImageSearch = () => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
@@ -82,6 +84,19 @@ const ImageSearch = () => {
   const setIndicator = (x, y) => {
     setIndicatorX(x);
     setIndicatorY(y);
+  };
+
+  const onSearch = async () => {
+    // await Searching("", "google", [true, true, true, true]);
+    const data = await SearchImage(
+      image,
+      imageWidth,
+      imgaeHeight,
+      indicatorX,
+      indicatorY,
+      "1234"
+    );
+    console.log(data);
   };
 
   useEffect(() => {
@@ -146,7 +161,11 @@ const ImageSearch = () => {
           style={style.input}
           placeholder={"輸入申請人"}
         ></LgsTextInput>
-        <LgsButton style={style.input} title={"搜尋"}></LgsButton>
+        <LgsButton
+          style={style.input}
+          title={"搜尋"}
+          onPress={onSearch}
+        ></LgsButton>
         <BottomSheet
           isVisible={isImagePickerDrawerVisible}
           onBackdropPress={() => setIsImagePickerDrawerVisible(false)}
