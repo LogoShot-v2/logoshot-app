@@ -3,14 +3,14 @@ import axios from "./axios";
 import * as FileSystem from "expo-file-system";
 // import { images, icons, COLORS, FONTS, SIZES } from "../constant/";
 
-export async function HELLO_WORLD(){
-    console.log(1234);
-    console.log(24333);
-    let res = await axios.get("/function1").then((res)=>{
-        console.log(res);
+export async function HELLO_WORLD() {
+  console.log(1234);
+  console.log(24333);
+  let res = await axios.get("/function1").then((res) => {
+    console.log(res);
 
-        return res.data;
-    });
+    return res.data;
+  });
 }
 
 export async function SEND_IMAGE(ImageURL) {
@@ -123,12 +123,25 @@ export async function Searching(ImageURL, searchQuery, checkList) {
     });
 }
 
-export async function ImageSearch(ImageURL) {
+export async function SearchImage(
+  Image,
+  photoWidth,
+  photoHeight,
+  indicatorX,
+  indicatorY,
+  userId
+) {
+  console.log(Image, photoWidth, photoHeight, indicatorX, indicatorY, userId);
   const data = new FormData();
   var initial = "Image Search";
-  data.append("name", Date.now());
-  if (ImageURL !== "") {
-    const base64 = await FileSystem.readAsStringAsync(ImageURL.uri, {
+  data.append("photoWidth", photoWidth);
+  data.append("photoHeight", photoHeight);
+  data.append("indicatorX", indicatorX);
+  data.append("indicatorY", indicatorY);
+  data.append("userId", userId);
+
+  if (Image) {
+    const base64 = await FileSystem.readAsStringAsync(Image.uri, {
       encoding: FileSystem.EncodingType.Base64,
     });
     data.append("file_attachment", base64);
@@ -146,6 +159,9 @@ export async function ImageSearch(ImageURL) {
       );
       let photos = ImagePreprocessing(metadatas, base64Images);
       return { photos: photos, initial: initial };
+    })
+    .catch((e) => {
+      console.log(e);
     });
 }
 
