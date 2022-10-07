@@ -74,7 +74,7 @@ const LgsPhotoIndicator = ({
           height: height,
         }}
       />
-      {source.uri && (
+      {source.uri ? (
         <LgsDraggablePin
           X={0}
           Y={0}
@@ -88,7 +88,7 @@ const LgsPhotoIndicator = ({
             style={{ width: 30, height: 30 }}
           ></Image>
         </LgsDraggablePin>
-      )}
+      ) : null}
     </GestureHandlerRootView>
   );
 };
