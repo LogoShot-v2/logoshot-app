@@ -165,6 +165,30 @@ export async function SearchImage(
     });
 }
 
+export async function SearchText(searchQuery) {
+  console.log();
+  const data = new FormData();
+  var initial = "Text Search";
+  data.append("searchQueryh", searchQuery);
+  // data.append("photoHeight", photoHeight);
+  // data.append("indicatorX", indicatorX);
+  // data.append("indicatorY", indicatorY);
+  // data.append("userId", userId);
+
+  return await axios
+
+    .post("/postTextSearch", data, {
+      headers: { "Content-Type": "multipart/form-data; " },
+      responseType: "json",
+    })
+    .then((res) => {
+
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+}
+
 export async function GET_IMAGE3(label) {
   return await axios
     .get("/function6", {

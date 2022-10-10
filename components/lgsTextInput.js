@@ -1,15 +1,28 @@
-import React from "react";
-import { Text, TextInput, StyleSheet, View, Keyboard } from "react-native";
 
-const LgsTextInput = ({ placeholder, style, value, onChangeText }) => {
+import React, { useState } from "react";
+
+import { TextInput, Text, StyleSheet, View, Keyboard } from "react-native";
+import { icons, COLORS, FONTS, SIZES } from "../constant";
+
+
+const LgsTextInput = ({ placeholder, style, value, onChangeText, title }) => {
+  const [searchQuery, setSearchQuery] = React.useState("");
+
   return (
     <View style={style}>
+      {title ? <Text style={{
+        ...FONTS.h1, marginBottom: SIZES.padding / 6,
+        lineHeight: 68,
+      }}>{title}</Text> : null}
+
       <TextInput
         style={styles.input}
         placeholder={placeholder}
+
         onSubmitEditing={Keyboard.dismiss}
-        value={value}
-        onChangeText={onChangeText}
+        value={searchQuery}
+        onChangeText={(query) => setSearchQuery(query)}
+
       />
     </View>
   );
