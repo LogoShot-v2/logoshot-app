@@ -23,8 +23,8 @@ import LgsPhotoIndicator from "../components/lgsPhotoIndicator";
 // import { ScrollView } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import LgsButton from "../components/lgsButton";
-import { async } from "rxjs";
 import { SearchImage, Searching } from "../axios/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ImageSearch = () => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
@@ -88,15 +88,16 @@ const ImageSearch = () => {
 
   const onSearch = async () => {
     // await Searching("", "google", [true, true, true, true]);
+    const userInfoStr = await AsyncStorage.getItem("@userInfo");
+    const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
     const data = await SearchImage(
       image,
       imageWidth,
       imgaeHeight,
       indicatorX,
       indicatorY,
-      "1234"
+      userInfo.userId ? userInfo.userId : "1234"
     );
-    console.log(data);
   };
 
   useEffect(() => {
