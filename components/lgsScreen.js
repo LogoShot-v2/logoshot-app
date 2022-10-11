@@ -12,12 +12,15 @@ const Scroll = styled(ScrollView)`
     height: 100%;
     width: 100%;
     overflow: scroll;
+   
+
 `
 const SafeAreaViewContainer = styled(SafeAreaView)`
     height: 100%;
     width: 100%;
     align-items: center;
     overflow: scroll;
+
 `
 const ContentContainer = styled(View)`
 
