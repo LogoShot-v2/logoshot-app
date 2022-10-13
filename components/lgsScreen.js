@@ -13,7 +13,6 @@ const Scroll = styled(ScrollView)`
     width: 100%;
     overflow: scroll;
    
-
 `
 const SafeAreaViewContainer = styled(SafeAreaView)`
     height: 100%;
@@ -21,16 +20,19 @@ const SafeAreaViewContainer = styled(SafeAreaView)`
     align-items: center;
     overflow: scroll;
 
+
 `
 const ContentContainer = styled(View)`
 
     display: flex;
-    width: 90%;
+    width: 80%;
     height: 100%;
     margin: auto;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
+    // flex-direction: row;
+    // justify-content: center;
+    // align-items: flex-start;
+    // background-color: red;
+
 `
 
 

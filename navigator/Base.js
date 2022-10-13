@@ -2,8 +2,10 @@ import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../pages/Login";
 import BottomBar from "./BottomBar";
+
 import "react-native-gesture-handler";
 import Result from "../pages/Result";
+
 
 const Base = createStackNavigator();
 
@@ -25,12 +27,14 @@ const Root = () => {
         }}
       />
       <Base.Screen
+
         name="Result"
         component={Result}
         options={{
           headerShown: false,
         }}
       />
+
     </Base.Navigator>
   );
 };
