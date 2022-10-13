@@ -21,12 +21,9 @@ import LgsCheckbox from "../components/lgsCheckbox";
 import LgsButton from "../components/lgsButton";
 import { RotateInDownLeft } from "react-native-reanimated";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
-<<<<<<< HEAD
-// import { SearchText } from "../axios/api";
-=======
+
 import { SearchText } from "../axios/api";
 import DropDownPicker from "react-native-dropdown-picker";
->>>>>>> newbranch
 
 
 const TextSearch = ({ navigation: { navigate } }) => {
