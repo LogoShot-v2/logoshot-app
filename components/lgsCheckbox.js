@@ -1,13 +1,18 @@
 import * as React from 'react';
 import { Checkbox } from 'react-native-paper';
-import { StyleSheet, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View } from 'react-native';
+import { icons, COLORS, FONTS, SIZES } from "../constant";
 
 
-const MyComponent = () => {
+const MyComponent = ({ title }) => {
     const [checked, setChecked] = React.useState(false);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.checkboxContainer}>
+            {title ? <Text style={{
+                ...FONTS.h4
+            }}>{title}</Text> : null}
+
             <Checkbox
                 status={checked ? 'checked' : 'unchecked'}
                 onPress={() => {
@@ -16,8 +21,8 @@ const MyComponent = () => {
                 color={'green'}
 
             />
-        
-        </SafeAreaView>
+        </View>
+
     );
 };
 
@@ -27,7 +32,9 @@ const styles = StyleSheet.create({
     checkboxContainer: {
 
         flexDirection: "row",
-        marginBottom: 20,
+        alignItems: "center",
+
+        marginBottom: 5,
 
     },
     checkbox: {
