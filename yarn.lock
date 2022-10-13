@@ -7998,6 +7998,11 @@ nanomatch@^1.2.9:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
+navigation@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/navigation/-/navigation-6.1.0.tgz#6addd11b212064250f6c7168c05b4ddb1fbbd2aa"
+  integrity sha512-lzFTF9L49o5v5/Ja3VTACLqg2cthMu63YjAa8ripzMA6+ayAVUvNmfulZcbHhU8LFX/qoUlb8fSSKFb+lNpwQQ==
+
 ncp@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ncp/-/ncp-2.0.0.tgz#195a21d6c46e361d2fb1281ba38b91e9df7bdbb3"
@@ -9529,6 +9534,11 @@ react-native-codegen@^0.0.17:
     flow-parser "^0.121.0"
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
+
+react-native-dropdown-picker@^5.4.2:
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-dropdown-picker/-/react-native-dropdown-picker-5.4.2.tgz#3d17de3d8a84cb8e74a2ffda6be417d287245b81"
+  integrity sha512-cZBPyN+k52jA9XguFnKoF5tLf31z6gjZ8GijO/pfVNSSEtPwZ14UTUrr87JiiOnMh5K/O2kRzZ/jZN8D0MmUMA==
 
 react-native-elements@^3.4.2:
   version "3.4.2"

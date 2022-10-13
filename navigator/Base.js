@@ -2,8 +2,7 @@ import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../pages/Login";
 import BottomBar from "./BottomBar";
-import "react-native-gesture-handler";
-
+import SearchResult from "../pages/SerachResult"
 const Base = createStackNavigator();
 
 const Root = () => {
@@ -23,6 +22,15 @@ const Root = () => {
           headerShown: false,
         }}
       />
+      <Base.Screen
+        name="SearchResult"
+        component={SearchResult}
+        options={{
+          headerShown: false,
+        }}
+
+      />
+
     </Base.Navigator>
   );
 };

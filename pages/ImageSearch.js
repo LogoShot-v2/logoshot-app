@@ -25,6 +25,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import LgsButton from "../components/lgsButton";
 import { SearchImage, Searching } from "../axios/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
 
 const ImageSearch = () => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
@@ -130,61 +131,68 @@ const ImageSearch = () => {
 
   return (
     <>
-      <View style={style.statusBarBlank}></View>
-      <ScrollView style={style.container}>
-        <LgsButton
-          style={style.input}
-          title={"新增圖片"}
-          onPress={() => setIsImagePickerDrawerVisible(true)}
-        ></LgsButton>
-        <LgsPhotoIndicator
-          width={imageWidth}
-          height={imgaeHeight}
-          setWidth={setImageWidth}
-          setHeight={setImageHeight}
-          setIndicator={setIndicator}
-          style={style.input}
-          source={image}
-        ></LgsPhotoIndicator>
-        <LgsTextInput
-          style={style.input}
-          placeholder={"應用商品類別"}
-        ></LgsTextInput>
-        <LgsTextInput
-          style={style.input}
-          placeholder={"商標色彩"}
-        ></LgsTextInput>
-        <LgsTextInput
-          style={style.input}
-          placeholder={"輸入商標路徑"}
-        ></LgsTextInput>
-        <LgsTextInput
-          style={style.input}
-          placeholder={"輸入申請人"}
-        ></LgsTextInput>
-        <LgsButton
-          style={style.input}
-          title={"搜尋"}
-          onPress={onSearch}
-        ></LgsButton>
-        <BottomSheet
-          isVisible={isImagePickerDrawerVisible}
-          onBackdropPress={() => setIsImagePickerDrawerVisible(false)}
-        >
-          {list.map((l, i) => (
-            <ListItem
-              key={i}
-              containerStyle={l.containerStyle}
-              onPress={l.onPress}
+      <Background>
+        <Scroll>
+          <ContentContainer>
+
+            <View style={style.statusBarBlank}></View>
+            <LgsButton
+              style={style.input}
+              title={"新增圖片"}
+              onPress={() => setIsImagePickerDrawerVisible(true)}
+            ></LgsButton>
+            <LgsPhotoIndicator
+              width={imageWidth}
+              height={imgaeHeight}
+              setWidth={setImageWidth}
+              setHeight={setImageHeight}
+              setIndicator={setIndicator}
+              style={style.input}
+              source={image}
+            ></LgsPhotoIndicator>
+            <LgsTextInput
+              style={style.input}
+              placeholder={"應用商品類別"}
+            ></LgsTextInput>
+            <LgsTextInput
+              style={style.input}
+              placeholder={"商標色彩"}
+            ></LgsTextInput>
+            <LgsTextInput
+              style={style.input}
+              placeholder={"輸入商標路徑"}
+            ></LgsTextInput>
+            <LgsTextInput
+              style={style.input}
+              placeholder={"輸入申請人"}
+            ></LgsTextInput>
+            <LgsButton
+              style={style.input}
+              title={"搜尋"}
+              onPress={onSearch}
+            ></LgsButton>
+            <BottomSheet
+              isVisible={isImagePickerDrawerVisible}
+              onBackdropPress={() => setIsImagePickerDrawerVisible(false)}
             >
-              <ListItem.Content>
-                <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-              </ListItem.Content>
-            </ListItem>
-          ))}
-        </BottomSheet>
-      </ScrollView>
+              {list.map((l, i) => (
+                <ListItem
+                  key={i}
+                  containerStyle={l.containerStyle}
+                  onPress={l.onPress}
+                >
+                  <ListItem.Content>
+                    <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
+                  </ListItem.Content>
+                </ListItem>
+              ))}
+            </BottomSheet>
+          </ContentContainer>
+
+        </Scroll>
+      </Background>
     </>
+
   );
 };
 const style = StyleSheet.create({
