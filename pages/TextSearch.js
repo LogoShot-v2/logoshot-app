@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { Checkbox } from 'react-native-paper';
+import { Checkbox } from "react-native-paper";
 import { Chip, ThemeProvider, Button, CheckBox } from "react-native-elements";
 import { icons, COLORS, FONTS, SIZES } from "../constant";
 import RNPickerSelect from "react-native-picker-select";
@@ -20,7 +20,7 @@ import LgsCheckbox from "../components/lgsCheckbox";
 import LgsButton from "../components/lgsButton";
 import { RotateInDownLeft } from "react-native-reanimated";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
-import { SearchText } from "../axios/api";
+// import { SearchText } from "../axios/api";
 
 const TextSearch = () => {
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
@@ -47,7 +47,7 @@ const TextSearch = () => {
     // );
     // console.log(data);
     // console.log(searchQuery);
-    console.log(checkedW)
+    console.log(checkedW);
   };
   return (
     <Background>
@@ -55,7 +55,6 @@ const TextSearch = () => {
         <Scroll>
           <View style={{ justifyContent: "space-between" }}>
             <View style={{ marginTop: 40, paddingHorizontal: 20 }}>
-
               <LgsTextInput
                 placeholder="Click here…"
                 title="文字商標查詢"
@@ -74,24 +73,19 @@ const TextSearch = () => {
             >
               <Text>字音相似</Text>
               <Checkbox
-                status={checkedS ? 'checked' : 'unchecked'}
+                status={checkedS ? "checked" : "unchecked"}
                 onPress={() => {
                   setCheckedS(!checkedS);
                 }}
-
-
               />
               <Text>字型相似</Text>
               <Checkbox
-
-                status={checkedW ? 'checked' : 'unchecked'}
+                status={checkedW ? "checked" : "unchecked"}
                 onPress={() => {
                   setCheckedW(!checkedW);
                 }}
-                color={'green'}
+                color={"green"}
               />
-
-
             </View>
 
             <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
@@ -146,7 +140,6 @@ const TextSearch = () => {
               <View style={{ flexDirection: "row" }}>
                 <View style={style.twoinput}>
                   <LgsTextInput
-
                     placeholder="yyyy/mm/dd"
                     style={{ justifyContent: "flex-start" }}
                   />
@@ -167,7 +160,6 @@ const TextSearch = () => {
             title="Press me"
             onPress={onSearch}
           />
-
         </Scroll>
       </ContentContainer>
     </Background>
@@ -203,15 +195,12 @@ const style = StyleSheet.create({
     color: "#ffffff",
   },
   checkboxContainer: {
-
     flexDirection: "row",
     alignItems: "center",
 
     marginBottom: 5,
-
   },
   checkbox: {
-
     alignSelf: "center",
   },
 });
