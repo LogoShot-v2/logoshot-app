@@ -165,6 +165,38 @@ export async function SearchImage(
     });
 }
 
+export async function TextSearch(
+  searchKeywords = "又昕",
+  isSimSound = false,
+  isSimShape = false,
+  target_classcodes = ["123", "234"],
+  target_color = "",
+  target_applicant = "",
+  target_startTime = "",
+  target_endTime = ""
+) {
+  const data = new FormData();
+  data.append("searchKeywords", searchKeywords);
+  data.append("isSimSound", isSimSound);
+  data.append("isSimShape", isSimShape);
+  data.append("target_classcodes", JSON.stringify(target_classcodes));
+  data.append("target_color", target_color);
+  data.append("target_applicant", target_applicant);
+  data.append("target_startTime", target_startTime);
+  data.append("target_endTime", target_endTime);
+  return await axios
+    .post("/postTextSearch", data, {
+      headers: { "Content-Type": "multipart/form-data; " },
+      responseType: "json",
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((e) => {
+      console.log("e", e);
+    });
+}
+
 export async function GET_IMAGE3(label) {
   return await axios
     .get("/function6", {

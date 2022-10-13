@@ -23,7 +23,7 @@ import LgsPhotoIndicator from "../components/lgsPhotoIndicator";
 // import { ScrollView } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import LgsButton from "../components/lgsButton";
-import { SearchImage, Searching } from "../axios/api";
+import { SearchImage, Searching, TextSearch } from "../axios/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ImageSearch = () => {
@@ -167,6 +167,14 @@ const ImageSearch = () => {
           title={"搜尋"}
           onPress={onSearch}
         ></LgsButton>
+        <LgsButton
+          style={style.input}
+          title={"搜尋2"}
+          onPress={async () => {
+            await TextSearch();
+          }}
+        ></LgsButton>
+
         <BottomSheet
           isVisible={isImagePickerDrawerVisible}
           onBackdropPress={() => setIsImagePickerDrawerVisible(false)}
