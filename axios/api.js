@@ -127,6 +127,15 @@ export async function SearchImage(
   photoHeight,
   indicatorX,
   indicatorY,
+  searchKeywords,
+  targetClasscodes,
+  targetColor,
+  targetApplicant,
+  targetStartTime,
+  targetEndTime,
+  targetDraftC,
+  targetDraftE,
+  targetDraftJ,
   userId
 ) {
   console.log(Image, photoWidth, photoHeight, indicatorX, indicatorY, userId);
@@ -136,7 +145,19 @@ export async function SearchImage(
   data.append("photoHeight", photoHeight);
   data.append("indicatorX", indicatorX);
   data.append("indicatorY", indicatorY);
+  data.append("searchKeywords", searchKeywords);
+  data.append("targetClasscodes", JSON.stringify(targetClasscodes));
+  data.append("targetColor", targetColor);
+  data.append("targetApplicant", targetApplicant);
+  data.append("targetStartTime", targetStartTime);
+  data.append("targetEndTime", targetEndTime);
+  data.append("targetDraftC", targetDraftC);
+  data.append("targetDraftE", targetDraftE);
+  data.append("targetDraftJ", targetDraftJ);
+
   data.append("userId", userId);
+
+  console.log("datahihi", data);
 
   if (Image) {
     const base64 = await FileSystem.readAsStringAsync(Image.uri, {
