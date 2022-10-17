@@ -26,6 +26,9 @@ import LgsButton from "../components/lgsButton";
 import { SearchImage, Searching, TextSearch } from "../axios/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
+import { classCodeList, FONTS, SIZES } from "../constant";
+import DropDownPicker from "react-native-dropdown-picker";
+import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolicateStackTrace";
 
 const ImageSearch = () => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
@@ -36,15 +39,24 @@ const ImageSearch = () => {
   const [imgaeHeight, setImageHeight] = useState(0);
   const [indicatorX, setIndicatorX] = useState(0);
   const [indicatorY, setIndicatorY] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [colorOpen, setColorOpen] = useState(false);
 
   /* inputs */
-  const [type, setType] = useState("");
-  const [path, setPath] = useState("");
+  const [searchKeywords, setSearchKeywords] = useState("");
+  const [targetClasscodes, setTargetClasscodes] = useState([]);
+  const [targetColor, setTargetColor] = useState("");
+  const [targetApplicant, setTargetApplicant] = useState("");
+  const [targetStartTime, setTargetStartTime] = useState("");
+  const [targetEndTime, setTargetEndTime] = useState("");
+  const [targetDraftC, setTargetDraftC] = useState("");
+  const [targetDraftE, setTargetDraftE] = useState("");
+  const [targetDraftJ, setTargetDraftJ] = useState("");
 
   const [isImagePickerDrawerVisible, setIsImagePickerDrawerVisible] =
     useState(false);
 
-  const list = [
+  const imagePickerList = [
     {
       title: "開啟相機",
       onPress: () => pickImage("camera"),
@@ -53,6 +65,11 @@ const ImageSearch = () => {
       title: "從相簿中選擇",
       onPress: () => pickImage("photo"),
     },
+  ];
+
+  const colorList = [
+    { label: "彩色", value: "彩色" },
+    { label: "墨色", value: "墨色" },
   ];
 
   const pickImage = async (chooseType) => {
@@ -97,6 +114,15 @@ const ImageSearch = () => {
       imgaeHeight,
       indicatorX,
       indicatorY,
+      searchKeywords,
+      targetClasscodes,
+      targetColor,
+      targetApplicant,
+      targetStartTime,
+      targetEndTime,
+      targetDraftC,
+      targetDraftE,
+      targetDraftJ,
       userInfo.userId ? userInfo.userId : "1234"
     );
   };
@@ -134,7 +160,6 @@ const ImageSearch = () => {
       <Background>
         <Scroll>
           <ContentContainer>
-
             <View style={style.statusBarBlank}></View>
             <LgsButton
               style={style.input}
@@ -150,21 +175,108 @@ const ImageSearch = () => {
               style={style.input}
               source={image}
             ></LgsPhotoIndicator>
+            {/* <View style={style.input}> */}
             <LgsTextInput
+              value={searchKeywords}
+              onChangeText={setSearchKeywords}
               style={style.input}
-              placeholder={"應用商品類別"}
+              placeholder={"輸入關鍵字"}
             ></LgsTextInput>
-            <LgsTextInput
+            <DropDownPicker
               style={style.input}
-              placeholder={"商標色彩"}
-            ></LgsTextInput>
-            <LgsTextInput
+              placeholder="商標搜尋類別"
+              dropDownContainerStyle={{
+                backgroundColor: "#ffffff",
+              }}
+              searchable={true}
+              open={open}
+              value={targetClasscodes}
+              items={classCodeList}
+              setOpen={setOpen}
+              setValue={setTargetClasscodes}
+              dropDownDirection="BOTTOM"
+              theme="LIGHT"
+              multiple={true}
+              mode="BADGE"
+              zIndex={3000}
+              zIndexInverse={1000}
+            />
+            <DropDownPicker
               style={style.input}
-              placeholder={"輸入商標路徑"}
-            ></LgsTextInput>
+              placeholder="商標色彩"
+              dropDownContainerStyle={{}}
+              open={colorOpen}
+              value={targetColor}
+              items={colorList}
+              setOpen={setColorOpen}
+              setValue={setTargetColor}
+              dropDownDirection="BOTTOM"
+              theme="LIGHT"
+              multiple={false}
+              mode="BADGE"
+              zIndex={2000}
+              zIndexInverse={2000}
+            />
             <LgsTextInput
+              value={targetApplicant}
+              onChangeText={setTargetApplicant}
               style={style.input}
               placeholder={"輸入申請人"}
+            ></LgsTextInput>
+            <>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  marginBottom: SIZES.padding / 6,
+                  lineHeight: 68,
+                }}
+              >
+                商標註冊期間
+              </Text>
+              <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                <View style={style.twoinput}>
+                  <LgsTextInput
+                    value={targetStartTime}
+                    onChangeText={setTargetStartTime}
+                    placeholder="yyyy/mm/dd"
+                    style={{ justifyContent: "flex-start" }}
+                  />
+                </View>
+                <Text
+                  style={{
+                    ...FONTS.h2,
+                    marginBottom: SIZES.padding / 6,
+                  }}
+                >
+                  ~
+                </Text>
+                <View style={style.twoinput}>
+                  <LgsTextInput
+                    value={targetEndTime}
+                    onChangeText={setTargetEndTime}
+                    placeholder="yyyy/mm/dd"
+                    style={{ justifyContent: "flex-end" }}
+                  />
+                </View>
+              </View>
+            </>
+            <LgsTextInput
+              value={targetDraftC}
+              onChangeText={setTargetDraftC}
+              style={style.input}
+              placeholder={"輸入圖樣中文"}
+            ></LgsTextInput>
+            <LgsTextInput
+              value={targetDraftE}
+              onChangeText={setTargetDraftE}
+              style={style.input}
+              placeholder={"輸入圖樣英文"}
+            ></LgsTextInput>
+            <LgsTextInput
+              value={targetDraftJ}
+              onChangeText={setTargetDraftJ}
+              style={style.input}
+              placeholder={"輸入圖樣日文"}
             ></LgsTextInput>
             <LgsButton
               style={style.input}
@@ -175,24 +287,24 @@ const ImageSearch = () => {
               isVisible={isImagePickerDrawerVisible}
               onBackdropPress={() => setIsImagePickerDrawerVisible(false)}
             >
-              {list.map((l, i) => (
+              {imagePickerList.map((l, i) => (
                 <ListItem
                   key={i}
                   containerStyle={l.containerStyle}
                   onPress={l.onPress}
                 >
                   <ListItem.Content>
-                    <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
+                    <ListItem.Title style={l.titleStyle}>
+                      {l.title}
+                    </ListItem.Title>
                   </ListItem.Content>
                 </ListItem>
               ))}
             </BottomSheet>
           </ContentContainer>
-
         </Scroll>
       </Background>
     </>
-
   );
 };
 const style = StyleSheet.create({
