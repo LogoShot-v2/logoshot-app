@@ -3,14 +3,12 @@ import axios from "./axios";
 import * as FileSystem from "expo-file-system";
 // import { images, icons, COLORS, FONTS, SIZES } from "../constant/";
 
-export async function HELLO_WORLD() {
-  console.log(1234);
-  console.log(24333);
-  let res = await axios.get("/function1").then((res) => {
-    console.log(res);
-
-    return res.data;
-  });
+export async function LoginToFireBase(email, password) {
+  return await axios
+    .post("/login", { email: email, password: password })
+    .then((res) => {
+      console.log(res.data);
+    });
 }
 
 export async function SEND_IMAGE(ImageURL) {
@@ -84,7 +82,7 @@ function ImagePreprocessing(metadatas, base64Images) {
   }
   return photos;
 }
-
+// desperated
 export async function Searching(ImageURL, searchQuery, checkList) {
   const data = new FormData();
   var initial = "Image Search";
@@ -122,7 +120,7 @@ export async function Searching(ImageURL, searchQuery, checkList) {
       return { photos1: photos1, photos2: photos2, initial: initial };
     });
 }
-
+// 圖片搜尋頁
 export async function SearchImage(
   Image,
   photoWidth,
@@ -153,18 +151,19 @@ export async function SearchImage(
       responseType: "json",
     })
     .then((res) => {
-      const metadatas = res.data.metadatas;
-      const base64Images = res.data.base64Images.map(
-        (base64Image) => `data:image/jpeg;base64,${base64Image}`
-      );
-      let photos = ImagePreprocessing(metadatas, base64Images);
-      return { photos: photos, initial: initial };
+      console.log(res.data);
+      // const metadatas = res.data.metadatas;
+      // const base64Images = res.data.base64Images.map(
+      //   (base64Image) => `data:image/jpeg;base64,${base64Image}`
+      // );
+      // let photos = ImagePreprocessing(metadatas, base64Images);
+      // return { photos: photos, initial: initial };
     })
     .catch((e) => {
       console.log(e);
     });
 }
-
+// 文字搜尋頁
 export async function TextSearch(
   searchKeywords = "又昕",
   isSimSound = false,

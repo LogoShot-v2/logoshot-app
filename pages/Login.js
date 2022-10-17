@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Alert } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Facebook from "expo-facebook";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LoginToFireBase } from "../axios/api";
 
 const Login = () => {
   const facebooklogin = async () => {
@@ -39,9 +40,21 @@ const Login = () => {
     }
   };
 
+  const firebaselogin = async () => {
+    try {
+      await LoginToFireBase("sylvia.grey.lin@gmail.com", "06745sylvia");
+    } catch (e) {
+      console.log(e.data);
+      alert(e.data);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => facebooklogin()}>
+        <Text>FaceBooklogin</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => firebaselogin()}>
         <Text>login</Text>
       </TouchableOpacity>
     </View>
