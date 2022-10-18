@@ -12,18 +12,14 @@ const Home = ({ navigation: { navigate } }) => {
         <Text>Logoshot</Text>
         <Image
           style={[styles.imageStyle, styles.center]}
-          source={require('../assets/Logoshot.png')} />
+          source={require("../assets/Logoshot.png")}
+        />
 
-
-        <TouchableOpacity
-          onPress={() => navigate("Login")}>
-          <Text >登入</Text>
+        <TouchableOpacity onPress={() => navigate("Login")}>
+          <Text>登入</Text>
         </TouchableOpacity>
-
       </Scroll>
-
     </Background>
-
   );
 };
 
@@ -36,17 +32,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   center: {
-
-
-    alignItems: 'center', //Centered vertically
-
+    alignItems: "center", //Centered vertically
     //backgroundColor: 'green'
   },
   imageStyle: {
-
-
     width: 300,
     height: 300,
-
   },
 });
