@@ -13,6 +13,7 @@ import {
   ScrollView,
   StatusBar,
 } from "react-native";
+import { Checkbox } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { BottomSheet, ListItem } from "@rneui/themed";
 import { Chip, ThemeProvider, Button } from "react-native-elements";
@@ -41,6 +42,7 @@ const ImageSearch = () => {
   const [indicatorY, setIndicatorY] = useState(0);
   const [open, setOpen] = useState(false);
   const [colorOpen, setColorOpen] = useState(false);
+  const [advance, setAdvance] = useState(false);
 
   /* inputs */
   const [searchKeywords, setSearchKeywords] = useState("");
@@ -227,57 +229,78 @@ const ImageSearch = () => {
               <Text
                 style={{
                   ...FONTS.h2,
-                  marginBottom: SIZES.padding / 6,
                   lineHeight: 68,
                 }}
               >
                 商標註冊期間
               </Text>
-              <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                <View style={style.twoinput}>
-                  <LgsTextInput
-                    value={targetStartTime}
-                    onChangeText={setTargetStartTime}
-                    placeholder="yyyy/mm/dd"
-                    style={{ justifyContent: "flex-start" }}
-                  />
-                </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  width: "100%",
+                }}
+              >
+                <LgsTextInput
+                  value={targetStartTime}
+                  onChangeText={setTargetStartTime}
+                  placeholder="yyyy/mm/dd"
+                  style={{ flex: 1, justifyContent: "flex-start" }}
+                />
                 <Text
                   style={{
                     ...FONTS.h2,
                     marginBottom: SIZES.padding / 6,
+                    marginHorizontal: 10,
                   }}
                 >
                   ~
                 </Text>
-                <View style={style.twoinput}>
-                  <LgsTextInput
-                    value={targetEndTime}
-                    onChangeText={setTargetEndTime}
-                    placeholder="yyyy/mm/dd"
-                    style={{ justifyContent: "flex-end" }}
-                  />
-                </View>
+                <LgsTextInput
+                  value={targetEndTime}
+                  onChangeText={setTargetEndTime}
+                  placeholder="yyyy/mm/dd"
+                  style={{ flex: 1, justifyContent: "flex-end" }}
+                />
               </View>
             </>
-            <LgsTextInput
-              value={targetDraftC}
-              onChangeText={setTargetDraftC}
-              style={style.input}
-              placeholder={"輸入圖樣中文"}
-            ></LgsTextInput>
-            <LgsTextInput
-              value={targetDraftE}
-              onChangeText={setTargetDraftE}
-              style={style.input}
-              placeholder={"輸入圖樣英文"}
-            ></LgsTextInput>
-            <LgsTextInput
-              value={targetDraftJ}
-              onChangeText={setTargetDraftJ}
-              style={style.input}
-              placeholder={"輸入圖樣日文"}
-            ></LgsTextInput>
+            <View
+              style={{
+                ...style.input,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Text>進階搜尋</Text>
+              <Checkbox
+                status={advance ? "checked" : "unchecked"}
+                onPress={() => {
+                  setAdvance(!advance);
+                }}
+              />
+            </View>
+            {advance ? (
+              <>
+                <LgsTextInput
+                  value={targetDraftC}
+                  onChangeText={setTargetDraftC}
+                  style={style.input}
+                  placeholder={"輸入圖樣中文"}
+                ></LgsTextInput>
+                <LgsTextInput
+                  value={targetDraftE}
+                  onChangeText={setTargetDraftE}
+                  style={style.input}
+                  placeholder={"輸入圖樣英文"}
+                ></LgsTextInput>
+                <LgsTextInput
+                  value={targetDraftJ}
+                  onChangeText={setTargetDraftJ}
+                  style={style.input}
+                  placeholder={"輸入圖樣日文"}
+                ></LgsTextInput>
+              </>
+            ) : null}
+
             <LgsButton
               style={style.input}
               title={"搜尋"}
