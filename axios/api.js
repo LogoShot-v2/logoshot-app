@@ -8,6 +8,22 @@ export async function LoginToFireBase(email, password) {
     .post("/login", { email: email, password: password })
     .then((res) => {
       console.log(res.data);
+      return res.data;
+    });
+}
+
+export async function SignInToFireBase(email, password) {
+  return await axios
+    .post("/registerVerify", {
+      email: email,
+      password: password,
+      name: "1234",
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        // console.log(res.data);
+        return res.data["res"]["email"];
+      }
     });
 }
 
