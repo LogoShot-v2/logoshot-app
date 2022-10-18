@@ -8,6 +8,7 @@ import LgsTextInput from "../components/lgsTextInput";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
 
 const Login = () => {
+  // 禁區----------------------
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -79,6 +80,7 @@ const Login = () => {
     await AsyncStorage.clear();
     console.log("logout clear:", await AsyncStorage.getAllKeys());
   };
+  // 禁區----------------------
 
   return (
     <Background>
