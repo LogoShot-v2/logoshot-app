@@ -1,6 +1,7 @@
 global.Buffer = global.Buffer || require("buffer").Buffer;
 import axios from "./axios";
 import * as FileSystem from "expo-file-system";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { images, icons, COLORS, FONTS, SIZES } from "../constant/";
 
 export async function LoginToFireBase(email, password) {
@@ -98,44 +99,7 @@ function ImagePreprocessing(metadatas, base64Images) {
   }
   return photos;
 }
-// desperated
-export async function Searching(ImageURL, searchQuery, checkList) {
-  const data = new FormData();
-  var initial = "Image Search";
-  data.append("name", Date.now());
-  if (ImageURL !== "") {
-    const base64 = await FileSystem.readAsStringAsync(ImageURL.uri, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-    data.append("file_attachment", base64);
-  } else {
-    data.append("file_attachment", null);
-    initial = "Text Search";
-  }
-  data.append("searchQuery", searchQuery);
-  data.append("check1", checkList[0] ? "true" : "false");
-  data.append("check2", checkList[1] ? "true" : "false");
-  data.append("check3", checkList[2] ? "true" : "false");
-  data.append("check4", checkList[3] ? "true" : "false");
-  return await axios
-    .post("/function5", data, {
-      headers: { "Content-Type": "multipart/form-data; " },
-      responseType: "json",
-    })
-    .then((res) => {
-      const metadatas1 = res.data.metadatas1;
-      const base64Images1 = res.data.base64Images1.map(
-        (base64Image) => `data:image/jpeg;base64,${base64Image}`
-      );
-      const metadatas2 = res.data.metadatas2;
-      const base64Images2 = res.data.base64Images2.map(
-        (base64Image) => `data:image/jpeg;base64,${base64Image}`
-      );
-      let photos1 = ImagePreprocessing(metadatas1, base64Images1);
-      let photos2 = ImagePreprocessing(metadatas2, base64Images2);
-      return { photos1: photos1, photos2: photos2, initial: initial };
-    });
-}
+
 // 圖片搜尋頁
 export async function SearchImage(
   Image,
@@ -151,10 +115,9 @@ export async function SearchImage(
   targetEndTime,
   targetDraftC,
   targetDraftE,
-  targetDraftJ,
-  userId
+  targetDraftJ
 ) {
-  console.log(Image, photoWidth, photoHeight, indicatorX, indicatorY, userId);
+  console.log(Image, photoWidth, photoHeight, indicatorX, indicatorY);
   const data = new FormData();
   var initial = "Image Search";
   data.append("photoWidth", photoWidth);
@@ -171,7 +134,11 @@ export async function SearchImage(
   data.append("targetDraftE", targetDraftE);
   data.append("targetDraftJ", targetDraftJ);
 
-  data.append("userId", userId);
+  const userInfoStr = await AsyncStorage.getItem("@userInfo");
+  const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+  console.log(userInfo);
+  data.append("userId", userInfo.userId || "1234");
+  data.append("userType", userInfo.userType || "manual");
 
   console.log("datahihi", data);
 
@@ -189,12 +156,6 @@ export async function SearchImage(
     })
     .then((res) => {
       console.log(res.data);
-      // const metadatas = res.data.metadatas;
-      // const base64Images = res.data.base64Images.map(
-      //   (base64Image) => `data:image/jpeg;base64,${base64Image}`
-      // );
-      // let photos = ImagePreprocessing(metadatas, base64Images);
-      // return { photos: photos, initial: initial };
     })
     .catch((e) => {
       console.log(e);
@@ -220,6 +181,13 @@ export async function TextSearch(
   data.append("target_applicant", target_applicant);
   data.append("target_startTime", target_startTime);
   data.append("target_endTime", target_endTime);
+
+  const userInfoStr = await AsyncStorage.getItem("@userInfo");
+  const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+  console.log(userInfo);
+  data.append("userId", userInfo.userId || "1234");
+  data.append("userType", userInfo.userType || "manual");
+
   return await axios
     .post("/postTextSearch", data, {
       headers: { "Content-Type": "multipart/form-data; " },
