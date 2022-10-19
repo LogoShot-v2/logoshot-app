@@ -33,7 +33,7 @@ const Login = () => {
             name: name,
             token: token,
             image: picture,
-            accountType: "Facebook",
+            accountType: "facebook",
           })
         );
         Alert.alert("Logged in!", `Hi ${name}!`);
@@ -55,7 +55,7 @@ const Login = () => {
         JSON.stringify({
           userId: loginDatas["res"]["userId"],
           name: email,
-          accountType: "FireBase",
+          accountType: "firebase",
         })
       );
 
