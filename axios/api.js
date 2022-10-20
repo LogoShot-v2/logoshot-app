@@ -4,6 +4,7 @@ import * as FileSystem from "expo-file-system";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { images, icons, COLORS, FONTS, SIZES } from "../constant/";
 
+// 登入
 export async function LoginToFireBase(email, password) {
   return await axios
     .post("/login", { email: email, password: password })
@@ -13,6 +14,7 @@ export async function LoginToFireBase(email, password) {
     });
 }
 
+// 註冊
 export async function SignInToFireBase(email, password) {
   return await axios
     .post("/registerVerify", {
@@ -28,77 +30,26 @@ export async function SignInToFireBase(email, password) {
     });
 }
 
-export async function SEND_IMAGE(ImageURL) {
-  // Check if any file is selected or not
-  if (ImageURL != null) {
-    // If file selected then create FormData
-    const data = new FormData();
-    data.append("name", Date.now());
-    // console.log("ImageURL.uri: ", ImageURL.uri);
-    const base64 = await FileSystem.readAsStringAsync(ImageURL.uri, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-    data.append("file_attachment", base64);
-    // Please change file upload URL
-
-    let res = await axios.post("/function3", data, {
-      headers: { "Content-Type": "multipart/form-data; " },
-    });
-    // console.log(res.data);
-    if (res.data.status == 1) {
-      alert("Upload Successful");
-    }
-  } else {
-    // If no file selected the show alert
-    alert("Please Select File first");
-  }
-
-  return;
-}
-
-export async function GET_IMAGE2() {
+// 取得搜尋紀錄
+export async function GetSearchingHistory(isImageSearch) {
+  const userInfoStr = await AsyncStorage.getItem("@userInfo");
+  const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
   return await axios
-    .get("/function4", {
-      responseType: "json",
-    })
+    .get(
+      "/getHistory?userId=" +
+        (userInfo.userId || "1234") +
+        "&userType=" +
+        userInfo.userType +
+        "&isImageSearch=" +
+        isImageSearch
+    )
     .then((res) => {
-      // console.log(res.data.images[0]);
-      // console.log(res.data.images[1]);
-      // console.log(res.data.metadatas[0]);
-      // console.log(res.data.metadatas[1]);
-      const metadatas = res.data.metadatas;
-      const base64Images = res.data.base64Images.map(
-        (base64Image) => `data:image/jpeg;base64,${base64Image}`
-      );
-      let photos = {
-        metadatas: [],
-        base64Images: [],
-      };
-      var steps = metadatas.length / 2;
-      for (var i = 0; i < steps; i++) {
-        photos.metadatas.push([metadatas[2 * i], metadatas[2 * i + 1]]);
-        photos.base64Images.push([
-          base64Images[2 * i],
-          base64Images[2 * i + 1],
-        ]);
-      }
-      // console.log(photos.metadatas);
-      return photos;
+      console.log(res.data);
     });
 }
 
-function ImagePreprocessing(metadatas, base64Images) {
-  let photos = {
-    metadatas: [],
-    base64Images: [],
-  };
-  var steps = parseInt(metadatas.length / 2);
-  for (var i = 0; i < steps; i++) {
-    photos.metadatas.push([metadatas[2 * i], metadatas[2 * i + 1]]);
-    photos.base64Images.push([base64Images[2 * i], base64Images[2 * i + 1]]);
-  }
-  return photos;
-}
+// 取得搜尋紀錄明細
+export async function GetSearchingHistoryDetail(searchTime) {}
 
 // 圖片搜尋頁
 export async function SearchImage(
@@ -198,21 +149,5 @@ export async function TextSearch(
     })
     .catch((e) => {
       console.log("e", e);
-    });
-}
-
-export async function GET_IMAGE3(label) {
-  return await axios
-    .get("/function6", {
-      responseType: "json",
-      params: {
-        label: label,
-      },
-    })
-    .then((res) => {
-      const base64Images = res.data.base64Images.map(
-        (base64Image) => `data:image/jpeg;base64,${base64Image}`
-      );
-      return base64Images;
     });
 }

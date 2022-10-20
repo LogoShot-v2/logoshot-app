@@ -1,13 +1,17 @@
-import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { GetSearchingHistory } from "../axios/api";
 
-
-const Log = () =>{
-    return (
-        <View>
-            <Text>Log</Text>
-        </View>
-    )
-}
+const Log = () => {
+  useEffect(() => {
+    console.log("hihi");
+    GetSearchingHistory(true);
+  }, []);
+  return (
+    <View>
+      <Text>Log</Text>
+    </View>
+  );
+};
 
 export default Log;
