@@ -106,6 +106,17 @@ const ImageSearch = () => {
   };
 
   const onSearch = async () => {
+    console.log(
+      searchKeywords,
+      targetClasscodes,
+      targetColor,
+      targetApplicant,
+      targetStartTime,
+      targetEndTime,
+      targetDraftC,
+      targetDraftE,
+      targetDraftJ
+    );
     const data = await SearchImage(
       image,
       imageWidth,

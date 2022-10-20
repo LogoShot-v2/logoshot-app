@@ -2,12 +2,6 @@ import * as React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 
 const MyFavorite = () => {
-  // useEffect(() => {
-  //   effect
-  //   return () => {
-  //     cleanup
-  //   };
-  // }, [input]);
   return (
     <View style={{ flex: 1 }}>
       <Text>MyFavorite</Text>
