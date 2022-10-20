@@ -25,7 +25,6 @@ import LgsPhotoIndicator from "../components/lgsPhotoIndicator";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import LgsButton from "../components/lgsButton";
 import { SearchImage, Searching, TextSearch } from "../axios/api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
 import { classCodeList, FONTS, SIZES } from "../constant";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -107,9 +106,17 @@ const ImageSearch = () => {
   };
 
   const onSearch = async () => {
-    // await Searching("", "google", [true, true, true, true]);
-    const userInfoStr = await AsyncStorage.getItem("@userInfo");
-    const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+    console.log(
+      searchKeywords,
+      targetClasscodes,
+      targetColor,
+      targetApplicant,
+      targetStartTime,
+      targetEndTime,
+      targetDraftC,
+      targetDraftE,
+      targetDraftJ
+    );
     const data = await SearchImage(
       image,
       imageWidth,
@@ -124,8 +131,7 @@ const ImageSearch = () => {
       targetEndTime,
       targetDraftC,
       targetDraftE,
-      targetDraftJ,
-      userInfo.userId ? userInfo.userId : "1234"
+      targetDraftJ
     );
   };
 

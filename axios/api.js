@@ -1,8 +1,10 @@
 global.Buffer = global.Buffer || require("buffer").Buffer;
 import axios from "./axios";
 import * as FileSystem from "expo-file-system";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { images, icons, COLORS, FONTS, SIZES } from "../constant/";
 
+// 登入
 export async function LoginToFireBase(email, password) {
   return await axios
     .post("/login", { email: email, password: password })
@@ -12,6 +14,7 @@ export async function LoginToFireBase(email, password) {
     });
 }
 
+// 註冊
 export async function SignInToFireBase(email, password) {
   return await axios
     .post("/registerVerify", {
@@ -27,115 +30,28 @@ export async function SignInToFireBase(email, password) {
     });
 }
 
-export async function SEND_IMAGE(ImageURL) {
-  // Check if any file is selected or not
-  if (ImageURL != null) {
-    // If file selected then create FormData
-    const data = new FormData();
-    data.append("name", Date.now());
-    // console.log("ImageURL.uri: ", ImageURL.uri);
-    const base64 = await FileSystem.readAsStringAsync(ImageURL.uri, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-    data.append("file_attachment", base64);
-    // Please change file upload URL
-
-    let res = await axios.post("/function3", data, {
-      headers: { "Content-Type": "multipart/form-data; " },
-    });
-    // console.log(res.data);
-    if (res.data.status == 1) {
-      alert("Upload Successful");
-    }
-  } else {
-    // If no file selected the show alert
-    alert("Please Select File first");
-  }
-
-  return;
-}
-
-export async function GET_IMAGE2() {
+// 取得搜尋紀錄
+export async function GetSearchingHistory(isImageSearch) {
+  const userInfoStr = await AsyncStorage.getItem("@userInfo");
+  const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
   return await axios
-    .get("/function4", {
-      responseType: "json",
-    })
+    .get(
+      "/getHistory?userId=" +
+        (userInfo.userId || "1234") +
+        "&userType=" +
+        userInfo.userType +
+        "&isImageSearch=" +
+        isImageSearch
+    )
     .then((res) => {
-      // console.log(res.data.images[0]);
-      // console.log(res.data.images[1]);
-      // console.log(res.data.metadatas[0]);
-      // console.log(res.data.metadatas[1]);
-      const metadatas = res.data.metadatas;
-      const base64Images = res.data.base64Images.map(
-        (base64Image) => `data:image/jpeg;base64,${base64Image}`
-      );
-      let photos = {
-        metadatas: [],
-        base64Images: [],
-      };
-      var steps = metadatas.length / 2;
-      for (var i = 0; i < steps; i++) {
-        photos.metadatas.push([metadatas[2 * i], metadatas[2 * i + 1]]);
-        photos.base64Images.push([
-          base64Images[2 * i],
-          base64Images[2 * i + 1],
-        ]);
-      }
-      // console.log(photos.metadatas);
-      return photos;
+      // console.log(res.data);
+      return res.data;
     });
 }
 
-function ImagePreprocessing(metadatas, base64Images) {
-  let photos = {
-    metadatas: [],
-    base64Images: [],
-  };
-  var steps = parseInt(metadatas.length / 2);
-  for (var i = 0; i < steps; i++) {
-    photos.metadatas.push([metadatas[2 * i], metadatas[2 * i + 1]]);
-    photos.base64Images.push([base64Images[2 * i], base64Images[2 * i + 1]]);
-  }
-  return photos;
-}
-// desperated
-export async function Searching(ImageURL, searchQuery, checkList) {
-  const data = new FormData();
-  var initial = "Image Search";
-  data.append("name", Date.now());
-  if (ImageURL !== "") {
-    const base64 = await FileSystem.readAsStringAsync(ImageURL.uri, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-    data.append("file_attachment", base64);
-  } else {
-    data.append("file_attachment", null);
-    initial = "Text Search";
-  }
-  data.append("searchQuery", searchQuery);
-  data.append("check1", checkList[0] ? "true" : "false");
-  data.append("check2", checkList[1] ? "true" : "false");
-  data.append("check3", checkList[2] ? "true" : "false");
-  data.append("check4", checkList[3] ? "true" : "false");
-  return await axios
-    .post("/function5", data, {
-      headers: { "Content-Type": "multipart/form-data; " },
-      responseType: "json",
-    })
-    .then((res) => {
-      const metadatas1 = res.data.metadatas1;
-      const base64Images1 = res.data.base64Images1.map(
-        (base64Image) => `data:image/jpeg;base64,${base64Image}`
-      );
-      const metadatas2 = res.data.metadatas2;
-      const base64Images2 = res.data.base64Images2.map(
-        (base64Image) => `data:image/jpeg;base64,${base64Image}`
-      );
-      let photos1 = ImagePreprocessing(metadatas1, base64Images1);
-      let photos2 = ImagePreprocessing(metadatas2, base64Images2);
-      return { photos1: photos1, photos2: photos2, initial: initial };
-    });
-}
+// 取得搜尋紀錄明細
+export async function GetSearchingHistoryDetail(searchTime) {}
+
 // 圖片搜尋頁
 export async function SearchImage(
   Image,
@@ -151,10 +67,9 @@ export async function SearchImage(
   targetEndTime,
   targetDraftC,
   targetDraftE,
-  targetDraftJ,
-  userId
+  targetDraftJ
 ) {
-  console.log(Image, photoWidth, photoHeight, indicatorX, indicatorY, userId);
+  console.log(Image, photoWidth, photoHeight, indicatorX, indicatorY);
   const data = new FormData();
   var initial = "Image Search";
   data.append("photoWidth", photoWidth);
@@ -171,7 +86,11 @@ export async function SearchImage(
   data.append("targetDraftE", targetDraftE);
   data.append("targetDraftJ", targetDraftJ);
 
-  data.append("userId", userId);
+  const userInfoStr = await AsyncStorage.getItem("@userInfo");
+  const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+  console.log(userInfo);
+  data.append("userId", userInfo.userId || "1234");
+  data.append("userType", userInfo.userType || "manual");
 
   console.log("datahihi", data);
 
@@ -189,12 +108,6 @@ export async function SearchImage(
     })
     .then((res) => {
       console.log(res.data);
-      // const metadatas = res.data.metadatas;
-      // const base64Images = res.data.base64Images.map(
-      //   (base64Image) => `data:image/jpeg;base64,${base64Image}`
-      // );
-      // let photos = ImagePreprocessing(metadatas, base64Images);
-      // return { photos: photos, initial: initial };
     })
     .catch((e) => {
       console.log(e);
@@ -220,6 +133,13 @@ export async function TextSearch(
   data.append("target_applicant", target_applicant);
   data.append("target_startTime", target_startTime);
   data.append("target_endTime", target_endTime);
+
+  const userInfoStr = await AsyncStorage.getItem("@userInfo");
+  const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+  console.log(userInfo);
+  data.append("userId", userInfo.userId || "1234");
+  data.append("userType", userInfo.userType || "manual");
+
   return await axios
     .post("/postTextSearch", data, {
       headers: { "Content-Type": "multipart/form-data; " },
@@ -230,21 +150,5 @@ export async function TextSearch(
     })
     .catch((e) => {
       console.log("e", e);
-    });
-}
-
-export async function GET_IMAGE3(label) {
-  return await axios
-    .get("/function6", {
-      responseType: "json",
-      params: {
-        label: label,
-      },
-    })
-    .then((res) => {
-      const base64Images = res.data.base64Images.map(
-        (base64Image) => `data:image/jpeg;base64,${base64Image}`
-      );
-      return base64Images;
     });
 }
