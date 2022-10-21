@@ -5,7 +5,7 @@ import BottomBar from "./BottomBar";
 
 import "react-native-gesture-handler";
 import Result from "../pages/Result";
-
+import MyFavoriteFileDetail from "../pages/MyFavorite/MyFavoriteFileDetail";
 
 const Base = createStackNavigator();
 
@@ -27,14 +27,19 @@ const Root = () => {
         }}
       />
       <Base.Screen
-
         name="Result"
         component={Result}
         options={{
           headerShown: false,
         }}
       />
-
+      <Base.Screen
+        name="MyFavoriteFileDetail"
+        component={MyFavoriteFileDetail}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Base.Navigator>
   );
 };

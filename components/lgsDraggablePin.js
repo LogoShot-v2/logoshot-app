@@ -23,7 +23,6 @@ const LgsDraggablePin = ({
     onStart: (_, c) => {
       c.x = x.value;
       c.y = y.value;
-      console.log("onStart,", c.x, c.y);
     },
     onActive: (e, c) => {
       x.value =
@@ -45,13 +44,11 @@ const LgsDraggablePin = ({
         Math.abs(e.translationY + c.y) > imageHeight / 2
           ? (Math.sign(e.translationY + c.y) * imageHeight) / 2
           : e.translationY + c.y;
-      console.log("drop", e.translationX, e.translationY);
       runOnJS(onDrop)(x.value, y.value);
     },
   });
 
   useEffect(() => {
-    console.log("useEffect here");
     x.value = X;
     y.value = Y;
   }, [X, Y]);

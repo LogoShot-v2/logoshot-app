@@ -13,7 +13,6 @@ import { classCodeList, FONTS } from "../../constant";
 import { DateTime } from "luxon";
 
 const Record = ({ item }, userId) => {
-  //   console.log("single", item["photoWidth"]);
   return (
     <>
       <ListBlock style={{ flexDirection: "row" }}>
@@ -28,7 +27,6 @@ const Record = ({ item }, userId) => {
               const ind = classCodeList.findIndex(
                 (y) => y.value === x.toString()
               );
-              console.log(ind);
               if (classCodeList[ind]) {
                 return " " + classCodeList[ind].label;
               }
