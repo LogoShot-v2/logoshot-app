@@ -25,13 +25,13 @@ import LgsPhotoIndicator from "../components/lgsPhotoIndicator";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import LgsButton from "../components/lgsButton";
 import { SearchImage, Searching, TextSearch } from "../axios/api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
 import { classCodeList, FONTS, SIZES } from "../constant";
 import DropDownPicker from "react-native-dropdown-picker";
 import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolicateStackTrace";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const ImageSearch = () => {
+const ImageSearch = ({ route: { params } }) => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
@@ -43,6 +43,9 @@ const ImageSearch = () => {
   const [open, setOpen] = useState(false);
   const [colorOpen, setColorOpen] = useState(false);
   const [advance, setAdvance] = useState(false);
+  const [initialX, setInitialX] = useState(0);
+  const [initialY, setInitialY] = useState(0);
+  const [isOldImage, setIsOldImage] = useState(true);
 
   /* inputs */
   const [searchKeywords, setSearchKeywords] = useState("");
@@ -93,11 +96,10 @@ const ImageSearch = () => {
         break;
     }
 
-    console.log(result);
-
     if (!result.cancelled) {
       setImage(result);
       setIsImagePickerDrawerVisible(false);
+      setIsOldImage(false);
     }
   };
 
@@ -107,9 +109,18 @@ const ImageSearch = () => {
   };
 
   const onSearch = async () => {
-    // await Searching("", "google", [true, true, true, true]);
-    const userInfoStr = await AsyncStorage.getItem("@userInfo");
-    const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+    // console.log(
+    //   searchKeywords,
+    //   targetClasscodes,
+    //   targetColor,
+    //   targetApplicant,
+    //   targetStartTime,
+    //   targetEndTime,
+    //   targetDraftC,
+    //   targetDraftE,
+    //   targetDraftJ,
+    //   isOldImage
+    // );
     const data = await SearchImage(
       image,
       imageWidth,
@@ -125,7 +136,7 @@ const ImageSearch = () => {
       targetDraftC,
       targetDraftE,
       targetDraftJ,
-      userInfo.userId ? userInfo.userId : "1234"
+      isOldImage
     );
   };
 
@@ -154,42 +165,98 @@ const ImageSearch = () => {
   }, []);
 
   useEffect(() => {
-    console.log("back param", imageWidth, imgaeHeight, indicatorX, indicatorY);
-  }, [imageWidth, imgaeHeight, indicatorX, indicatorY]);
+    if (!advance) {
+      setTargetDraftC("");
+      setTargetDraftE("");
+      setTargetDraftJ("");
+    }
+  }, [advance]);
+
+  useEffect(() => {
+    const asyncfunction = async () => {
+      const userInfoStr = await AsyncStorage.getItem("@userInfo");
+      const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+      setSearchKeywords(params["searchKeywords"]);
+      setTargetClasscodes(params["targetClasscodes"]);
+      setTargetColor(params["targetColor"]);
+      setTargetApplicant(params["targetApplicant"]);
+      setTargetStartTime(params["targetStartTime"]);
+      setTargetEndTime(params["targetEndTime"]);
+      setTargetDraftC(params["targetDraftC"]);
+      setTargetDraftE(params["targetDraftE"]);
+      setTargetDraftJ(params["targetDraftJ"]);
+      setImage({
+        uri:
+          "http://140.112.106.82:8081/imagelog/" +
+          userInfo.userId +
+          "/" +
+          params["formatSearchTime"] +
+          ".png",
+      });
+      setIndicatorX(Number(params["indicatorX"]));
+      setIndicatorY(Number(params["indicatorY"]));
+      setInitialX(Number(params["indicatorX"]));
+      setInitialY(Number(params["indicatorY"]));
+      setImageHeight(Number(params["photoHeight"]));
+      setImageWidth(Number(params["photoWidth"]));
+      setIsOldImage(true);
+    };
+    asyncfunction();
+  }, [params]);
 
   return (
     <>
       <Background>
         <Scroll>
           <ContentContainer>
-            <View style={style.statusBarBlank}></View>
-            <LgsButton
-              style={style.input}
-              title={"新增圖片"}
-              onPress={() => setIsImagePickerDrawerVisible(true)}
-            ></LgsButton>
-            <LgsPhotoIndicator
-              width={imageWidth}
-              height={imgaeHeight}
-              setWidth={setImageWidth}
-              setHeight={setImageHeight}
-              setIndicator={setIndicator}
-              style={style.input}
-              source={image}
-            ></LgsPhotoIndicator>
-            {/* <View style={style.input}> */}
-            <LgsTextInput
-              value={searchKeywords}
-              onChangeText={setSearchKeywords}
-              style={style.input}
-              placeholder={"輸入關鍵字"}
-            ></LgsTextInput>
+            <Text style={FONTS.h1}>圖片搜尋</Text>
+            {image.uri ? (
+              <>
+                <LgsPhotoIndicator
+                  initialX={initialX}
+                  initialY={initialY}
+                  width={imageWidth}
+                  height={imgaeHeight}
+                  setWidth={setImageWidth}
+                  setHeight={setImageHeight}
+                  setIndicator={setIndicator}
+                  style={style.photoIndicator}
+                  source={image}
+                ></LgsPhotoIndicator>
+                <View
+                  style={{
+                    ...style.input,
+                    borderWidth: 0,
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={style.blueText}>請將十字移動至商標中心</Text>
+                  <TouchableOpacity
+                    onPress={() => setIsImagePickerDrawerVisible(true)}
+                  >
+                    <Image
+                      source={require("../assets/readdImageButton.png")}
+                      style={style.readdImageButton}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </>
+            ) : (
+              <TouchableOpacity
+                style={style.imagePickerButton}
+                onPress={() => setIsImagePickerDrawerVisible(true)}
+              >
+                <Image
+                  source={require("../assets/addImageButton.png")}
+                  style={style.addImageButtonImage}
+                />
+              </TouchableOpacity>
+            )}
+
             <DropDownPicker
-              style={style.input}
               placeholder="商標搜尋類別"
-              dropDownContainerStyle={{
-                backgroundColor: "#ffffff",
-              }}
+              containerStyle={style.input}
               searchable={true}
               open={open}
               value={targetClasscodes}
@@ -204,9 +271,8 @@ const ImageSearch = () => {
               zIndexInverse={1000}
             />
             <DropDownPicker
-              style={style.input}
               placeholder="商標色彩"
-              dropDownContainerStyle={{}}
+              containerStyle={style.input}
               open={colorOpen}
               value={targetColor}
               items={colorList}
@@ -216,9 +282,15 @@ const ImageSearch = () => {
               theme="LIGHT"
               multiple={false}
               mode="BADGE"
-              zIndex={2000}
-              zIndexInverse={2000}
+              zIndex={990}
+              zIndexInverse={3000}
             />
+            <LgsTextInput
+              value={searchKeywords}
+              onChangeText={setSearchKeywords}
+              style={style.input}
+              placeholder={"輸入關鍵字"}
+            ></LgsTextInput>
             <LgsTextInput
               value={targetApplicant}
               onChangeText={setTargetApplicant}
@@ -234,12 +306,7 @@ const ImageSearch = () => {
               >
                 商標註冊期間
               </Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: "100%",
-                }}
-              >
+              <View style={style.rangeContainer}>
                 <LgsTextInput
                   value={targetStartTime}
                   onChangeText={setTargetStartTime}
@@ -248,9 +315,9 @@ const ImageSearch = () => {
                 />
                 <Text
                   style={{
-                    ...FONTS.h2,
-                    marginBottom: SIZES.padding / 6,
-                    marginHorizontal: 10,
+                    marginHorizontal: 6,
+                    textAlignVertical: "center",
+                    alignSelf: "center",
                   }}
                 >
                   ~
@@ -266,6 +333,7 @@ const ImageSearch = () => {
             <View
               style={{
                 ...style.input,
+                borderWidth: 0,
                 flexDirection: "row",
                 alignItems: "center",
               }}
@@ -302,9 +370,10 @@ const ImageSearch = () => {
             ) : null}
 
             <LgsButton
-              style={style.input}
+              style={{ ...style.input, borderWidth: 0 }}
               title={"搜尋"}
               onPress={onSearch}
+              disabled={!image.uri}
             ></LgsButton>
             <BottomSheet
               isVisible={isImagePickerDrawerVisible}
@@ -331,33 +400,39 @@ const ImageSearch = () => {
   );
 };
 const style = StyleSheet.create({
-  statusBarBlank: {
-    height: StatusBar.currentHeight,
-    // backgroundColor: "red",
+  blueText: {
+    color: "#5173B7",
+    flex: 1,
   },
-  image: {
-    marginTop: 10,
-    //backgroundColor: "red",
+  readdImageButton: {
+    height: 24,
+    width: 24,
   },
-  container: {
-    paddingHorizontal: 36,
-    // paddingTop: StatusBar.currentHeight,
+  imagePickerButton: {
+    marginVertical: 10,
+    height: 178,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 8,
+    borderWidth: 0.4,
+  },
+  addImageButtonImage: {
+    height: 72,
+    width: 64,
   },
   input: {
-    marginTop: 10,
-    // backgroundColor: "yellow",
+    marginVertical: 10,
+    height: 50,
   },
-  twoinput: {
-    // flex: 1,
-    width: "45%",
-    height: 40,
-    borderWidth: 0.5,
+  photoIndicator: {
+    marginTop: 20,
     borderRadius: 20,
   },
-
-  status: {
-    padding: 10,
-    textAlign: "center",
+  rangeContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "center",
+    alignContent: "center",
   },
 });
 

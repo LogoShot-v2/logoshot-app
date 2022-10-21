@@ -56,10 +56,10 @@ const TextSearch = ({ navigation: { navigate } }) => {
       target_classcodes,
       target_applicant,
       target_startTime,
-      target_endTime
+      target_endTime,
     );
-    //navigate("SearchResult");
-    console.log(target_classcodes);
+    navigate("SearchResult");
+    console.log(checkedW);
   };
 
   const [open, setOpen] = useState(false);

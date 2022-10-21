@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { View } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, {
@@ -35,11 +35,23 @@ const LgsDraggablePin = ({
           : e.translationY + c.y;
       runOnJS(onDrag)(x.value, y.value);
     },
-    onEnd: (e) => {
-      console.log("drop", e.translationX, e.translationY);
+    onEnd: (e, c) => {
+      x.value =
+        Math.abs(e.translationX + c.x) > imageWidth / 2
+          ? (Math.sign(e.translationX + c.x) * imageWidth) / 2
+          : e.translationX + c.x;
+      y.value =
+        Math.abs(e.translationY + c.y) > imageHeight / 2
+          ? (Math.sign(e.translationY + c.y) * imageHeight) / 2
+          : e.translationY + c.y;
       runOnJS(onDrop)(x.value, y.value);
     },
   });
+
+  useEffect(() => {
+    x.value = X;
+    y.value = Y;
+  }, [X, Y]);
 
   return (
     <PanGestureHandler onGestureEvent={drag}>

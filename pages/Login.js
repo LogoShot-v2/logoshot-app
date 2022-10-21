@@ -33,12 +33,11 @@ const Login = () => {
             name: name,
             token: token,
             image: picture,
-            accountType: "Facebook",
+            userType: "facebook",
           })
         );
         Alert.alert("Logged in!", `Hi ${name}!`);
         const localData = await AsyncStorage.getItem("@userInfo");
-        console.log("localData", localData);
       } else {
         // type === 'cancel'
       }
@@ -49,28 +48,27 @@ const Login = () => {
   const firebaselogin = async () => {
     try {
       const loginDatas = await LoginToFireBase(email, password);
-      console.log("hi", loginDatas);
+
       await AsyncStorage.setItem(
         "@userInfo",
         JSON.stringify({
           userId: loginDatas["res"]["userId"],
           name: email,
-          accountType: "FireBase",
+          userType: "firebase",
         })
       );
 
       const localData = await AsyncStorage.getItem("@userInfo");
-      console.log("localData", localData);
+
       Alert.alert("Logged in!");
     } catch (e) {
-      console.log(e.data);
       alert(e.data);
     }
   };
 
   const signIn = async () => {
     const signInStatus = await SignInToFireBase(email, password);
-    console.log(signInStatus);
+
     Alert.alert(
       `驗證信已寄至${signInStatus}，請至信箱中點擊連結完成驗證。（請小心，驗證信有可能會被信箱中被歸類為垃圾信件）`
     );
