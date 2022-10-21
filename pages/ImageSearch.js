@@ -96,8 +96,6 @@ const ImageSearch = ({ route: { params } }) => {
         break;
     }
 
-    console.log(result);
-
     if (!result.cancelled) {
       setImage(result);
       setIsImagePickerDrawerVisible(false);
@@ -111,18 +109,18 @@ const ImageSearch = ({ route: { params } }) => {
   };
 
   const onSearch = async () => {
-    console.log(
-      searchKeywords,
-      targetClasscodes,
-      targetColor,
-      targetApplicant,
-      targetStartTime,
-      targetEndTime,
-      targetDraftC,
-      targetDraftE,
-      targetDraftJ,
-      isOldImage
-    );
+    // console.log(
+    //   searchKeywords,
+    //   targetClasscodes,
+    //   targetColor,
+    //   targetApplicant,
+    //   targetStartTime,
+    //   targetEndTime,
+    //   targetDraftC,
+    //   targetDraftE,
+    //   targetDraftJ,
+    //   isOldImage
+    // );
     const data = await SearchImage(
       image,
       imageWidth,

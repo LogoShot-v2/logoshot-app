@@ -13,7 +13,6 @@ import { FONTS, classCodeList } from "../../constant";
 import { DateTime } from "luxon";
 
 const Record = ({ item }, userId, toSearch) => {
-  //   console.log("single", item["photoWidth"]);
   return (
     <>
       <ListBlock
@@ -42,7 +41,6 @@ const Record = ({ item }, userId, toSearch) => {
               const ind = classCodeList.findIndex(
                 (y) => y.value === x.toString()
               );
-              console.log(ind);
               if (classCodeList[ind]) {
                 return " " + classCodeList[ind].label;
               }
@@ -74,12 +72,11 @@ const DateRecord = ({ item }, userId, toSearch) => {
   );
 };
 
-const ImageLog = ({ navigation: { navigate, push } }) => {
+const ImageLog = ({ navigation: { navigate } }) => {
   const [datesBactches, setDatesBactches] = useState();
   const [userId, setUserId] = useState("");
 
   const toSearch = (item) => {
-    // console.log(item);
     navigate("ImageSearch", item);
   };
 

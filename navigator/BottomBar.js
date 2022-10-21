@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import "react-native-gesture-handler";
 import TextSearch from "../pages/TextSearch";
 import ImageSearch from "../pages/ImageSearch";
-import MyFavorite from "../pages/MyFavorite";
+import MyFavorite from "../pages/MyFavorite/MyFavorite";
 import Log from "../pages/Log/Log";
 import Home from "../pages/Home";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";

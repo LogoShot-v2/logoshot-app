@@ -9,7 +9,6 @@ export async function LoginToFireBase(email, password) {
   return await axios
     .post("/login", { email: email, password: password })
     .then((res) => {
-      console.log(res.data);
       return res.data;
     });
 }
@@ -49,9 +48,6 @@ export async function GetSearchingHistory(isImageSearch) {
     });
 }
 
-// 取得搜尋紀錄明細
-export async function GetSearchingHistoryDetail(searchTime) {}
-
 // 圖片搜尋頁
 export async function SearchImage(
   Image,
@@ -70,7 +66,7 @@ export async function SearchImage(
   targetDraftJ,
   isOldImage
 ) {
-  console.log(Image, photoWidth, photoHeight, indicatorX, indicatorY);
+  // console.log(Image, photoWidth, photoHeight, indicatorX, indicatorY);
   const data = new FormData();
   var initial = "Image Search";
   data.append("photoWidth", photoWidth);
@@ -138,7 +134,7 @@ export async function TextSearch(
 
   const userInfoStr = await AsyncStorage.getItem("@userInfo");
   const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
-  console.log(userInfo);
+  // console.log(userInfo);
   data.append("userId", userInfo.userId || "1234");
   data.append("userType", userInfo.userType || "manual");
 
@@ -154,7 +150,7 @@ export async function TextSearch(
       console.log("e", e);
     });
 }
-
+// 我的最愛資料夾們
 export async function GetMyFavoriteFiles() {
   const userInfoStr = await AsyncStorage.getItem("@userInfo");
   const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
@@ -168,5 +164,28 @@ export async function GetMyFavoriteFiles() {
     .then((res) => {
       // console.log(res.data);
       return res.data;
+    });
+}
+// 我的最愛資料夾內容
+export async function GetMyFavoriteFileDetail(esIds) {
+  return await axios.post("/getMyFavoriteFileDetail", { esIds }).then((res) => {
+    // console.log(res.data);
+    return res.data;
+  });
+}
+
+// 新增我的最愛資料夾
+export async function PostAddFavoriteFile(fileName) {
+  const userInfoStr = await AsyncStorage.getItem("@userInfo");
+  const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+
+  return await axios
+    .post("/postAddMyFavoriteFile", {
+      userId: userInfo.userId,
+      userType: userInfo.userType,
+      fileName,
+    })
+    .then((res) => {
+      console.log(res.data["res"]["fileName"]);
     });
 }

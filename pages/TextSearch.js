@@ -55,7 +55,6 @@ const TextSearch = ({ navigation: { navigate } }) => {
       target_endTime
     );
     navigate("SearchResult");
-    console.log(checkedW);
   };
 
   const [open, setOpen] = useState(false);

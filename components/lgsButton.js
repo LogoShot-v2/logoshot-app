@@ -31,8 +31,10 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#7F92B8",
+    backgroundColor: "#D3E1FD",
     height: 40,
+    borderColor: "white",
+    borderWidth: 1,
     borderRadius: 20,
   },
   title: {
