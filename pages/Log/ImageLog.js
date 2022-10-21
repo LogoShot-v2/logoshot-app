@@ -26,7 +26,7 @@ const Record = ({ item }, userId) => {
               item["formatSearchTime"] +
               ".png",
           }}
-          style={styles.image}
+          style={FONTS.image}
         />
         <View style={styles.listTextContainer}>
           <Text
@@ -103,12 +103,6 @@ const ImageLog = () => {
 export default ImageLog;
 
 const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-    width: 100,
-    height: 100,
-    borderRadius: 20,
-  },
   listTextContainer: {
     flex: 2,
     marginLeft: 20,
