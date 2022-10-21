@@ -29,8 +29,9 @@ import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
 import { classCodeList, FONTS, SIZES } from "../constant";
 import DropDownPicker from "react-native-dropdown-picker";
 import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolicateStackTrace";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const ImageSearch = () => {
+const ImageSearch = ({ route: { params } }) => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
@@ -42,6 +43,8 @@ const ImageSearch = () => {
   const [open, setOpen] = useState(false);
   const [colorOpen, setColorOpen] = useState(false);
   const [advance, setAdvance] = useState(false);
+  const [initialX, setInitialX] = useState(0);
+  const [initialY, setInitialY] = useState(0);
 
   /* inputs */
   const [searchKeywords, setSearchKeywords] = useState("");
@@ -159,10 +162,6 @@ const ImageSearch = () => {
     })();
   }, []);
 
-  // useEffect(() => {
-  //   console.log("back param", imageWidth, imgaeHeight, indicatorX, indicatorY);
-  // }, [imageWidth, imgaeHeight, indicatorX, indicatorY]);
-
   useEffect(() => {
     if (!advance) {
       setTargetDraftC("");
@@ -170,6 +169,38 @@ const ImageSearch = () => {
       setTargetDraftJ("");
     }
   }, [advance]);
+
+  useEffect(() => {
+    const asyncfunction = async () => {
+      console.log(params);
+      const userInfoStr = await AsyncStorage.getItem("@userInfo");
+      const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+      setSearchKeywords(params["searchKeywords"]);
+      setTargetClasscodes(params["targetClasscodes"]);
+      setTargetColor(params["targetColor"]);
+      setTargetApplicant(params["targetApplicant"]);
+      setTargetStartTime(params["targetStartTime"]);
+      setTargetEndTime(params["targetEndTime"]);
+      setTargetDraftC(params["targetDraftC"]);
+      setTargetDraftE(params["targetDraftE"]);
+      setTargetDraftJ(params["targetDraftJ"]);
+      setImage({
+        uri:
+          "http://140.112.106.82:8081/imagelog/" +
+          userInfo.userId +
+          "/" +
+          params["formatSearchTime"] +
+          ".png",
+      });
+      setIndicatorX(Number(params["indicatorX"]));
+      setIndicatorY(Number(params["indicatorY"]));
+      setInitialX(Number(params["indicatorX"]));
+      setInitialY(Number(params["indicatorY"]));
+      setImageHeight(Number(params["photoHeight"]));
+      setImageWidth(Number(params["photoWidth"]));
+    };
+    asyncfunction();
+  }, [params]);
 
   return (
     <>
@@ -180,6 +211,8 @@ const ImageSearch = () => {
             {image.uri ? (
               <>
                 <LgsPhotoIndicator
+                  initialX={initialX}
+                  initialY={initialY}
                   width={imageWidth}
                   height={imgaeHeight}
                   setWidth={setImageWidth}

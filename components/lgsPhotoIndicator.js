@@ -20,6 +20,8 @@ import {
 // const windowHeight = Dimensions.get("window").height;
 
 const LgsPhotoIndicator = ({
+  initialX,
+  initialY,
   style,
   source,
   width,
@@ -76,8 +78,8 @@ const LgsPhotoIndicator = ({
       />
       {source.uri ? (
         <LgsDraggablePin
-          X={0}
-          Y={0}
+          X={initialX}
+          Y={initialY}
           onDrag={drag}
           onDrop={drop}
           imageWidth={width}
