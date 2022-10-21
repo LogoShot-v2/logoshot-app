@@ -46,11 +46,11 @@ const Record = ({ item }, userId) => {
 const DateRecord = ({ item }, userId) => {
   return (
     <>
-      <ListBlock>
+      <View style={styles.dateContainer}>
         <Text style={FONTS.h3}>
           {DateTime.fromRFC2822(item[0]).toFormat("MMM dd, yyyy")}
         </Text>
-      </ListBlock>
+      </View>
       <FlatList
         data={item[1]}
         renderItem={(e) => Record(e, userId)}
@@ -100,6 +100,9 @@ const styles = StyleSheet.create({
   listTextContainer: {
     flex: 1,
     marginLeft: 20,
-    paddingTop: 20,
+    // paddingTop: 20,
+  },
+  dateContainer: {
+    marginTop: 20,
   },
 });

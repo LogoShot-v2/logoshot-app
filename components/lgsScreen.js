@@ -36,8 +36,11 @@ const ContentContainer = styled(View)`
   // background-color: red;
 `;
 
-const ListBlock = styled(View)`
+const ListBlock = styled(TouchableOpacity)`
   margin-top: 20;
+  border-radius: 20;
+  border-color: black;
+  border-width: 0.4;
 `;
 
 export { ListBlock };
