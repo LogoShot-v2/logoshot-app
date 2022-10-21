@@ -201,7 +201,7 @@ export async function SearchImage(
     });
 }
 // 文字搜尋頁
-export async function TextSearch(
+export async function SearchText(
   searchKeywords = "又昕",
   isSimSound = false,
   isSimShape = false,

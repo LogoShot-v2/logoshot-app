@@ -10,7 +10,7 @@ import {
   ImageStore,
   TouchableOpacity,
   Alert,
-  Navigatorㄝ,
+  Navigator,
 } from "react-native";
 import { Checkbox } from "react-native-paper";
 import { Chip, ThemeProvider, Button, CheckBox } from "react-native-elements";
@@ -27,10 +27,14 @@ import DropDownPicker from "react-native-dropdown-picker";
 
 const TextSearch = ({ navigation: { navigate } }) => {
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const [checkedW, setCheckedW] = React.useState(true);
+  const [searchKeywords, setsearchKeywords] = React.useState("");
+  const [isSimShape, setisSimShape] = React.useState(true);
+  const [isSimSound, setisSimSound] = React.useState(true);
+  const [target_applicant, settarget_applicant] = React.useState("");
 
-  const [checkedS, setCheckedS] = React.useState(true);
+  const [target_startTime, settarget_startTime] = React.useState("");
+  const [target_endTime, settarget_endTime] = React.useState("");
+
   useEffect(() => {
     const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
       setKeyboardStatus("Keyboard Shown");
@@ -54,12 +58,12 @@ const TextSearch = ({ navigation: { navigate } }) => {
       target_startTime,
       target_endTime
     );
-    navigate("SearchResult");
-    console.log(checkedW);
+    //navigate("SearchResult");
+    console.log(target_classcodes);
   };
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState([]);
+  const [target_classcodes, settarget_classcodes] = useState([]);
   const [items, setItems] = useState([
     { label: "1", value: "1" },
     { label: "2", value: "2" },
@@ -82,8 +86,8 @@ const TextSearch = ({ navigation: { navigate } }) => {
             placeholder="Click here…"
             title="文字商標查詢"
             onSubmitEditing={Keyboard.dismiss}
-            onChangeText={(query) => setSearchQuery(query)}
-            value={searchQuery}
+            onChangeText={(query) => setsearchKeywords(query)}
+            value={searchKeywords}
           />
           {/* </View> */}
           <View
@@ -95,16 +99,16 @@ const TextSearch = ({ navigation: { navigate } }) => {
           >
             <Text>字音相似</Text>
             <Checkbox
-              status={checkedS ? "checked" : "unchecked"}
+              status={isSimSound ? "checked" : "unchecked"}
               onPress={() => {
-                setCheckedS(!checkedS);
+                setisSimSound(!isSimSound);
               }}
             />
             <Text>字型相似</Text>
             <Checkbox
-              status={checkedW ? "checked" : "unchecked"}
+              status={isSimShape ? "checked" : "unchecked"}
               onPress={() => {
-                setCheckedW(!checkedW);
+                setisSimShape(!isSimShape);
               }}
               color={"green"}
             />
@@ -124,10 +128,10 @@ const TextSearch = ({ navigation: { navigate } }) => {
             }}
             searchable={true}
             open={open}
-            value={value}
+            value={target_classcodes}
             items={classCodeList}
             setOpen={setOpen}
-            setValue={setValue}
+            setValue={settarget_classcodes}
             setItems={setItems}
             dropDownDirection="AUTO"
             theme="LIGHT"
@@ -136,10 +140,10 @@ const TextSearch = ({ navigation: { navigate } }) => {
           />
           <LgsTextInput
             style={style.input}
-            placeholder="Click here…"
+            placeholder="輸入申請人"
             onSubmitEditing={Keyboard.dismiss}
-            onChangeText={(query) => setSearchQuery(query)}
-            value={searchQuery}
+            onChangeText={(query) => settarget_applicant(query)}
+            value={target_applicant}
           />
           <Text
             style={{
@@ -170,12 +174,16 @@ const TextSearch = ({ navigation: { navigate } }) => {
             <LgsTextInput
               placeholder="yyy/mm/dd"
               style={{ flex: 1, justifyContent: "flex-end" }}
+              onChangeText={(query) => settarget_startTime(query)}
+              value={target_startTime}
             />
           </View>
           <LgsButton
             style={{ width: "100%", marginTop: 40, paddingHorizontal: 20 }}
             title="Press me"
             onPress={onSearch}
+            onChangeText={(query) => settarget_endTime(query)}
+            value={target_endTime}
           />
         </ContentContainer>
       </Scroll>
