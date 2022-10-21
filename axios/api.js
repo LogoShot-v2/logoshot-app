@@ -67,7 +67,8 @@ export async function SearchImage(
   targetEndTime,
   targetDraftC,
   targetDraftE,
-  targetDraftJ
+  targetDraftJ,
+  isOldImage
 ) {
   console.log(Image, photoWidth, photoHeight, indicatorX, indicatorY);
   const data = new FormData();
@@ -85,20 +86,21 @@ export async function SearchImage(
   data.append("targetDraftC", targetDraftC);
   data.append("targetDraftE", targetDraftE);
   data.append("targetDraftJ", targetDraftJ);
+  data.append("isOldImage", isOldImage);
 
   const userInfoStr = await AsyncStorage.getItem("@userInfo");
   const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
-  console.log(userInfo);
   data.append("userId", userInfo.userId || "1234");
   data.append("userType", userInfo.userType || "manual");
 
-  console.log("datahihi", data);
-
-  if (Image) {
+  if (!isOldImage) {
     const base64 = await FileSystem.readAsStringAsync(Image.uri, {
       encoding: FileSystem.EncodingType.Base64,
     });
     data.append("file_attachment", base64);
+  } else {
+    const re = /imagelog\/\w{1,30}\/\d{4}-\d{2}-\d{2}-\d{2}:\d{2}:\d{2}.png/;
+    data.append("file_attachment", re.exec(Image.uri)[0]);
   }
 
   return await axios

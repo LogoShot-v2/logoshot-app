@@ -45,6 +45,7 @@ const ImageSearch = ({ route: { params } }) => {
   const [advance, setAdvance] = useState(false);
   const [initialX, setInitialX] = useState(0);
   const [initialY, setInitialY] = useState(0);
+  const [isOldImage, setIsOldImage] = useState(true);
 
   /* inputs */
   const [searchKeywords, setSearchKeywords] = useState("");
@@ -100,6 +101,7 @@ const ImageSearch = ({ route: { params } }) => {
     if (!result.cancelled) {
       setImage(result);
       setIsImagePickerDrawerVisible(false);
+      setIsOldImage(false);
     }
   };
 
@@ -118,7 +120,8 @@ const ImageSearch = ({ route: { params } }) => {
       targetEndTime,
       targetDraftC,
       targetDraftE,
-      targetDraftJ
+      targetDraftJ,
+      isOldImage
     );
     const data = await SearchImage(
       image,
@@ -134,7 +137,8 @@ const ImageSearch = ({ route: { params } }) => {
       targetEndTime,
       targetDraftC,
       targetDraftE,
-      targetDraftJ
+      targetDraftJ,
+      isOldImage
     );
   };
 
@@ -172,7 +176,6 @@ const ImageSearch = ({ route: { params } }) => {
 
   useEffect(() => {
     const asyncfunction = async () => {
-      console.log(params);
       const userInfoStr = await AsyncStorage.getItem("@userInfo");
       const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
       setSearchKeywords(params["searchKeywords"]);
@@ -198,6 +201,7 @@ const ImageSearch = ({ route: { params } }) => {
       setInitialY(Number(params["indicatorY"]));
       setImageHeight(Number(params["photoHeight"]));
       setImageWidth(Number(params["photoWidth"]));
+      setIsOldImage(true);
     };
     asyncfunction();
   }, [params]);
@@ -371,6 +375,7 @@ const ImageSearch = ({ route: { params } }) => {
               style={{ ...style.input, borderWidth: 0 }}
               title={"搜尋"}
               onPress={onSearch}
+              disabled={!image.uri}
             ></LgsButton>
             <BottomSheet
               isVisible={isImagePickerDrawerVisible}
