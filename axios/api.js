@@ -152,3 +152,19 @@ export async function TextSearch(
       console.log("e", e);
     });
 }
+
+export async function GetMyFavoriteFiles() {
+  const userInfoStr = await AsyncStorage.getItem("@userInfo");
+  const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+  return await axios
+    .get(
+      "/getMyFavoriteFile?userId=" +
+        (userInfo.userId || "1234") +
+        "&userType=" +
+        userInfo.userType
+    )
+    .then((res) => {
+      // console.log(res.data);
+      return res.data;
+    });
+}

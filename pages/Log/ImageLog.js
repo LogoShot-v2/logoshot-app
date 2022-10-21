@@ -12,11 +12,14 @@ import {
 import { FONTS, classCodeList } from "../../constant";
 import { DateTime } from "luxon";
 
-const Record = ({ item }, userId) => {
+const Record = ({ item }, userId, toSearch) => {
   //   console.log("single", item["photoWidth"]);
   return (
     <>
-      <ListBlock style={{ flexDirection: "row" }}>
+      <ListBlock
+        style={{ flexDirection: "row" }}
+        onPress={() => toSearch(item)}
+      >
         <Image
           source={{
             uri:
@@ -26,7 +29,7 @@ const Record = ({ item }, userId) => {
               item["formatSearchTime"] +
               ".png",
           }}
-          style={styles.image}
+          style={FONTS.image}
         />
         <View style={styles.listTextContainer}>
           <Text
@@ -54,7 +57,7 @@ const Record = ({ item }, userId) => {
   );
 };
 
-const DateRecord = ({ item }, userId) => {
+const DateRecord = ({ item }, userId, toSearch) => {
   return (
     <>
       <View style={styles.dateContainer}>
@@ -64,23 +67,31 @@ const DateRecord = ({ item }, userId) => {
       </View>
       <FlatList
         data={item[1]}
-        renderItem={(e) => Record(e, userId)}
+        renderItem={(e) => Record(e, userId, toSearch)}
         keyExtractor={(e) => e.searchTime}
       />
     </>
   );
 };
 
-const ImageLog = () => {
+const ImageLog = ({ navigation: { navigate, push } }) => {
   const [datesBactches, setDatesBactches] = useState();
   const [userId, setUserId] = useState("");
 
-  useEffect(async () => {
-    const data = await GetSearchingHistory(true);
-    setDatesBactches(data);
-    const userInfoStr = await AsyncStorage.getItem("@userInfo");
-    const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
-    setUserId(userInfo.userId);
+  const toSearch = (item) => {
+    // console.log(item);
+    navigate("ImageSearch", item);
+  };
+
+  useEffect(() => {
+    const asyncfunction = async () => {
+      const data = await GetSearchingHistory(true);
+      setDatesBactches(data);
+      const userInfoStr = await AsyncStorage.getItem("@userInfo");
+      const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+      setUserId(userInfo.userId);
+    };
+    asyncfunction();
   }, []);
 
   return (
@@ -90,7 +101,7 @@ const ImageLog = () => {
           {datesBactches ? (
             <FlatList
               data={datesBactches}
-              renderItem={(item) => DateRecord(item, userId)}
+              renderItem={(item) => DateRecord(item, userId, toSearch)}
               keyExtractor={(item) => item[0]}
             />
           ) : null}
@@ -103,12 +114,6 @@ const ImageLog = () => {
 export default ImageLog;
 
 const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-    width: 100,
-    height: 100,
-    borderRadius: 20,
-  },
   listTextContainer: {
     flex: 2,
     marginLeft: 20,
