@@ -99,8 +99,21 @@ const Login = () => {
           <TouchableOpacity onPress={() => facebooklogin()}>
             <Text>FaceBooklogin</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => firebaselogin()}>
-            <Text>login</Text>
+          <TouchableOpacity
+            style=
+            {{
+              adding: 10,
+              backgroundColor: "#5173B7",
+              height: 40,
+              borderRadius: 10,
+            }}
+            onPress={() => firebaselogin()}>
+            <Text
+              style=
+              {{
+                alignItems: "center",
+
+              }}>login</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => logout()}>
             <Text>logout</Text>

@@ -95,6 +95,8 @@ const TextSearch = ({ navigation: { navigate } }) => {
               ...style.input,
               flexDirection: "row",
               alignItems: "center",
+              justifyContent: 'space-around',
+              marginBottom: 10,
             }}
           >
             <Text>字音相似</Text>
@@ -117,7 +119,7 @@ const TextSearch = ({ navigation: { navigate } }) => {
           <Text
             style={{
               ...FONTS.h2,
-              marginBottom: SIZES.padding / 6,
+              marginBottom: 10,
             }}
           >
             商標搜尋類別
@@ -166,7 +168,7 @@ const TextSearch = ({ navigation: { navigate } }) => {
             <Text
               style={{
                 ...FONTS.h2,
-                marginBottom: SIZES.padding / 6,
+                margin: 5,
               }}
             >
               ~
@@ -179,7 +181,7 @@ const TextSearch = ({ navigation: { navigate } }) => {
             />
           </View>
           <LgsButton
-            style={{ width: "100%", marginTop: 40, paddingHorizontal: 20 }}
+            style={{ width: "100%", marginTop: 40 }}
             title="Press me"
             onPress={onSearch}
             onChangeText={(query) => settarget_endTime(query)}
