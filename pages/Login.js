@@ -6,8 +6,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginToFireBase, SignInToFireBase } from "../axios/api";
 import LgsTextInput from "../components/lgsTextInput";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
+import LgsButton from "../components/lgsButton";
+import LgsGobackButton from "../components/lgsGobackButton";
 
-const Login = () => {
+const Login = ({ navigation: { navigate } }) => {
   // 禁區----------------------
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -79,11 +81,14 @@ const Login = () => {
     console.log("logout clear:", await AsyncStorage.getAllKeys());
   };
   // 禁區----------------------
-
+  const goBack = async () => { navigate("Home"); };
   return (
     <Background>
       <Scroll>
         <ContentContainer>
+          <LgsGobackButton
+            goBack={goBack}
+          />
           <LgsTextInput
             style={styles.input}
             placeholder={"請輸入電子郵件"}
@@ -96,30 +101,23 @@ const Login = () => {
             value={password}
             onChangeText={setPassword}
           />
-          <TouchableOpacity onPress={() => facebooklogin()}>
-            <Text>FaceBooklogin</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style=
-            {{
-              adding: 10,
-              backgroundColor: "#5173B7",
-              height: 40,
-              borderRadius: 10,
-            }}
-            onPress={() => firebaselogin()}>
-            <Text
-              style=
-              {{
-                alignItems: "center",
+          <LgsButton
+            style={{ marginTop: 30 }}
+            onPress={() => facebooklogin()}
+            title='FaceBooklogin' />
 
-              }}>login</Text>
-          </TouchableOpacity>
+
+          <LgsButton
+            style={{ marginTop: 30 }}
+            title='login'
+            onPress={() => firebaselogin()} />
+
+
+
+
+
           <TouchableOpacity onPress={() => logout()}>
             <Text>logout</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => signIn()}>
-            <Text>signIn</Text>
           </TouchableOpacity>
         </ContentContainer>
       </Scroll>
@@ -136,7 +134,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   input: {
-    marginTop: 10,
+    marginTop: 40,
     borderRadius: 8,
   },
 });

@@ -6,7 +6,7 @@ import BottomBar from "./BottomBar";
 import "react-native-gesture-handler";
 import Result from "../pages/Result";
 import MyFavoriteFileDetail from "../pages/MyFavorite/MyFavoriteFileDetail";
-import Signup from "../pages/signup";
+import Signup from "../pages/Signup";
 
 const Base = createStackNavigator();
 
