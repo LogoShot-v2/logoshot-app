@@ -49,17 +49,19 @@ const TextSearch = ({ navigation: { navigate } }) => {
     };
   }, []);
   const onSearch = async () => {
-    const data = await SearchText(
-      searchKeywords,
-      isSimSound,
-      isSimShape,
-      target_classcodes,
-      target_applicant,
-      target_startTime,
-      target_endTime,
-    );
-    navigate("SearchResult");
-    console.log(checkedW);
+
+    /*    const data = await SearchText(
+          searchKeywords,
+          isSimSound,
+          isSimShape,
+          target_classcodes,
+          target_applicant,
+          target_startTime,
+          target_endTime,
+        ); */
+
+    navigate("Result");
+
   };
 
   const [open, setOpen] = useState(false);

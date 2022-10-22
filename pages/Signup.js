@@ -10,7 +10,7 @@ import LgsButton from "../components/lgsButton";
 import LgsGobackButton from "../components/lgsGobackButton";
 
 
-const Signup = () => {
+const Signup = ({ navigation: { navigate } }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const signIn = async () => {
@@ -20,11 +20,23 @@ const Signup = () => {
             `驗證信已寄至${signInStatus}，請至信箱中點擊連結完成驗證。（請小心，驗證信有可能會被信箱中被歸類為垃圾信件）`
         );
     };
+
+    const goBack = async () => { navigate("Home"); };
     return (
         <Background>
             <Scroll>
+
                 <ContentContainer>
-                    <LgsGobackButton />
+                    <View
+                        style={{ flexDirection: "row", justifyContent: 'space-between' }} >
+                        <LgsGobackButton
+                            goBack={goBack} />
+                        <TouchableOpacity
+
+                            onPress={() => logout()}>
+                            <Text>logout</Text>
+                        </TouchableOpacity>
+                    </View>
                     <LgsTextInput
                         style={styles.input}
                         placeholder={"請輸入電子郵件"}
@@ -39,12 +51,11 @@ const Signup = () => {
                     />
 
                     <LgsButton
+                        style={{ marginTop: 30, }}
                         title='Signup' />
 
 
-                    <TouchableOpacity onPress={() => logout()}>
-                        <Text>logout</Text>
-                    </TouchableOpacity>
+
                 </ContentContainer>
             </Scroll>
         </Background>
