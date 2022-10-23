@@ -19,18 +19,22 @@ import { BottomSheet, ListItem } from "@rneui/themed";
 import { Chip, ThemeProvider, Button } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 import * as ImagePicker from "expo-image-picker";
-import LgsTextInput from "../components/lgsTextInput";
-import LgsPhotoIndicator from "../components/lgsPhotoIndicator";
+import LgsTextInput from "../../components/lgsTextInput";
+import LgsPhotoIndicator from "../../components/lgsPhotoIndicator";
 // import { ScrollView } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import LgsButton from "../components/lgsButton";
-import { SearchImage, Searching, TextSearch } from "../axios/api";
-import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
-import { classCodeList, FONTS, SIZES } from "../constant";
+import LgsButton from "../../components/lgsButton";
+import { SearchImage, Searching, TextSearch } from "../../axios/api";
+import {
+  Background,
+  Scroll,
+  ContentContainer,
+} from "../../components/lgsScreen";
+import { classCodeList, FONTS, SIZES } from "../../constant";
 import DropDownPicker from "react-native-dropdown-picker";
 import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolicateStackTrace";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import style from "./style";
 const ImageSearch = ({ route: { params } }) => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -236,7 +240,7 @@ const ImageSearch = ({ route: { params } }) => {
                     onPress={() => setIsImagePickerDrawerVisible(true)}
                   >
                     <Image
-                      source={require("../assets/readdImageButton.png")}
+                      source={require("../../assets/readdImageButton.png")}
                       style={style.readdImageButton}
                     />
                   </TouchableOpacity>
@@ -248,7 +252,7 @@ const ImageSearch = ({ route: { params } }) => {
                 onPress={() => setIsImagePickerDrawerVisible(true)}
               >
                 <Image
-                  source={require("../assets/addImageButton.png")}
+                  source={require("../../assets/addImageButton.png")}
                   style={style.addImageButtonImage}
                 />
               </TouchableOpacity>
@@ -399,41 +403,5 @@ const ImageSearch = ({ route: { params } }) => {
     </>
   );
 };
-const style = StyleSheet.create({
-  blueText: {
-    color: "#5173B7",
-    flex: 1,
-  },
-  readdImageButton: {
-    height: 24,
-    width: 24,
-  },
-  imagePickerButton: {
-    marginVertical: 10,
-    height: 178,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 8,
-    borderWidth: 0.4,
-  },
-  addImageButtonImage: {
-    height: 72,
-    width: 64,
-  },
-  input: {
-    marginVertical: 10,
-    height: 50,
-  },
-  photoIndicator: {
-    marginTop: 20,
-    borderRadius: 20,
-  },
-  rangeContainer: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "center",
-    alignContent: "center",
-  },
-});
 
 export default ImageSearch;

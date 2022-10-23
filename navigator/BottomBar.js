@@ -1,8 +1,8 @@
 import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import "react-native-gesture-handler";
-import TextSearch from "../pages/TextSearch";
-import ImageSearch from "../pages/ImageSearch";
+import TextSearch from "../pages/Search/TextSearch";
+import ImageSearch from "../pages/Search/ImageSearch";
 import MyFavorite from "../pages/MyFavorite/MyFavorite";
 import Log from "../pages/Log/Log";
 import Home from "../pages/Home";
@@ -17,6 +17,7 @@ const BottomBar = () => {
         name="TextSearch"
         component={TextSearch}
         options={{
+          unmountOnBlur: true,
           tabBarLabel: "文字搜尋",
           headerShown: false,
           tabBarIcon: ({ color }) => (
@@ -32,6 +33,7 @@ const BottomBar = () => {
         name="ImageSearch"
         component={ImageSearch}
         options={{
+          unmountOnBlur: true,
           tabBarLabel: "圖片搜尋",
           headerShown: false,
           tabBarIcon: ({ color }) => (
@@ -62,6 +64,7 @@ const BottomBar = () => {
         name="MyFavorite"
         component={MyFavorite}
         options={{
+          unmountOnBlur: true,
           tabBarLabel: "我的最愛",
           headerShown: false,
           tabBarIcon: ({ color }) => (
@@ -77,6 +80,7 @@ const BottomBar = () => {
         name="Log"
         component={Log}
         options={{
+          unmountOnBlur: true,
           tabBarLabel: "瀏覽紀錄",
           headerShown: false,
           tabBarIcon: ({ color }) => (

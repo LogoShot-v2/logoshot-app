@@ -6,9 +6,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // 登入
 export async function LoginToFireBase(email, password) {
+  console.log(34);
   return await axios
     .post("/login", { email: email, password: password })
     .then((res) => {
+      console.log(res);
       return res.data;
     });
 }
@@ -113,10 +115,10 @@ export async function SearchImage(
 }
 // 文字搜尋頁
 export async function SearchText(
-  searchKeywords = "又昕",
+  searchKeywords = "",
   isSimSound = false,
   isSimShape = false,
-  target_classcodes = ["123", "234"],
+  target_classcodes = [],
   target_color = "",
   target_applicant = "",
   target_startTime = "",
@@ -144,7 +146,7 @@ export async function SearchText(
       responseType: "json",
     })
     .then((res) => {
-      console.log(res);
+      console.log(res.data);
     })
     .catch((e) => {
       console.log("e", e);

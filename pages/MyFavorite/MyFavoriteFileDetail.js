@@ -35,7 +35,7 @@ const MyFavoriteFileDetail = ({
   route: {
     params: { esIds, fileId, fileName },
   },
-  navigation: { goBack },
+  navigation: { goBack, navigate },
 }) => {
   const [tradeMarks, setTradeMarks] = useState([]);
 
@@ -45,7 +45,7 @@ const MyFavoriteFileDetail = ({
       setTradeMarks(data);
     };
     asyncfunction();
-  }, []);
+  }, [navigate]);
 
   return (
     <Background>
