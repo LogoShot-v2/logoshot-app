@@ -30,7 +30,7 @@ import { SearchText } from "../../axios/api";
 import DropDownPicker from "react-native-dropdown-picker";
 import style from "./style";
 
-const TextSearch = ({ navigation: { navigate } }) => {
+const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
   const [searchKeywords, setsearchKeywords] = React.useState("");
   const [isSimShape, setisSimShape] = React.useState(true);
@@ -81,6 +81,17 @@ const TextSearch = ({ navigation: { navigate } }) => {
     { label: "10", value: "10" },
   ]);
 
+  useEffect(() => {
+    console.log("params", params);
+    setsearchKeywords(params["searchKeywords"]);
+    setisSimShape(params["isSimShape"]);
+    setisSimSound(params["isSimSound"]);
+    settarget_applicant(params["targetApplicant"]);
+    settarget_startTime(params["targetStartTime"]);
+    settarget_endTime(params["targetEndTime"]);
+    settarget_classcodes(params["targetClasscodes"]);
+  }, [params]);
+
   return (
     <Background>
       <Scroll>
@@ -122,6 +133,16 @@ const TextSearch = ({ navigation: { navigate } }) => {
             dropDownContainerStyle={{
               backgroundColor: "#ffffff",
             }}
+            badgeStyle={{
+              padding: 5,
+              backgroundColor: "red",
+            }}
+            badgeTextStyle={{
+              width: 100,
+              height: 20,
+              fontSize: 8,
+            }}
+            bad
             placeholder={"商標搜尋類別"}
             searchable={true}
             open={open}

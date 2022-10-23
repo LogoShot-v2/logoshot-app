@@ -146,7 +146,7 @@ export async function SearchText(
       responseType: "json",
     })
     .then((res) => {
-      console.log(res);
+      console.log(res.data);
     })
     .catch((e) => {
       console.log("e", e);
