@@ -49,8 +49,9 @@ const Login = ({ navigation: { navigate } }) => {
   };
   const firebaselogin = async () => {
     try {
+      console.log(1);
       const loginDatas = await LoginToFireBase(email, password);
-
+      console.log(2);
       await AsyncStorage.setItem(
         "@userInfo",
         JSON.stringify({
@@ -81,14 +82,14 @@ const Login = ({ navigation: { navigate } }) => {
     console.log("logout clear:", await AsyncStorage.getAllKeys());
   };
   // 禁區----------------------
-  const goBack = async () => { navigate("Home"); };
+  const goBack = () => {
+    navigate("Home");
+  };
   return (
     <Background>
       <Scroll>
         <ContentContainer>
-          <LgsGobackButton
-            goBack={goBack}
-          />
+          <LgsGobackButton goBack={goBack} />
           <LgsTextInput
             style={styles.input}
             placeholder={"請輸入電子郵件"}
@@ -104,18 +105,13 @@ const Login = ({ navigation: { navigate } }) => {
           <LgsButton
             style={{ marginTop: 30 }}
             onPress={() => facebooklogin()}
-            title='FaceBooklogin' />
-
-
+            title="FaceBooklogin"
+          />
           <LgsButton
             style={{ marginTop: 30 }}
-            title='login'
-            onPress={() => firebaselogin()} />
-
-
-
-
-
+            title="login"
+            onPress={() => firebaselogin()}
+          />
           <TouchableOpacity onPress={() => logout()}>
             <Text>logout</Text>
           </TouchableOpacity>
