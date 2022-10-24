@@ -7,6 +7,8 @@ import "react-native-gesture-handler";
 import Result from "../pages/Result";
 import MyFavoriteFileDetail from "../pages/MyFavorite/MyFavoriteFileDetail";
 import Signup from "../pages/Signup";
+import ResultDetail from "../pages/ResultDetail";
+
 
 const Base = createStackNavigator();
 
@@ -37,6 +39,13 @@ const Root = () => {
       <Base.Screen
         name="Result"
         component={Result}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Base.Screen
+        name="ResultDetail"
+        component={ResultDetail}
         options={{
           headerShown: false,
         }}

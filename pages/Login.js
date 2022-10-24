@@ -68,7 +68,6 @@ const Login = ({ navigation: { navigate } }) => {
       alert(e.data);
     }
   };
-
   const signIn = async () => {
     const signInStatus = await SignInToFireBase(email, password);
 
@@ -89,7 +88,15 @@ const Login = ({ navigation: { navigate } }) => {
     <Background>
       <Scroll>
         <ContentContainer>
-          <LgsGobackButton goBack={goBack} />
+          <View
+            style={{ flexDirection: "row", justifyContent: 'space-between' }} >
+            <LgsGobackButton
+              goBack={goBack} />
+            <TouchableOpacity
+              onPress={() => logout()}>
+              <Text>logout</Text>
+            </TouchableOpacity>
+          </View>
           <LgsTextInput
             style={styles.input}
             placeholder={"請輸入電子郵件"}
@@ -109,12 +116,10 @@ const Login = ({ navigation: { navigate } }) => {
           />
           <LgsButton
             style={{ marginTop: 30 }}
-            title="login"
-            onPress={() => firebaselogin()}
-          />
-          <TouchableOpacity onPress={() => logout()}>
-            <Text>logout</Text>
-          </TouchableOpacity>
+            title='login'
+            onPress={() => firebaselogin()} />
+
+
         </ContentContainer>
       </Scroll>
     </Background>
