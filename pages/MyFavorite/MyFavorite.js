@@ -35,7 +35,13 @@ const File = ({ item }, onPressFile) => {
 };
 
 const MyFavorite = ({ navigation: { navigate } }) => {
-  const [files, setFiles] = useState(null);
+  const [files, setFiles] = useState([
+    {
+      esIds: [],
+      fileId: -1,
+      fileName: "+",
+    },
+  ]);
   const [addDialogVisible, setAddDialogVisible] = useState(false);
   const [newFileName, setNewFileName] = useState("新增資料夾");
   const onPressFile = (file) => {
@@ -62,7 +68,7 @@ const MyFavorite = ({ navigation: { navigate } }) => {
       setFiles([newObj, ...data]);
     };
     asyncfunction();
-  }, [addDialogVisible]);
+  }, [addDialogVisible, navigate]);
 
   return (
     <Provider>

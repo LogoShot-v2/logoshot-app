@@ -12,10 +12,13 @@ import {
 import { classCodeList, FONTS } from "../../constant";
 import { DateTime } from "luxon";
 
-const Record = ({ item }, userId) => {
+const Record = ({ item }, userId, toSearch) => {
   return (
     <>
-      <ListBlock style={{ flexDirection: "row" }}>
+      <ListBlock
+        style={{ flexDirection: "row" }}
+        onPress={() => toSearch(item)}
+      >
         <View style={styles.listTextContainer}>
           <Text
             style={{ ...FONTS.h4 }}
@@ -41,7 +44,7 @@ const Record = ({ item }, userId) => {
   );
 };
 
-const DateRecord = ({ item }, userId) => {
+const DateRecord = ({ item }, userId, toSearch) => {
   return (
     <>
       <View style={styles.dateContainer}>
@@ -51,23 +54,30 @@ const DateRecord = ({ item }, userId) => {
       </View>
       <FlatList
         data={item[1]}
-        renderItem={(e) => Record(e, userId)}
+        renderItem={(e) => Record(e, userId, toSearch)}
         keyExtractor={(e) => e.searchTime}
       />
     </>
   );
 };
 
-const TextLog = () => {
+const TextLog = ({ navigation: { navigate } }) => {
   const [datesBactches, setDatesBactches] = useState();
   const [userId, setUserId] = useState("");
 
-  useEffect(async () => {
-    const data = await GetSearchingHistory(false);
-    setDatesBactches(data);
-    const userInfoStr = await AsyncStorage.getItem("@userInfo");
-    const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
-    setUserId(userInfo.userId);
+  const toSearch = (item) => {
+    navigate("TextSearch", item);
+  };
+
+  useEffect(() => {
+    const asyncfunction = async () => {
+      const data = await GetSearchingHistory(false);
+      setDatesBactches(data);
+      const userInfoStr = await AsyncStorage.getItem("@userInfo");
+      const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+      setUserId(userInfo.userId);
+    };
+    asyncfunction();
   }, []);
 
   return (
@@ -77,7 +87,7 @@ const TextLog = () => {
           {datesBactches ? (
             <FlatList
               data={datesBactches}
-              renderItem={(item) => DateRecord(item, userId)}
+              renderItem={(item) => DateRecord(item, userId, toSearch)}
               keyExtractor={(item) => item[0]}
             />
           ) : null}

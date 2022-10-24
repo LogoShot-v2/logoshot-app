@@ -10,6 +10,7 @@ import LgsButton from "../components/lgsButton";
 import LgsGobackButton from "../components/lgsGobackButton";
 
 
+
 const Signup = ({ navigation: { navigate } }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

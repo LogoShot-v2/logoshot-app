@@ -14,18 +14,23 @@ import {
 } from "react-native";
 import { Checkbox } from "react-native-paper";
 import { Chip, ThemeProvider, Button, CheckBox } from "react-native-elements";
-import { icons, COLORS, FONTS, SIZES, classCodeList } from "../constant";
+import { icons, COLORS, FONTS, SIZES, classCodeList } from "../../constant";
 import RNPickerSelect from "react-native-picker-select";
-import LgsTextInput from "../components/lgsTextInput";
-import LgsCheckbox from "../components/lgsCheckbox";
-import LgsButton from "../components/lgsButton";
+import LgsTextInput from "../../components/lgsTextInput";
+import LgsCheckbox from "../../components/lgsCheckbox";
+import LgsButton from "../../components/lgsButton";
 import { RotateInDownLeft } from "react-native-reanimated";
-import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
+import {
+  Background,
+  Scroll,
+  ContentContainer,
+} from "../../components/lgsScreen";
 
-import { SearchText } from "../axios/api";
+import { SearchText } from "../../axios/api";
 import DropDownPicker from "react-native-dropdown-picker";
+import style from "./style";
 
-const TextSearch = ({ navigation: { navigate } }) => {
+const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
   const [searchKeywords, setsearchKeywords] = React.useState("");
   const [isSimShape, setisSimShape] = React.useState(true);
@@ -79,25 +84,35 @@ const TextSearch = ({ navigation: { navigate } }) => {
     { label: "10", value: "10" },
   ]);
 
+  useEffect(() => {
+    console.log("params", params);
+    setsearchKeywords(params["searchKeywords"]);
+    setisSimShape(params["isSimShape"]);
+    setisSimSound(params["isSimSound"]);
+    settarget_applicant(params["targetApplicant"]);
+    settarget_startTime(params["targetStartTime"]);
+    settarget_endTime(params["targetEndTime"]);
+    settarget_classcodes(params["targetClasscodes"]);
+  }, [params]);
+
   return (
     <Background>
       <Scroll>
         <ContentContainer>
-          {/* <View style={{ marginTop: 35, paddingHorizontal: 20 }}> */}
+          <Text style={FONTS.h1}>文字商標查詢</Text>
           <LgsTextInput
-            placeholder="Click here…"
-            title="文字商標查詢"
+            placeholder="請輸入關鍵字"
+            style={style.input}
             onSubmitEditing={Keyboard.dismiss}
             onChangeText={(query) => setsearchKeywords(query)}
             value={searchKeywords}
           />
-          {/* </View> */}
           <View
             style={{
               ...style.input,
               flexDirection: "row",
               alignItems: "center",
-              justifyContent: 'space-around',
+              justifyContent: "space-around",
               marginBottom: 10,
             }}
           >
@@ -117,19 +132,21 @@ const TextSearch = ({ navigation: { navigate } }) => {
               color={"green"}
             />
           </View>
-
-          <Text
-            style={{
-              ...FONTS.h2,
-              marginBottom: 10,
-            }}
-          >
-            商標搜尋類別
-          </Text>
           <DropDownPicker
             dropDownContainerStyle={{
               backgroundColor: "#ffffff",
             }}
+            badgeStyle={{
+              padding: 5,
+              backgroundColor: "red",
+            }}
+            badgeTextStyle={{
+              width: 100,
+              height: 20,
+              fontSize: 8,
+            }}
+            bad
+            placeholder={"商標搜尋類別"}
             searchable={true}
             open={open}
             value={target_classcodes}
@@ -188,55 +205,12 @@ const TextSearch = ({ navigation: { navigate } }) => {
             onPress={onSearch}
             onChangeText={(query) => settarget_endTime(query)}
             value={target_endTime}
+            disabled={!searchKeywords}
           />
         </ContentContainer>
       </Scroll>
     </Background>
   );
 };
-
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 50,
-    justifyContent: "flex-start",
-  },
-  input: {
-    marginTop: 10,
-    // padding: 10,
-    // borderWidth: 0.5,
-    // borderRadius: 8,
-  },
-  twoinput: {
-    flex: 1,
-    marginRight: 10,
-
-    marginLeft: 10,
-  },
-
-  status: {
-    padding: 10,
-    textAlign: "center",
-  },
-  chip: {
-    backgroundColor: "#2096F3",
-    margin: 4,
-    width: 150,
-  },
-  chipText: {
-    color: "#ffffff",
-  },
-  checkboxContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-
-    marginBottom: 5,
-  },
-  checkbox: {
-    alignSelf: "center",
-  },
-});
-
-/* Rectangle 2 */
 
 export default TextSearch;
