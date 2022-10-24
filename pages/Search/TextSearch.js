@@ -54,7 +54,6 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
     };
   }, []);
   const onSearch = async () => {
-
     /*    const data = await SearchText(
           searchKeywords,
           isSimSound,
@@ -66,7 +65,6 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
         ); */
 
     navigate("Result");
-
   };
 
   const [open, setOpen] = useState(false);
@@ -85,14 +83,16 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
   ]);
 
   useEffect(() => {
-    console.log("params", params);
-    setsearchKeywords(params["searchKeywords"]);
-    setisSimShape(params["isSimShape"]);
-    setisSimSound(params["isSimSound"]);
-    settarget_applicant(params["targetApplicant"]);
-    settarget_startTime(params["targetStartTime"]);
-    settarget_endTime(params["targetEndTime"]);
-    settarget_classcodes(params["targetClasscodes"]);
+    // console.log("params", params);
+    if (params) {
+      setsearchKeywords(params["searchKeywords"]);
+      setisSimShape(params["isSimShape"]);
+      setisSimSound(params["isSimSound"]);
+      settarget_applicant(params["targetApplicant"]);
+      settarget_startTime(params["targetStartTime"]);
+      settarget_endTime(params["targetEndTime"]);
+      settarget_classcodes(params["targetClasscodes"]);
+    }
   }, [params]);
 
   return (
