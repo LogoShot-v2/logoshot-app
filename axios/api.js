@@ -2,6 +2,7 @@ global.Buffer = global.Buffer || require("buffer").Buffer;
 import axios from "./axios";
 import * as FileSystem from "expo-file-system";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StyleSheet, Text, View, Alert } from "react-native";
 // import { images, icons, COLORS, FONTS, SIZES } from "../constant/";
 
 // 登入
@@ -35,19 +36,24 @@ export async function SignInToFireBase(email, password) {
 export async function GetSearchingHistory(isImageSearch) {
   const userInfoStr = await AsyncStorage.getItem("@userInfo");
   const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
-  return await axios
-    .get(
-      "/getHistory?userId=" +
-        (userInfo.userId || "1234") +
-        "&userType=" +
-        userInfo.userType +
-        "&isImageSearch=" +
-        isImageSearch
-    )
-    .then((res) => {
-      // console.log(res.data);
-      return res.data;
-    });
+  // console.log(userInfo);
+  if (userInfo) {
+    return await axios
+      .get(
+        "/getHistory?userId=" +
+          userInfo.userId +
+          "&userType=" +
+          userInfo.userType +
+          "&isImageSearch=" +
+          isImageSearch
+      )
+      .then((res) => {
+        // console.log(res.data);
+        return res.data;
+      });
+  } else {
+    Alert.alert("如需使用搜尋紀錄功能，請先登入");
+  }
 }
 
 // 圖片搜尋頁
@@ -89,7 +95,7 @@ export async function SearchImage(
   const userInfoStr = await AsyncStorage.getItem("@userInfo");
   const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
   data.append("userId", userInfo ? userInfo.userId : "1234");
-  data.append("userType", userInfo ? userType : "manual");
+  data.append("userType", userInfo ? userInfo.userType : "manual");
 
   if (!isOldImage) {
     const base64 = await FileSystem.readAsStringAsync(Image.uri, {
@@ -136,9 +142,8 @@ export async function SearchText(
 
   const userInfoStr = await AsyncStorage.getItem("@userInfo");
   const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
-  // console.log(userInfo);
   data.append("userId", userInfo ? userInfo.userId : "1234");
-  data.append("userType", userInfo ? userType : "manual");
+  data.append("userType", userInfo ? userInfo.userType : "manual");
 
   return await axios
     .post("/postTextSearch", data, {
@@ -157,17 +162,21 @@ export async function SearchText(
 export async function GetMyFavoriteFiles() {
   const userInfoStr = await AsyncStorage.getItem("@userInfo");
   const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
-  return await axios
-    .get(
-      "/getMyFavoriteFile?userId=" +
-        (userInfo.userId || "1234") +
-        "&userType=" +
-        userInfo.userType
-    )
-    .then((res) => {
-      // console.log(res.data);
-      return res.data;
-    });
+  if (userInfo) {
+    return await axios
+      .get(
+        "/getMyFavoriteFile?userId=" +
+          userInfo.userId +
+          "&userType=" +
+          userInfo.userType
+      )
+      .then((res) => {
+        // console.log(res.data);
+        return res.data;
+      });
+  } else {
+    Alert.alert("如需使用我的最愛，請先登入");
+  }
 }
 // 我的最愛資料夾內容
 export async function GetMyFavoriteFileDetail(esIds) {
@@ -181,14 +190,17 @@ export async function GetMyFavoriteFileDetail(esIds) {
 export async function PostAddFavoriteFile(fileName) {
   const userInfoStr = await AsyncStorage.getItem("@userInfo");
   const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
-
-  return await axios
-    .post("/postAddMyFavoriteFile", {
-      userId: userInfo.userId,
-      userType: userInfo.userType,
-      fileName,
-    })
-    .then((res) => {
-      console.log(res.data["res"]["fileName"]);
-    });
+  if (userInfo) {
+    return await axios
+      .post("/postAddMyFavoriteFile", {
+        userId: userInfo.userId,
+        userType: userInfo.userType,
+        fileName,
+      })
+      .then((res) => {
+        console.log(res.data["res"]["fileName"]);
+      });
+  } else {
+    Alert.alert("如需新增我的最愛資料夾，請先登入");
+  }
 }
