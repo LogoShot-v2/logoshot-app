@@ -53,6 +53,8 @@ export async function GetSearchingHistory(isImageSearch) {
       });
   } else {
     Alert.alert("如需使用搜尋紀錄功能，請先登入");
+
+    return;
   }
 }
 
@@ -176,6 +178,7 @@ export async function GetMyFavoriteFiles() {
       });
   } else {
     Alert.alert("如需使用我的最愛，請先登入");
+    return;
   }
 }
 // 我的最愛資料夾內容
