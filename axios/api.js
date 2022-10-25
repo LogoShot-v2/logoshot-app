@@ -38,11 +38,11 @@ export async function GetSearchingHistory(isImageSearch) {
   return await axios
     .get(
       "/getHistory?userId=" +
-      (userInfo.userId || "1234") +
-      "&userType=" +
-      userInfo.userType +
-      "&isImageSearch=" +
-      isImageSearch
+        (userInfo.userId || "1234") +
+        "&userType=" +
+        userInfo.userType +
+        "&isImageSearch=" +
+        isImageSearch
     )
     .then((res) => {
       // console.log(res.data);
@@ -88,8 +88,8 @@ export async function SearchImage(
 
   const userInfoStr = await AsyncStorage.getItem("@userInfo");
   const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
-  data.append("userId", userInfo.userId || "1234");
-  data.append("userType", userInfo.userType || "manual");
+  data.append("userId", userInfo ? userInfo.userId : "1234");
+  data.append("userType", userInfo ? userType : "manual");
 
   if (!isOldImage) {
     const base64 = await FileSystem.readAsStringAsync(Image.uri, {
@@ -137,8 +137,8 @@ export async function SearchText(
   const userInfoStr = await AsyncStorage.getItem("@userInfo");
   const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
   // console.log(userInfo);
-  data.append("userId", userInfo.userId || "1234");
-  data.append("userType", userInfo.userType || "manual");
+  data.append("userId", userInfo ? userInfo.userId : "1234");
+  data.append("userType", userInfo ? userType : "manual");
 
   return await axios
     .post("/postTextSearch", data, {
@@ -160,9 +160,9 @@ export async function GetMyFavoriteFiles() {
   return await axios
     .get(
       "/getMyFavoriteFile?userId=" +
-      (userInfo.userId || "1234") +
-      "&userType=" +
-      userInfo.userType
+        (userInfo.userId || "1234") +
+        "&userType=" +
+        userInfo.userType
     )
     .then((res) => {
       // console.log(res.data);
