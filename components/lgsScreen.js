@@ -5,14 +5,24 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
   Image,
 } from "react-native";
 import React from "react";
 import styled from "styled-components/native";
 
-const Background = styled(SafeAreaView)`
-  background-color: #ffffff;
-`;
+const Background = ({ children }) => (
+  <SafeAreaView style={{ backgroundColor: "#ffffff" }}>
+    <KeyboardAvoidingView
+      style={{ backgroundColor: "#ffffff" }}
+      behavior="padding"
+      enabled
+      keyboardVerticalOffset={10}
+    >
+      {children}
+    </KeyboardAvoidingView>
+  </SafeAreaView>
+);
 
 const Scroll = styled(ScrollView)`
   height: 100%;
