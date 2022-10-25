@@ -54,16 +54,16 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
     };
   }, []);
   const onSearch = async () => {
-    /*    const data = await SearchText(
-          searchKeywords,
-          isSimSound,
-          isSimShape,
-          target_classcodes,
-          target_applicant,
-          target_startTime,
-          target_endTime,
-        ); */
-
+    const data = await SearchText(
+      searchKeywords,
+      isSimSound,
+      isSimShape,
+      target_classcodes,
+      target_applicant,
+      target_startTime,
+      target_endTime,
+    );
+    console.log(data);
     navigate("Result");
   };
 
@@ -183,6 +183,8 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             <LgsTextInput
               placeholder="yyyy/mm/dd"
               style={{ flex: 1, justifyContent: "flex-start" }}
+              onChangeText={(query) => settarget_endTime(query)}
+              value={target_endTime}
             />
             <Text
               style={{

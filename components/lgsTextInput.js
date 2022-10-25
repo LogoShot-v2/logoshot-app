@@ -4,7 +4,7 @@ import { TextInput, Text, StyleSheet, View, Keyboard } from "react-native";
 import { icons, COLORS, FONTS, SIZES } from "../constant";
 
 const LgsTextInput = ({ placeholder, style, value, onChangeText, title }) => {
-  // const [searchQuery, setSearchQuery] = React.useState("");
+
 
   return (
     <View style={style}>
