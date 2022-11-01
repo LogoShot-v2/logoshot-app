@@ -1,44 +1,35 @@
-import * as React from 'react';
-import { Checkbox } from 'react-native-paper';
-import { StyleSheet, Text, SafeAreaView, View } from 'react-native';
-import { icons, COLORS, FONTS, SIZES } from "../constant";
+import React, { useState, useEffect } from "react";
+import { FONTS } from "../constant";
+import { StyleSheet, Text, View, Image } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-
-const MyComponent = ({ title }) => {
-    const [checked, setChecked] = React.useState(false);
-
-    return (
-        <View style={styles.checkboxContainer}>
-            {title ? <Text style={{
-                ...FONTS.h4
-            }}>{title}</Text> : null}
-
-            <Checkbox
-                status={checked ? 'checked' : 'unchecked'}
-                onPress={() => {
-                    setChecked(!checked);
-                }}
-                color={'green'}
-
-            />
-        </View>
-
-    );
+const LgsCheckbox = ({ status, onPress }) => {
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      {status === "checked" ? (
+        <Image
+          style={styles.image}
+          source={require("../assets/checked.png")}
+        ></Image>
+      ) : (
+        <Image
+          style={styles.image}
+          source={require("../assets/unchecked.png")}
+        ></Image>
+      )}
+    </TouchableOpacity>
+  );
 };
 
-export default MyComponent;
+export default LgsCheckbox;
 
 const styles = StyleSheet.create({
-    checkboxContainer: {
-
-        flexDirection: "row",
-        alignItems: "center",
-
-        marginBottom: 5,
-
-    },
-    checkbox: {
-
-        alignSelf: "center",
-    },
+  container: {
+    height: 20,
+    width: 20,
+  },
+  image: {
+    height: 20,
+    width: 20,
+  },
 });

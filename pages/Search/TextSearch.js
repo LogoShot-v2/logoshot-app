@@ -61,7 +61,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
       target_classcodes,
       target_applicant,
       target_startTime,
-      target_endTime,
+      target_endTime
     );
     console.log(data);
     navigate("Result");
@@ -117,14 +117,14 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             }}
           >
             <Text>字音相似</Text>
-            <Checkbox
+            <LgsCheckbox
               status={isSimSound ? "checked" : "unchecked"}
               onPress={() => {
                 setisSimSound(!isSimSound);
               }}
             />
             <Text>字型相似</Text>
-            <Checkbox
+            <LgsCheckbox
               status={isSimShape ? "checked" : "unchecked"}
               onPress={() => {
                 setisSimShape(!isSimShape);

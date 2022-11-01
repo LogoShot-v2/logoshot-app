@@ -20,6 +20,7 @@ import { Chip, ThemeProvider, Button } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 import * as ImagePicker from "expo-image-picker";
 import LgsTextInput from "../../components/lgsTextInput";
+import LgsCheckbox from "../../components/lgsCheckbox";
 import LgsPhotoIndicator from "../../components/lgsPhotoIndicator";
 // import { ScrollView } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -346,7 +347,7 @@ const ImageSearch = ({ route: { params } }) => {
               }}
             >
               <Text>進階搜尋</Text>
-              <Checkbox
+              <LgsCheckbox
                 status={advance ? "checked" : "unchecked"}
                 onPress={() => {
                   setAdvance(!advance);
