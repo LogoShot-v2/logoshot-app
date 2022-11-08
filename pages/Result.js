@@ -6,17 +6,24 @@ import { Scroll } from "../components/lgsScreen";
 import { SearchText } from "../axios/api"
 
 
-const Array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+const Array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ,20, 21, 22, 23, 24, 25,1
+  ,1,1,1,1,1,1,1,1,1,1,1,1,1,]
 
 
 
 const Result = ({ navigation: { navigate }, route: { params } }) => {
+  const [datesBactches, setDatesBactches] = useState();
 
-  useEffect(() => {
+  useEffect(() => {   
+   
 
     const asyncfunction = async () => {
+      setDatesBactches(params);
       console.log("up")
-      console.log(params.data)
+      // console.log(params.data[12]["_source"]["tmark-image-url_1"])
+      // console.log(params.data.length)
+      console.log(datesBactches)
+
       console.log("down")
 
     };
@@ -27,6 +34,7 @@ const Result = ({ navigation: { navigate }, route: { params } }) => {
     <View style={styles.container}>
       <Scroll>
         <View style={styles.searchResults}>
+        <Text style={{ fontWeight: "bold", fontSize: 18, marginVertical: 10, marginLeft: 15 }}>{params.data.length } result(s) found.</Text>
           {Array.map((values, idx) => (
             <View style={idx === 0 ? styles.searchResultsRow : { ...styles.searchResultsRow, borderTopWidth: 1 }} key={idx}>
               <View style={{ ...styles.searchResultsBox, borderRightWidth: 1 }}>
@@ -34,13 +42,13 @@ const Result = ({ navigation: { navigate }, route: { params } }) => {
                   style={styles.searchResultsButton}
                   onPress={() => {
 
-                    navigate("ResultDetail", {});
+                    navigate("ResultDetail", {datesBactches});
                   }}
                 >
                   <Image source={{
                     uri:
                       "http://140.112.106.88:8082/"
-                      + Object["tmark-image-url_1"]
+                      + params.data[2*idx]["_source"]["tmark-image-url_1"]
 
                   }}
                     style={styles.searchResultsImage} />
@@ -51,10 +59,14 @@ const Result = ({ navigation: { navigate }, route: { params } }) => {
                 <TouchableOpacity
                   style={styles.searchResultsButton}
                   onPress={() => {
-                    // navigation.push("ResultDetail", { uri: values[1], metadatas: photos.metadatas[idx][1] });
+                     navigate("ResultDetail", { datesBactches});
                   }}
                 >
-                  <Image source={require("../assets/Logoshot.png")} style={styles.searchResultsImage} />
+                  <Image source={{  
+                    uri:
+                      "http://140.112.106.88:8082/"
+                      + params.data[2*idx+1]["_source"]["tmark-image-url_1"]
+                  }} style={styles.searchResultsImage} />
                   <Text style={styles.searchResultsText}>2</Text>
                 </TouchableOpacity>
               </View>

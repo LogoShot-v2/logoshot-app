@@ -70,7 +70,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
       target_endTime
     );
     // console.log(data);
-    navigate('Result', { data });
+    navigate('Result', { data: data });
   };
 
 

@@ -41,11 +41,11 @@ export async function GetSearchingHistory(isImageSearch) {
     return await axios
       .get(
         "/getHistory?userId=" +
-          userInfo.userId +
-          "&userType=" +
-          userInfo.userType +
-          "&isImageSearch=" +
-          isImageSearch
+        userInfo.userId +
+        "&userType=" +
+        userInfo.userType +
+        "&isImageSearch=" +
+        isImageSearch
       )
       .then((res) => {
         // console.log(res.data);
@@ -153,8 +153,8 @@ export async function SearchText(
       responseType: "json",
     })
     .then((res) => {
-      console.log(res.data);
-      return res.data;
+      console.log(res.data.resultData);
+      return res.data.resultData;
     })
     .catch((e) => {
       console.log("e", e);
@@ -168,9 +168,9 @@ export async function GetMyFavoriteFiles() {
     return await axios
       .get(
         "/getMyFavoriteFile?userId=" +
-          userInfo.userId +
-          "&userType=" +
-          userInfo.userType
+        userInfo.userId +
+        "&userType=" +
+        userInfo.userType
       )
       .then((res) => {
         // console.log(res.data);

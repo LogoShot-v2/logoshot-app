@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image, FlatList, StatusBar, TouchableOpacity, Table } from "react-native";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
 import Carousel from 'react-native-snap-carousel';
@@ -7,8 +7,23 @@ import { SearchText } from "../axios/api"
 
 
 
-const ResultDetail = () => {
+const ResultDetail = ({ navigation: { navigate }, route: { params } }) => {
+    useEffect(() => {   
+   
 
+        const asyncfunction = async () => {
+
+          console.log("up")
+          console.log("happy")
+            
+          console.log(params.datesBactches)
+    
+          console.log("down")
+    
+        };
+        asyncfunction();
+      }, []);
+    
     return (
         <Background>
             <Scroll>
@@ -17,9 +32,10 @@ const ResultDetail = () => {
                         <Image source={require("../assets/Logoshot.png")} style={{ resizeMode: "contain", width: "75%", height: "90%" }} />
                     </View>
                     <View style={{ height: "60%", backgroundColor: 'FFFFFF' }}>
-                        <Table style={{ backgroundColor: 'FFFFFF' }} borderStyle={{ borderWidth: 1, borderColor: '#1E1F20' }}>
+                        {/* <Table style={{ backgroundColor: 'FFFFFF' }} borderStyle={{ borderWidth: 1, borderColor: '#1E1F20' }}>
 
-                        </Table>
+                        </Table> */}
+                        <Text>123</Text>
 
                     </View>
                 </View>
