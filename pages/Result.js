@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image, FlatList, StatusBar, TouchableOpacity } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Scroll } from "../components/lgsScreen";
+import { SearchText } from "../axios/api"
 
 
 const Array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
-const Result = () => {
 
+
+const Result = ({ navigation: { navigate }, route: { params } }) => {
+
+  useEffect(() => {
+
+    const asyncfunction = async () => {
+      console.log("up")
+      console.log(params.data)
+      console.log("down")
+
+    };
+    asyncfunction();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -18,10 +33,17 @@ const Result = () => {
                 <TouchableOpacity
                   style={styles.searchResultsButton}
                   onPress={() => {
-                    // navigation.push("ResultDetail", { uri: values[0], metadatas: photos.metadatas[idx][0] });
+
+                    navigate("ResultDetail", {});
                   }}
                 >
-                  <Image source={require("../assets/Logoshot.png")} style={styles.searchResultsImage} />
+                  <Image source={{
+                    uri:
+                      "http://140.112.106.88:8082/"
+                      + Object["tmark-image-url_1"]
+
+                  }}
+                    style={styles.searchResultsImage} />
                   <Text style={styles.searchResultsText}>1</Text>
                 </TouchableOpacity>
               </View>

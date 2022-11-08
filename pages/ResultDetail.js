@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Image, FlatList, StatusBar, TouchableOpacity, Table } from "react-native";
+import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
+import Carousel from 'react-native-snap-carousel';
+import { SearchText } from "../axios/api"
+
+
 
 
 const ResultDetail = () => {
@@ -8,13 +13,14 @@ const ResultDetail = () => {
         <Background>
             <Scroll>
                 <View>
-                    <View style={{ height: "40%", alignItems: "center", justifyContent: "center", backgroundColor: COLORS.white }}>
+                    <View style={{ height: "40%", alignItems: "center", justifyContent: "center", backgroundColor: '#FFFFFF' }}>
                         <Image source={require("../assets/Logoshot.png")} style={{ resizeMode: "contain", width: "75%", height: "90%" }} />
                     </View>
-                    <View style={{ height: "60%", backgroundColor: COLORS.white, padding: SIZES.padding }}>
-                        <Table style={{ backgroundColor: COLORS.white }} borderStyle={{ borderWidth: 1, borderColor: COLORS.black }}>
+                    <View style={{ height: "60%", backgroundColor: 'FFFFFF' }}>
+                        <Table style={{ backgroundColor: 'FFFFFF' }} borderStyle={{ borderWidth: 1, borderColor: '#1E1F20' }}>
 
                         </Table>
+
                     </View>
                 </View>
             </Scroll>

@@ -11,7 +11,11 @@ import {
   TouchableOpacity,
   Alert,
   Navigator,
+  Pressable,
 } from "react-native";
+import { NavigationContainer } from '@react-navigation/native';
+import { DateTimePicker } from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-datepicker';
 import { Checkbox } from "react-native-paper";
 import { Chip, ThemeProvider, Button, CheckBox } from "react-native-elements";
 import { icons, COLORS, FONTS, SIZES, classCodeList } from "../../constant";
@@ -29,6 +33,7 @@ import {
 import { SearchText } from "../../axios/api";
 import DropDownPicker from "react-native-dropdown-picker";
 import style from "./style";
+import { async } from "rxjs";
 
 const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
@@ -36,6 +41,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
   const [isSimShape, setisSimShape] = React.useState(true);
   const [isSimSound, setisSimSound] = React.useState(true);
   const [target_applicant, settarget_applicant] = React.useState("");
+  const [date, setDate] = useState("");
 
   const [target_startTime, settarget_startTime] = React.useState("");
   const [target_endTime, settarget_endTime] = React.useState("");
@@ -63,27 +69,17 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
       target_startTime,
       target_endTime
     );
-    console.log(data);
-    navigate("Result");
+    // console.log(data);
+    navigate('Result', { data });
   };
+
 
   const [open, setOpen] = useState(false);
   const [target_classcodes, settarget_classcodes] = useState([]);
-  const [items, setItems] = useState([
-    { label: "1", value: "1" },
-    { label: "2", value: "2" },
-    { label: "3", value: "3" },
-    { label: "4", value: "4" },
-    { label: "5", value: "5" },
-    { label: "6", value: "6" },
-    { label: "7", value: "7" },
-    { label: "8", value: "8" },
-    { label: "9", value: "9" },
-    { label: "10", value: "10" },
-  ]);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-    // console.log("params", params);
+    //console.log("params", params);
     if (params) {
       setsearchKeywords(params["searchKeywords"]);
       setisSimShape(params["isSimShape"]);
@@ -178,14 +174,49 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             style={{
               flexDirection: "row",
               width: "100%",
+
             }}
           >
-            <LgsTextInput
+            {/* <LgsTextInput
               placeholder="yyyy/mm/dd"
               style={{ flex: 1, justifyContent: "flex-start" }}
               onChangeText={(query) => settarget_endTime(query)}
               value={target_endTime}
+            /> */}
+            <DatePicker
+              date={date}
+              mode="date"
+              placeholder="select date"
+              format="DD/MM/YYYY"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                flex: 1,
+                dateIcon: {
+                  position: 'relative',
+                  // right: -5,
+                  // top: 4,
+                  // marginLeft: 0,
+                },
+                dateInput: {
+                  borderColor: "gray",
+                  alignItems: "flex-start",
+                  borderWidth: 0,
+                  borderBottomWidth: 1,
+                },
+                placeholderText: {
+                  fontSize: 17,
+                  color: "gray"
+                },
+                dateText: {
+                  fontSize: 17,
+                }
+              }}
+              onDateChange={(date) => {
+                setDate(date);
+              }}
             />
+
             <Text
               style={{
                 ...FONTS.h2,
@@ -194,16 +225,47 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             >
               ~
             </Text>
-            <LgsTextInput
-              placeholder="yyy/mm/dd"
-              style={{ flex: 1, justifyContent: "flex-end" }}
-              onChangeText={(query) => settarget_startTime(query)}
-              value={target_startTime}
+            <DatePicker
+              date={date}
+              mode="date"
+              placeholder="select date"
+              format="DD/MM/YYYY"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                flex: 1,
+                alignItems: "flex-end",
+                dateIcon: {
+
+                  position: 'relative',
+                  // right: -5,
+                  // top: 4,
+                  // marginLeft: 0,
+                },
+                dateInput: {
+                  borderColor: "gray",
+                  alignItems: "flex-start",
+                  borderWidth: 0,
+                  borderBottomWidth: 1,
+                },
+                placeholderText: {
+                  fontSize: 17,
+                  color: "gray"
+                },
+                dateText: {
+                  fontSize: 17,
+                }
+              }}
+              onDateChange={(date) => {
+                setDate(date);
+              }}
             />
+
+
           </View>
           <LgsButton
             style={{ width: "100%", marginTop: 40 }}
-            title="Press me"
+            title="搜尋"
             onPress={onSearch}
             onChangeText={(query) => settarget_endTime(query)}
             value={target_endTime}
