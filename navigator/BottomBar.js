@@ -12,7 +12,23 @@ const Tab = createBottomTabNavigator();
 
 const BottomBar = () => {
   return (
+    
     <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarLabel: "首頁",
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="home-outline"
+              color={color}
+              size={28}
+            />
+          ),
+        }}
+      />
       <Tab.Screen
         name="TextSearch"
         component={TextSearch}
@@ -41,21 +57,6 @@ const BottomBar = () => {
               name="image-outline"
               color={color}
               size={26}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarLabel: "首頁",
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="home-outline"
-              color={color}
-              size={28}
             />
           ),
         }}

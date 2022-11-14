@@ -12,6 +12,7 @@ import {
   Alert,
   Navigator,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { DateTimePicker } from '@react-native-community/datetimepicker';
@@ -45,6 +46,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
 
   const [target_startTime, settarget_startTime] = React.useState("");
   const [target_endTime, settarget_endTime] = React.useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
@@ -60,7 +62,10 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
     };
   }, []);
   const onSearch = async () => {
-    const data = await SearchText(
+    setIsLoading(true);
+
+    console.log(searchKeywords);
+    let data = await SearchText(
       searchKeywords,
       isSimSound,
       isSimShape,
@@ -69,8 +74,9 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
       target_startTime,
       target_endTime
     );
-    // console.log(data);
     navigate('Result', { data: data });
+    data = null;
+    setIsLoading(true);
   };
 
 
@@ -100,7 +106,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             placeholder="請輸入關鍵字"
             style={style.input}
             onSubmitEditing={Keyboard.dismiss}
-            onChangeText={(query) => setsearchKeywords(query)}
+            onChangeText={setsearchKeywords}
             value={searchKeywords}
           />
           <View
@@ -159,7 +165,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             style={style.input}
             placeholder="輸入申請人"
             onSubmitEditing={Keyboard.dismiss}
-            onChangeText={(query) => settarget_applicant(query)}
+            onChangeText={ settarget_applicant}
             value={target_applicant}
           />
           <Text
@@ -266,11 +272,14 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
           <LgsButton
             style={{ width: "100%", marginTop: 40 }}
             title="搜尋"
-            onPress={onSearch}
-            onChangeText={(query) => settarget_endTime(query)}
+            onPress={()=>onSearch()}
+            onChangeText={ settarget_endTime}
             value={target_endTime}
-            disabled={!searchKeywords}
+            disabled={ (searchKeywords !== "") & (isLoading !== true) ? false : true}
           />
+      
+          {isLoading ? (     <ActivityIndicator />
+          ):(null)}
         </ContentContainer>
       </Scroll>
     </Background>
