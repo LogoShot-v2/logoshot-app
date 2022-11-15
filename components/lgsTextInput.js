@@ -3,9 +3,14 @@ import React, { useState } from "react";
 import { TextInput, Text, StyleSheet, View, Keyboard } from "react-native";
 import { icons, COLORS, FONTS, SIZES } from "../constant";
 
-const LgsTextInput = ({ placeholder, style, value, onChangeText, title }) => {
-
-
+const LgsTextInput = ({
+  placeholder,
+  style,
+  value,
+  onChangeText,
+  title,
+  secureTextEntry = false,
+}) => {
   return (
     <View style={style}>
       {title ? (
@@ -23,6 +28,7 @@ const LgsTextInput = ({ placeholder, style, value, onChangeText, title }) => {
       <TextInput
         style={styles.input}
         placeholder={placeholder}
+        secureTextEntry={secureTextEntry}
         onSubmitEditing={Keyboard.dismiss}
         value={value}
         onChangeText={(query) => onChangeText(query)}

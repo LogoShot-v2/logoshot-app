@@ -79,6 +79,7 @@ const Login = ({ navigation: { navigate } }) => {
   const logout = async () => {
     await AsyncStorage.clear();
     console.log("logout clear:", await AsyncStorage.getAllKeys());
+    Alert.alert("Logged out!");
   };
   // 禁區----------------------
   const goBack = () => {
@@ -89,11 +90,10 @@ const Login = ({ navigation: { navigate } }) => {
       <Scroll>
         <ContentContainer>
           <View
-            style={{ flexDirection: "row", justifyContent: 'space-between' }} >
-            <LgsGobackButton
-              goBack={goBack} />
-            <TouchableOpacity
-              onPress={() => logout()}>
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <LgsGobackButton goBack={goBack} />
+            <TouchableOpacity onPress={() => logout()}>
               <Text>logout</Text>
             </TouchableOpacity>
           </View>
@@ -105,6 +105,7 @@ const Login = ({ navigation: { navigate } }) => {
           />
           <LgsTextInput
             style={styles.input}
+            secureTextEntry={true}
             placeholder={"請輸入密碼"}
             value={password}
             onChangeText={setPassword}
@@ -116,10 +117,9 @@ const Login = ({ navigation: { navigate } }) => {
           />
           <LgsButton
             style={{ marginTop: 30 }}
-            title='login'
-            onPress={() => firebaselogin()} />
-
-
+            title="login"
+            onPress={() => firebaselogin()}
+          />
         </ContentContainer>
       </Scroll>
     </Background>
