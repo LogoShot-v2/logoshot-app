@@ -9,7 +9,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const LogBar = () => {
   return (
-    <Tab.Navigator pagerStyle={{ width: "100%", backgroundColor: "red" }}>
+    <Tab.Navigator pagerStyle={{ width: "100%" }}>
       <Tab.Screen
         name="ImageLog"
         component={ImageLog}

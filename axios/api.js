@@ -7,11 +7,11 @@ import { StyleSheet, Text, View, Alert } from "react-native";
 
 // 登入
 export async function LoginToFireBase(email, password) {
-  console.log(34);
+  // console.log(34);
   return await axios
     .post("/login", { email: email, password: password })
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       return res.data;
     });
 }
@@ -29,6 +29,10 @@ export async function SignInToFireBase(email, password) {
         // console.log(res.data);
         return res.data["res"]["email"];
       }
+    })
+    .catch((res) => {
+      Alert.alert("註冊失敗，請檢查是否已註冊過");
+      return;
     });
 }
 
@@ -41,11 +45,11 @@ export async function GetSearchingHistory(isImageSearch) {
     return await axios
       .get(
         "/getHistory?userId=" +
-        userInfo.userId +
-        "&userType=" +
-        userInfo.userType +
-        "&isImageSearch=" +
-        isImageSearch
+          userInfo.userId +
+          "&userType=" +
+          userInfo.userType +
+          "&isImageSearch=" +
+          isImageSearch
       )
       .then((res) => {
         // console.log(res.data);
@@ -168,9 +172,9 @@ export async function GetMyFavoriteFiles() {
     return await axios
       .get(
         "/getMyFavoriteFile?userId=" +
-        userInfo.userId +
-        "&userType=" +
-        userInfo.userType
+          userInfo.userId +
+          "&userType=" +
+          userInfo.userType
       )
       .then((res) => {
         // console.log(res.data);
