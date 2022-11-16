@@ -40,6 +40,7 @@ const Login = ({ navigation: { navigate } }) => {
         );
         Alert.alert("Logged in!", `Hi ${name}!`);
         const localData = await AsyncStorage.getItem("@userInfo");
+        navigate("Home", localData);
       } else {
         // type === 'cancel'
       }
@@ -49,9 +50,7 @@ const Login = ({ navigation: { navigate } }) => {
   };
   const firebaselogin = async () => {
     try {
-      console.log(1);
       const loginDatas = await LoginToFireBase(email, password);
-      console.log(2);
       await AsyncStorage.setItem(
         "@userInfo",
         JSON.stringify({
@@ -64,6 +63,7 @@ const Login = ({ navigation: { navigate } }) => {
       const localData = await AsyncStorage.getItem("@userInfo");
 
       Alert.alert("Logged in!");
+      navigate("Home", localData);
     } catch (e) {
       alert(e.data);
     }
@@ -76,11 +76,12 @@ const Login = ({ navigation: { navigate } }) => {
     );
   };
 
-  const logout = async () => {
-    await AsyncStorage.clear();
-    console.log("logout clear:", await AsyncStorage.getAllKeys());
-    Alert.alert("Logged out!");
-  };
+  // const logout = async () => {
+  //   await AsyncStorage.clear();
+  //   // console.log("logout clear:", await AsyncStorage.getAllKeys());
+  //   Alert.alert("Logged out!");
+  //   navigate("Home", {});
+  // };
   // 禁區----------------------
   const goBack = () => {
     navigate("Home");
@@ -93,9 +94,9 @@ const Login = ({ navigation: { navigate } }) => {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <LgsGobackButton goBack={goBack} />
-            <TouchableOpacity onPress={() => logout()}>
+            {/* <TouchableOpacity onPress={() => logout()}>
               <Text>logout</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <LgsTextInput
             style={styles.input}

@@ -15,9 +15,12 @@ const Signup = ({ navigation: { navigate } }) => {
   const signIn = async () => {
     const signInStatus = await SignInToFireBase(email, password);
 
-    Alert.alert(
-      `驗證信已寄至${signInStatus}，請至信箱中點擊連結完成驗證。（請小心，驗證信有可能會被信箱中被歸類為垃圾信件）`
-    );
+    if (signInStatus) {
+      Alert.alert(
+        `驗證信已寄至${signInStatus}，請至信箱中點擊連結完成驗證。（請小心，驗證信有可能會被信箱中被歸類為垃圾信件）`
+      );
+      navigate("Home");
+    }
   };
 
   const goBack = async () => {
@@ -31,9 +34,9 @@ const Signup = ({ navigation: { navigate } }) => {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <LgsGobackButton goBack={goBack} />
-            <TouchableOpacity onPress={() => logout()}>
+            {/* <TouchableOpacity onPress={() => logout()}>
               <Text>logout</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <LgsTextInput
             style={styles.input}
@@ -52,7 +55,7 @@ const Signup = ({ navigation: { navigate } }) => {
           <LgsButton
             style={{ marginTop: 30 }}
             title="Signup"
-            onPress={signIn}
+            onPress={() => signIn()}
           />
         </ContentContainer>
       </Scroll>
