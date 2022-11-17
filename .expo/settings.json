@@ -5,6 +5,6 @@
   "minify": false,
   "urlRandomness": "3t-fij",
   "https": false,
-  "scheme": null,
+  "scheme": "exp+loghoshot-frontend",
   "devClient": false
 }

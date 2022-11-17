@@ -13,10 +13,12 @@ import {
   Navigator,
   Pressable,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { DateTimePicker } from "@react-native-community/datetimepicker";
+// import { DateTimePicker } from "@react-native-community/datetimepicker";
 import DatePicker from "react-native-datepicker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { Checkbox } from "react-native-paper";
 import { Chip, ThemeProvider, Button, CheckBox } from "react-native-elements";
 import { icons, COLORS, FONTS, SIZES, classCodeList } from "../../constant";
@@ -35,17 +37,22 @@ import { SearchText } from "../../axios/api";
 import DropDownPicker from "react-native-dropdown-picker";
 import style from "./style";
 import { async } from "rxjs";
-
+import LgsDatePicker from "../../components/LgsDatePicker";
+import { DateTime } from "luxon";
 const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
   const [searchKeywords, setsearchKeywords] = React.useState("");
-  const [isSimShape, setisSimShape] = React.useState(true);
-  const [isSimSound, setisSimSound] = React.useState(true);
+  const [isSimShape, setisSimShape] = React.useState(false);
+  const [isSimSound, setisSimSound] = React.useState(false);
   const [target_applicant, settarget_applicant] = React.useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState();
 
-  const [target_startTime, settarget_startTime] = React.useState("");
-  const [target_endTime, settarget_endTime] = React.useState("");
+  const [target_startTime, settarget_startTime] = useState(
+    DateTime.fromFormat("2010-01-01", "yyyy-mm-dd").toFormat("yyyy/MM/dd")
+  );
+  const [target_endTime, settarget_endTime] = useState(
+    DateTime.now().toFormat("yyyy/MM/dd")
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -183,48 +190,51 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             style={{
               flexDirection: "row",
               width: "100%",
+              alignItems: "center",
+              // backgroundColor: "green",
             }}
           >
-            {/* <LgsTextInput
-              placeholder="yyyy/mm/dd"
-              style={{ flex: 1, justifyContent: "flex-start" }}
-              onChangeText={(query) => settarget_endTime(query)}
-              value={target_endTime}
-            /> */}
-            <DatePicker
-              date={target_startTime}
-              mode="date"
-              placeholder="select date"
-              format="YYYY/MM/DD"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                flex: 1,
-                dateIcon: {
-                  position: "relative",
-                  // right: -5,
-                  // top: 4,
-                  // marginLeft: 0,
-                },
-                dateInput: {
-                  borderColor: "gray",
-                  alignItems: "flex-start",
-                  borderWidth: 0,
-                  borderBottomWidth: 1,
-                },
-                placeholderText: {
-                  fontSize: 17,
-                  color: "gray",
-                },
-                dateText: {
-                  fontSize: 17,
-                },
-              }}
-              onDateChange={(date) => {
-                console.log(date);
-                settarget_startTime(date);
-              }}
-            />
+            {Platform.OS === "android" ? (
+              <LgsDatePicker
+                value={target_startTime}
+                onChange={settarget_startTime}
+              />
+            ) : (
+              <DatePicker
+                date={target_startTime}
+                mode="date"
+                placeholder="select date"
+                format="YYYY/MM/DD"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  flex: 1,
+                  dateIcon: {
+                    position: "relative",
+                    // right: -5,
+                    // top: 4,
+                    // marginLeft: 0,
+                  },
+                  dateInput: {
+                    borderColor: "gray",
+                    alignItems: "flex-start",
+                    borderWidth: 0,
+                    borderBottomWidth: 1,
+                  },
+                  placeholderText: {
+                    fontSize: 17,
+                    color: "gray",
+                  },
+                  dateText: {
+                    fontSize: 17,
+                  },
+                }}
+                onDateChange={(date) => {
+                  console.log(date);
+                  settarget_startTime(date);
+                }}
+              />
+            )}
 
             <Text
               style={{
@@ -234,41 +244,48 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             >
               ~
             </Text>
-            <DatePicker
-              date={target_endTime}
-              mode="date"
-              placeholder="select date"
-              format="YYYY/MM/DD"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                flex: 1,
-                alignItems: "flex-end",
-                dateIcon: {
-                  position: "relative",
-                  // right: -5,
-                  // top: 4,
-                  // marginLeft: 0,
-                },
-                dateInput: {
-                  borderColor: "gray",
-                  alignItems: "flex-start",
-                  borderWidth: 0,
-                  borderBottomWidth: 1,
-                },
-                placeholderText: {
-                  fontSize: 17,
-                  color: "gray",
-                },
-                dateText: {
-                  fontSize: 17,
-                },
-              }}
-              onDateChange={(date) => {
-                console.log(date);
-                settarget_endTime(date);
-              }}
-            />
+            {Platform.OS === "android" ? (
+              <LgsDatePicker
+                value={target_endTime}
+                onChange={settarget_endTime}
+              />
+            ) : (
+              <DatePicker
+                date={target_endTime}
+                mode="date"
+                placeholder="select date"
+                format="YYYY/MM/DD"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  flex: 1,
+                  alignItems: "flex-end",
+                  dateIcon: {
+                    position: "relative",
+                    // right: -5,
+                    // top: 4,
+                    // marginLeft: 0,
+                  },
+                  dateInput: {
+                    borderColor: "gray",
+                    alignItems: "flex-start",
+                    borderWidth: 0,
+                    borderBottomWidth: 1,
+                  },
+                  placeholderText: {
+                    fontSize: 17,
+                    color: "gray",
+                  },
+                  dateText: {
+                    fontSize: 17,
+                  },
+                }}
+                onDateChange={(date) => {
+                  console.log(date);
+                  settarget_endTime(date);
+                }}
+              />
+            )}
           </View>
           <LgsButton
             style={{ width: "100%", marginTop: 40 }}

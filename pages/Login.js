@@ -45,6 +45,7 @@ const Login = ({ navigation: { navigate } }) => {
         // type === 'cancel'
       }
     } catch ({ message }) {
+      console.log(message);
       alert(`Facebook Login Error: ${message}`);
     }
   };
@@ -114,11 +115,11 @@ const Login = ({ navigation: { navigate } }) => {
           <LgsButton
             style={{ marginTop: 30 }}
             onPress={() => facebooklogin()}
-            title="FaceBooklogin"
+            title="Facebook Login"
           />
           <LgsButton
             style={{ marginTop: 30 }}
-            title="login"
+            title="Login"
             onPress={() => firebaselogin()}
           />
         </ContentContainer>
