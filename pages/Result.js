@@ -8,6 +8,7 @@ import {
   StatusBar,
   TouchableOpacity,
 } from "react-native";
+import { FONTS } from "../constant";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Scroll } from "../components/lgsScreen";
@@ -135,7 +136,7 @@ const Result = ({ navigation: { navigate }, route: { params } }) => {
             }}
           >
             <Text style={{ ...FONTS.largeTitle }}>找不到結果</Text>
-            <Text style={{ ...FONTS.h1 }}>試試看搜尋不同的{type}</Text>
+            <Text style={{ ...FONTS.h1 }}>試試看搜尋不同的關鍵字</Text>
           </View>
         </View>
       )}
