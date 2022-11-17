@@ -63,8 +63,6 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
   }, []);
   const onSearch = async () => {
     setIsLoading(true);
-
-    console.log(searchKeywords);
     let data = await SearchText(
       searchKeywords,
       isSimSound,
@@ -188,7 +186,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
               value={target_endTime}
             /> */}
             <DatePicker
-              date={date}
+              date={target_startTime}
               mode="date"
               placeholder="select date"
               format="DD/MM/YYYY"
@@ -217,7 +215,8 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
                 },
               }}
               onDateChange={(date) => {
-                setDate(date);
+                console.log(date);
+                settarget_startTime(date);
               }}
             />
 
@@ -230,7 +229,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
               ~
             </Text>
             <DatePicker
-              date={date}
+              date={target_endTime}
               mode="date"
               placeholder="select date"
               format="DD/MM/YYYY"
@@ -260,7 +259,8 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
                 },
               }}
               onDateChange={(date) => {
-                setDate(date);
+                console.log(date);
+                settarget_endTime(date);
               }}
             />
           </View>
