@@ -68,12 +68,18 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
       isSimSound,
       isSimShape,
       target_classcodes,
+      "",
       target_applicant,
       target_startTime,
       target_endTime
     );
-    setIsLoading(false);
-    navigate("Result", { data: data });
+    if (data) {
+      setIsLoading(false);
+      navigate("Result", { data: data });
+    } else {
+      setIsLoading(false);
+      Alert.alert("搜尋失敗");
+    }
     // data = null;
   };
 
@@ -189,7 +195,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
               date={target_startTime}
               mode="date"
               placeholder="select date"
-              format="DD/MM/YYYY"
+              format="YYYY/MM/DD"
               confirmBtnText="Confirm"
               cancelBtnText="Cancel"
               customStyles={{
@@ -232,7 +238,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
               date={target_endTime}
               mode="date"
               placeholder="select date"
-              format="DD/MM/YYYY"
+              format="YYYY/MM/DD"
               confirmBtnText="Confirm"
               cancelBtnText="Cancel"
               customStyles={{

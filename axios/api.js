@@ -162,6 +162,7 @@ export async function SearchText(
     })
     .catch((e) => {
       console.log("e", e);
+      return;
     });
 }
 // 我的最愛資料夾們
