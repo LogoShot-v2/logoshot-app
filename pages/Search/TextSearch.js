@@ -14,9 +14,9 @@ import {
   Pressable,
   ActivityIndicator,
 } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
-import { DateTimePicker } from '@react-native-community/datetimepicker';
-import DatePicker from 'react-native-datepicker';
+import { NavigationContainer } from "@react-navigation/native";
+import { DateTimePicker } from "@react-native-community/datetimepicker";
+import DatePicker from "react-native-datepicker";
 import { Checkbox } from "react-native-paper";
 import { Chip, ThemeProvider, Button, CheckBox } from "react-native-elements";
 import { icons, COLORS, FONTS, SIZES, classCodeList } from "../../constant";
@@ -74,11 +74,10 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
       target_startTime,
       target_endTime
     );
-    navigate('Result', { data: data });
-    data = null;
-    setIsLoading(true);
+    setIsLoading(false);
+    navigate("Result", { data: data });
+    // data = null;
   };
-
 
   const [open, setOpen] = useState(false);
   const [target_classcodes, settarget_classcodes] = useState([]);
@@ -165,7 +164,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             style={style.input}
             placeholder="輸入申請人"
             onSubmitEditing={Keyboard.dismiss}
-            onChangeText={ settarget_applicant}
+            onChangeText={settarget_applicant}
             value={target_applicant}
           />
           <Text
@@ -180,7 +179,6 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             style={{
               flexDirection: "row",
               width: "100%",
-
             }}
           >
             {/* <LgsTextInput
@@ -199,7 +197,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
               customStyles={{
                 flex: 1,
                 dateIcon: {
-                  position: 'relative',
+                  position: "relative",
                   // right: -5,
                   // top: 4,
                   // marginLeft: 0,
@@ -212,11 +210,11 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
                 },
                 placeholderText: {
                   fontSize: 17,
-                  color: "gray"
+                  color: "gray",
                 },
                 dateText: {
                   fontSize: 17,
-                }
+                },
               }}
               onDateChange={(date) => {
                 setDate(date);
@@ -242,8 +240,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
                 flex: 1,
                 alignItems: "flex-end",
                 dateIcon: {
-
-                  position: 'relative',
+                  position: "relative",
                   // right: -5,
                   // top: 4,
                   // marginLeft: 0,
@@ -256,30 +253,29 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
                 },
                 placeholderText: {
                   fontSize: 17,
-                  color: "gray"
+                  color: "gray",
                 },
                 dateText: {
                   fontSize: 17,
-                }
+                },
               }}
               onDateChange={(date) => {
                 setDate(date);
               }}
             />
-
-
           </View>
           <LgsButton
             style={{ width: "100%", marginTop: 40 }}
             title="搜尋"
-            onPress={()=>onSearch()}
-            onChangeText={ settarget_endTime}
+            onPress={() => onSearch()}
+            onChangeText={settarget_endTime}
             value={target_endTime}
-            disabled={ (searchKeywords !== "") & (isLoading !== true) ? false : true}
+            disabled={
+              (searchKeywords !== "") & (isLoading !== true) ? false : true
+            }
           />
-      
-          {isLoading ? (     <ActivityIndicator />
-          ):(null)}
+
+          {isLoading ? <ActivityIndicator /> : null}
         </ContentContainer>
       </Scroll>
     </Background>

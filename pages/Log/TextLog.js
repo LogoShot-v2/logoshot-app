@@ -20,6 +20,7 @@ const Record = ({ item }, userId, toSearch) => {
         onPress={() => toSearch(item)}
       >
         <View style={styles.listTextContainer}>
+          <Text style={FONTS.h4}>關鍵字：{item["searchKeywords"]}</Text>
           <Text
             style={{ ...FONTS.h4 }}
             ellipsizeMode={"tail"}
