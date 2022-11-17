@@ -2,7 +2,7 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
+  // SafeAreaView,
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import React from "react";
 import styled from "styled-components/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Background = ({ children }) => (
   <SafeAreaView style={{ backgroundColor: "#ffffff" }}>
