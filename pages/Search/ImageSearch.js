@@ -10,9 +10,12 @@ import {
   ImageStore,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
   ScrollView,
   StatusBar,
 } from "react-native";
+
+import LgsDatePicker from "../../components/LgsDatePicker";
 import { Checkbox } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { BottomSheet, ListItem } from "@rneui/themed";
@@ -36,7 +39,9 @@ import DropDownPicker from "react-native-dropdown-picker";
 import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolicateStackTrace";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import style from "./style";
-const ImageSearch = ({ route: { params } }) => {
+import { DateTime } from "luxon";
+
+const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
@@ -51,14 +56,19 @@ const ImageSearch = ({ route: { params } }) => {
   const [initialX, setInitialX] = useState(0);
   const [initialY, setInitialY] = useState(0);
   const [isOldImage, setIsOldImage] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   /* inputs */
   const [searchKeywords, setSearchKeywords] = useState("");
   const [targetClasscodes, setTargetClasscodes] = useState([]);
   const [targetColor, setTargetColor] = useState("");
   const [targetApplicant, setTargetApplicant] = useState("");
-  const [targetStartTime, setTargetStartTime] = useState("");
-  const [targetEndTime, setTargetEndTime] = useState("");
+  const [targetStartTime, setTargetStartTime] = useState(
+    DateTime.fromFormat("2010-01-01", "yyyy-mm-dd").toFormat("yyyy/MM/dd")
+  );
+  const [targetEndTime, setTargetEndTime] = useState(
+    DateTime.now().toFormat("yyyy/MM/dd")
+  );
   const [targetDraftC, setTargetDraftC] = useState("");
   const [targetDraftE, setTargetDraftE] = useState("");
   const [targetDraftJ, setTargetDraftJ] = useState("");
@@ -126,6 +136,7 @@ const ImageSearch = ({ route: { params } }) => {
     //   targetDraftJ,
     //   isOldImage
     // );
+    setIsLoading(true);
     const data = await SearchImage(
       image,
       imageWidth,
@@ -143,6 +154,13 @@ const ImageSearch = ({ route: { params } }) => {
       targetDraftJ,
       isOldImage
     );
+    if (data) {
+      setIsLoading(false);
+      navigate("Result", { data: data });
+    } else {
+      setIsLoading(false);
+      Alert.alert("搜尋失敗");
+    }
     // console.log("hi");
   };
 
@@ -315,11 +333,16 @@ const ImageSearch = ({ route: { params } }) => {
                 商標註冊期間
               </Text>
               <View style={style.rangeContainer}>
-                <LgsTextInput
+                {/* <LgsTextInput
                   value={targetStartTime}
                   onChangeText={setTargetStartTime}
                   placeholder="yyyy/mm/dd"
                   style={{ flex: 1, justifyContent: "flex-start" }}
+                /> */}
+
+                <LgsDatePicker
+                  value={targetStartTime}
+                  onChange={setTargetStartTime}
                 />
                 <Text
                   style={{
@@ -330,11 +353,9 @@ const ImageSearch = ({ route: { params } }) => {
                 >
                   ~
                 </Text>
-                <LgsTextInput
+                <LgsDatePicker
                   value={targetEndTime}
-                  onChangeText={setTargetEndTime}
-                  placeholder="yyyy/mm/dd"
-                  style={{ flex: 1, justifyContent: "flex-end" }}
+                  onChange={setTargetEndTime}
                 />
               </View>
             </>
@@ -376,13 +397,14 @@ const ImageSearch = ({ route: { params } }) => {
                 ></LgsTextInput>
               </>
             ) : null}
-
+            {isLoading ? <ActivityIndicator /> : null}
             <LgsButton
               style={{ ...style.input, borderWidth: 0 }}
               title={"搜尋"}
               onPress={onSearch}
-              disabled={!image.uri}
+              disabled={!image.uri || !(!!image.uri & (isLoading !== true))}
             ></LgsButton>
+
             <BottomSheet
               isVisible={isImagePickerDrawerVisible}
               onBackdropPress={() => setIsImagePickerDrawerVisible(false)}
