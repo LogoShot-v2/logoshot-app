@@ -50,43 +50,91 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
             style={{
               flex: 1,
               flexDirection: "row",
-              justifyContent: 'flex-end',
-
-            }}>
-            <TouchableOpacity
-              style={{
-                margin: 10,
-                padding: 10,
-                paddingLeft: 10,
-                paddingRight: 10,
-                backgroundColor: '#406E9F',
-                borderRadius: 9,
-                alignItems: 'center',
-                justifyContent: 'center',
-
-              }}
-
-              onPress={() => navigate("Login")}>
-              <Text style ={{ fontSize: 20, }}>登入</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style=
-              {{
-             
-                margin: 10,
-                padding: 10,
-                paddingLeft: 10,
-                paddingRight: 10,
-                backgroundColor: '#FFFFFF',
-                borderRadius: 9,
-                alignItems: 'center',
-                justifyContent: 'center',
-                
-              }}
-              onPress={() => navigate("Signup")}>
-              <Text
-              style ={{ fontSize: 20,}}>註冊</Text>
-            </TouchableOpacity>
+              justifyContent: "flex-end",
+              alignItems: "center",
+              // backgroundColor: "red",
+            }}
+          >
+            {name ? (
+              <>
+                {/* <TouchableOpacity
+                  style={{
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    backgroundColor: "#406E9F",
+                    borderRadius: 5,
+                    marginTop: 10,
+                    marginLeft: 10,
+                  }}
+                  onPress={() => logout()}
+                >
+                  <Text>登出</Text>
+                </TouchableOpacity> */}
+                {image ? (
+                  <Image
+                    source={{ uri: image.data.url }}
+                    style={{
+                      height: 30,
+                      width: 30,
+                      borderRadius: 15,
+                      backgroundColor: "red",
+                    }}
+                  />
+                ) : null}
+                <Text
+                  style={{
+                    backgroundColor: "#ffffff",
+                    borderRadius: 5,
+                    margin: 10,
+                    width: image ? undefined : "60%",
+                  }}
+                  numberOfLines={1}
+                  ellipsizeMode={"tail"}
+                >
+                  {name}
+                </Text>
+                <TouchableOpacity
+                  style={{
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    backgroundColor: "#406E9F",
+                    borderRadius: 5,
+                    marginRight: 10,
+                    // marginTop: 10,
+                  }}
+                  onPress={() => logout()}
+                >
+                  <Text style={{ fontSize: 20 }}>登出</Text>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <>
+                <TouchableOpacity
+                  style={{
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    backgroundColor: "#406E9F",
+                    borderRadius: 5,
+                    margin: 10,
+                  }}
+                  onPress={() => navigate("Login")}
+                >
+                  <Text style={{ fontSize: 20 }}>登入</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    backgroundColor: "#ffffff",
+                    borderRadius: 5,
+                    margin: 10,
+                  }}
+                  onPress={() => navigate("Signup")}
+                >
+                  <Text style={{ fontSize: 20 }}>註冊</Text>
+                </TouchableOpacity>
+              </>
+            )}
           </View>
         </View>
         <View
