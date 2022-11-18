@@ -119,10 +119,12 @@ export async function SearchImage(
       responseType: "json",
     })
     .then((res) => {
-      console.log(res.data);
+      console.log(res.data.data.length);
+      return res.data.data;
     })
     .catch((e) => {
       console.log(e);
+      return;
     });
 }
 // 文字搜尋頁

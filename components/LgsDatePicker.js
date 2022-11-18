@@ -6,6 +6,7 @@ import {
   ListBlock,
 } from "../components/lgsScreen";
 import { FONTS } from "../constant";
+import DatePicker from "react-native-datepicker";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import LgsTextInput from "./lgsTextInput";
 import { TouchableOpacity, Image } from "react-native";
@@ -53,40 +54,66 @@ const LgsDatePicker = ({ value, onChange }) => {
               style={{ height: 33, width: 30 }}
             />
           </TouchableOpacity>
+          {show && (
+            <DateTimePicker
+              style={{
+                flex: 1,
+                display: "flex",
+                height: Platform.OS === "ios" ? 50 : undefined,
+                marginRight: 15,
+                // width: "100%",
+                // backgroundColor: "red",
+
+                // margin: "auto",
+                // width: 300,
+              }}
+              // locale="es-ES"
+              testID="dateTimePicker"
+              value={date}
+              mode={"date"}
+              is24Hour={true}
+              onChange={onChangeDate}
+              // display={"default"}
+            />
+          )}
         </>
       )}
-
-      {/* <Text>{DateTime.now().toFormat("MMM dd, yyyy")}</Text> */}
-
-      {(show || Platform.OS === "ios") && (
-        <DateTimePicker
-          style={{
+      {Platform.OS === "ios" && (
+        <DatePicker
+          date={value}
+          mode="date"
+          placeholder="select date"
+          format="YYYY/MM/DD"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          customStyles={{
             flex: 1,
-            display: "flex",
-            height: Platform.OS === "ios" ? 50 : undefined,
-            marginRight: 15,
-            // width: "100%",
-            // backgroundColor: "red",
-
-            // margin: "auto",
-            // width: 300,
+            dateIcon: {
+              position: "relative",
+              // right: -5,
+              // top: 4,
+              // marginLeft: 0,
+            },
+            dateInput: {
+              borderColor: "gray",
+              alignItems: "flex-start",
+              borderWidth: 0,
+              borderBottomWidth: 1,
+            },
+            placeholderText: {
+              fontSize: 17,
+              color: "gray",
+            },
+            dateText: {
+              fontSize: 17,
+            },
           }}
-          // locale="es-ES"
-          testID="dateTimePicker"
-          value={date}
-          mode={"date"}
-          is24Hour={true}
-          onChange={onChangeDate}
-          // display={"default"}
+          onDateChange={(date) => {
+            console.log(date);
+            onChange(date);
+          }}
         />
       )}
-
-      {Platform.OS === "ios" ? (
-        <Image
-          source={require("../assets/dateIcon.png")}
-          style={{ height: 33, width: 30 }}
-        />
-      ) : null}
     </>
   );
 };

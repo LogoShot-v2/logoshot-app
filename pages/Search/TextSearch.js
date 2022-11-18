@@ -36,7 +36,6 @@ import {
 import { SearchText } from "../../axios/api";
 import DropDownPicker from "react-native-dropdown-picker";
 import style from "./style";
-import { async } from "rxjs";
 import LgsDatePicker from "../../components/LgsDatePicker";
 import { DateTime } from "luxon";
 const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
@@ -194,48 +193,10 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
               // backgroundColor: "green",
             }}
           >
-            {Platform.OS === "android" ? (
-              <LgsDatePicker
-                value={target_startTime}
-                onChange={settarget_startTime}
-              />
-            ) : (
-              <DatePicker
-                date={target_startTime}
-                mode="date"
-                placeholder="select date"
-                format="YYYY/MM/DD"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                  flex: 1,
-                  dateIcon: {
-                    position: "relative",
-                    // right: -5,
-                    // top: 4,
-                    // marginLeft: 0,
-                  },
-                  dateInput: {
-                    borderColor: "gray",
-                    alignItems: "flex-start",
-                    borderWidth: 0,
-                    borderBottomWidth: 1,
-                  },
-                  placeholderText: {
-                    fontSize: 17,
-                    color: "gray",
-                  },
-                  dateText: {
-                    fontSize: 17,
-                  },
-                }}
-                onDateChange={(date) => {
-                  console.log(date);
-                  settarget_startTime(date);
-                }}
-              />
-            )}
-
+            <LgsDatePicker
+              value={target_startTime}
+              onChange={settarget_startTime}
+            />
             <Text
               style={{
                 ...FONTS.h2,
@@ -244,48 +205,10 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             >
               ~
             </Text>
-            {Platform.OS === "android" ? (
-              <LgsDatePicker
-                value={target_endTime}
-                onChange={settarget_endTime}
-              />
-            ) : (
-              <DatePicker
-                date={target_endTime}
-                mode="date"
-                placeholder="select date"
-                format="YYYY/MM/DD"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                  flex: 1,
-                  alignItems: "flex-end",
-                  dateIcon: {
-                    position: "relative",
-                    // right: -5,
-                    // top: 4,
-                    // marginLeft: 0,
-                  },
-                  dateInput: {
-                    borderColor: "gray",
-                    alignItems: "flex-start",
-                    borderWidth: 0,
-                    borderBottomWidth: 1,
-                  },
-                  placeholderText: {
-                    fontSize: 17,
-                    color: "gray",
-                  },
-                  dateText: {
-                    fontSize: 17,
-                  },
-                }}
-                onDateChange={(date) => {
-                  console.log(date);
-                  settarget_endTime(date);
-                }}
-              />
-            )}
+            <LgsDatePicker
+              value={target_endTime}
+              onChange={settarget_endTime}
+            />
           </View>
           <LgsButton
             style={{ width: "100%", marginTop: 40 }}
