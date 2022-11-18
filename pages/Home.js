@@ -104,7 +104,7 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
                   }}
                   onPress={() => logout()}
                 >
-                  <Text>登出</Text>
+                  <Text style={{ fontSize: 20 }}>登出</Text>
                 </TouchableOpacity>
               </>
             ) : (
@@ -119,7 +119,7 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
                   }}
                   onPress={() => navigate("Login")}
                 >
-                  <Text>登入</Text>
+                  <Text style={{ fontSize: 20 }}>登入</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{
@@ -131,7 +131,7 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
                   }}
                   onPress={() => navigate("Signup")}
                 >
-                  <Text>註冊</Text>
+                  <Text style={{ fontSize: 20 }}>註冊</Text>
                 </TouchableOpacity>
               </>
             )}
