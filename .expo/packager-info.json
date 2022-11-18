@@ -1,10 +1,10 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19000,
-  "webpackServerPort": null,
+  "webpackServerPort": 19006,
   "packagerPid": null,
-  "expoServerNgrokUrl": "https://3t-fij.sylvey.logoshot-app.exp.direct",
-  "packagerNgrokUrl": "https://3t-fij.sylvey.logoshot-app.exp.direct",
-  "ngrokPid": 28650,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002
 }
