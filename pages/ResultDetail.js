@@ -28,7 +28,7 @@ const ResultDetail = ({ navigation: { navigate }, route: { params } }) => {
         <Background>
             <Scroll>
                 <View>
-                    <View style={{ margintop:200,marginBottom:50, height: "40%", alignItems: "center", justifyContent: "center", backgroundColor: '#FFFFFF' }}>
+                    <View style={{ marginLeft: 10, marginRight:10 ,margintop:200,marginBottom:50, height: "40%", alignItems: "center", justifyContent: "center", backgroundColor: '#FFFFFF' }}>
                   
                     <Image source={{
                     uri:
@@ -36,7 +36,7 @@ const ResultDetail = ({ navigation: { navigate }, route: { params } }) => {
                       + params.trademarkDetail["_source"]["tmark-image-url_1"]
 
                      }}
-                   style={{ resizeMode: "contain", width: "100%", height: "100%" }} />
+                   style={{ resizeMode: "contain", width: "100%", height: "100%", borderWidth:2}} />
                     </View>
                     <View style={{ margintop:50, backgroundColor: 'FFFFFF' }}>
 
