@@ -4,6 +4,7 @@ import { Table, Row, Rows, Col, Cols, TableWrapper} from "react-native-table-com
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
 import Carousel from 'react-native-snap-carousel';
 import { SearchText } from "../axios/api"
+import { icons, COLORS, FONTS, SIZES, classCodeList } from "../constant";
 
 
 
@@ -21,23 +22,25 @@ const ResultDetail = ({ navigation: { navigate }, route: { params } }) => {
           console.log("d") 
 
     }, [params]);
-    
+
     return (
+
         <Background>
             <Scroll>
                 <View>
-                    <View style={{ height: "40%", alignItems: "center", justifyContent: "center", backgroundColor: '#FFFFFF' }}>
-                        <Image source={{
+                    <View style={{ margintop:200,marginBottom:50, height: "40%", alignItems: "center", justifyContent: "center", backgroundColor: '#FFFFFF' }}>
+                  
+                    <Image source={{
                     uri:
                       "http://140.112.106.88:8082/"
                       + params.trademarkDetail["_source"]["tmark-image-url_1"]
 
                      }}
-                   style={{ resizeMode: "contain", width: "75%", height: "90%" }} />
+                   style={{ resizeMode: "contain", width: "100%", height: "100%" }} />
                     </View>
-                    <View style={{ height: "60%", backgroundColor: 'FFFFFF' }}>
+                    <View style={{ margintop:50, backgroundColor: 'FFFFFF' }}>
 
-                        <Table style={{ backgroundColor: 'FFFFFF' }} borderStyle={{ borderWidth: 1, borderColor: '#1E1F20' }}>
+                        {/* <Table style={{ backgroundColor: 'FFFFFF' }} borderStyle={{ borderWidth: 1, borderColor: '#1E1F20' }}>
                         <TableWrapper>
 
                         
@@ -46,26 +49,36 @@ const ResultDetail = ({ navigation: { navigate }, route: { params } }) => {
                         <Row flexArr={[1.2, 2]} data={[" 申請日期", params.trademarkDetail["_source"]["appl-date"]]} textStyle={{ marginLeft: 4 }} />
                         </TableWrapper> 
                             <TableWrapper  style={{flexDirection: 'row'}}>
-                            <Col data={["申請人"]} style={{fle: 'row'}}/>
+                            <Row data={["申請人"]} style={{}}/>
                             <Row data={["中文名稱", params.trademarkDetail["_source"]["appl-date"]]} textStyle={{ marginLeft: 4 }}/>
                             <Row data={["地址", params.trademarkDetail["_source"]["applicant-address"]]} textStyle={{ marginLeft: 4 }}/>
                             <Row data={["國籍", params.trademarkDetail["_source"]["applicant-chinese-country-nam"]]} textStyle={{ marginLeft: 4 }}/>
-
+                            
                             {/* <Row data={[" 商標地址", params.trademarkDetail["_source"]["angents-address"]]} textStyle={{ marginLeft: 4 }}/>
-                            <Row data={[" 商標地址", params.trademarkDetail["_source"]["angents-address"]]} textStyle={{ marginLeft: 4 }}/> */}
+                            <Row data={[" 商標地址", params.trademarkDetail["_source"]["angents-address"]]} textStyle={{ marginLeft: 4 }}/> 
 
                              </TableWrapper>
-                           
-              
-
-                        
-                     
                     
                    
-                        </Table>
-                    
+                             
+                        </Table> */}
+                        
+                        <View style = {{marginLeft: 30, marginRight: 30,}}>
+                        <Text style = {{  fontSize: 20, margin: 5 , textDecorationLine:'underline',}}>商標 </Text>
+                        <Text style = {{   ...FONTS.h3,  margin: 3,}}>申請案號 : {params.trademarkDetail["_source"]["appl-no"]}</Text>
+                        <Text style = {{   ...FONTS.h3,  margin: 3,}}>商標名稱 : {params.trademarkDetail["_source"]["tmark-name"]}</Text>
+                        <Text style = {{   ...FONTS.h3,  margin: 3,}}>商品類別 : {params.trademarkDetail["_source"]["goods-name"]}</Text>
+                        <Text style = {{   ...FONTS.h3,  margin: 3,}}>申請日期 : { params.trademarkDetail["_source"]["appl-date"]}</Text>
+                        <Text style = {{  fontSize: 20, margin: 5 , textDecorationLine:'underline',}}>申請人 </Text>
+                        <Text style = {{   ...FONTS.h3,  margin: 3,}}>中文名稱 : { params.trademarkDetail["_source"]["applicant-chinese-name"]}</Text>
+                        <Text style = {{   ...FONTS.h3,  margin: 3,}}>地址 ： {params.trademarkDetail["_source"]["applicant-address"]}</Text>
+
+                        <Text style = {{   ...FONTS.h3,  margin: 3,}}>國籍 ： {params.trademarkDetail["_source"]["applicant-chinese-country-name"]}</Text>
+                        
+                        </View>
 
                     </View>
+                
                 </View>
             </Scroll>
         </Background>
