@@ -124,18 +124,6 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
   };
 
   const onSearch = async () => {
-    // console.log(
-    //   searchKeywords,
-    //   targetClasscodes,
-    //   targetColor,
-    //   targetApplicant,
-    //   targetStartTime,
-    //   targetEndTime,
-    //   targetDraftC,
-    //   targetDraftE,
-    //   targetDraftJ,
-    //   isOldImage
-    // );
     setIsLoading(true);
     const data = await SearchImage(
       image,
@@ -333,13 +321,6 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
                 商標註冊期間
               </Text>
               <View style={style.rangeContainer}>
-                {/* <LgsTextInput
-                  value={targetStartTime}
-                  onChangeText={setTargetStartTime}
-                  placeholder="yyyy/mm/dd"
-                  style={{ flex: 1, justifyContent: "flex-start" }}
-                /> */}
-
                 <LgsDatePicker
                   value={targetStartTime}
                   onChange={setTargetStartTime}

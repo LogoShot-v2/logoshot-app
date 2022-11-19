@@ -10,21 +10,15 @@ import {
   Dimensions,
 } from "react-native";
 import { Button } from "react-native-elements";
-import {
-  Table,
-  Row,
-  Rows,
-  Col,
-  Cols,
-  TableWrapper,
-} from "react-native-table-component";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
+import { SliderBox } from "react-native-image-slider-box";
 import Carousel from "react-native-snap-carousel";
 import { PostAddFavoriteFile, SearchText } from "../axios/api";
 import { icons, COLORS, FONTS, SIZES, classCodeList } from "../constant";
 import LgsCarousel from "../components/carousel";
 import Icon from "react-native-vector-icons/FontAwesome";
-
+import { GetMyFavoriteFiles, PostAddFavorite } from "../axios/api";
+import { BottomSheet, ListItem } from "@rneui/themed";
 const imageArr = [
   "tmark-image-url_1",
   "tmark-image-url_2",
@@ -32,51 +26,50 @@ const imageArr = [
   "tmark-image-url_4",
   "tmark-image-url_5",
 ];
-const CarouselCardItem = ({ item, index }) => {
-  return (
-    <View key={index}>
-      <Image
-        source={{
-          uri:
-            "http://140.112.106.88:8082/" +
-            params.trademarkDetail["_source"][imageArr[index]],
-        }}
-      />
-    </View>
-  );
-};
 
-const ResultDetail = ({ navigation: { navigate }, route: { params } }) => {
+const ResultDetail = ({
+  navigation: { navigate },
+  route: { params },
+  slideTime,
+}) => {
+  const [images, setimages] = useState([
+    "https://source.unsplash.com/1024x768/?nature",
+    "https://source.unsplash.com/1024x768/?water",
+    "https://source.unsplash.com/1024x768/?girl",
+    "https://source.unsplash.com/1024x768/?tree", // Network image
+  ]);
+  const [showFavorite, setShowFavorite] = useState(false);
+  const [myFavoriteFile, setMyFavoriteFile] = useState([]);
+  // const _carousel = useCarousel(slideTime)
+
   useEffect(() => {
-    // console.log("upup");
+    const asyncfunction = async () => {
+      const data = await GetMyFavoriteFiles();
+      setMyFavoriteFile([...data]);
+    };
+    asyncfunction();
+  }, [navigate]);
 
-    console.log(params.trademarkDetail["_source"][imageArr[0]]);
-    //   console.log(params.trademarkDetail)
-
-    // console.log("d");
-  }, [params]);
-  const AddFavorite = async () => {
+  const AddFavorite = async (fileId, esId) => {
     //加到我的最愛
+    await PostAddFavorite(fileId, esId);
+    setShowFavorite(false);
   };
 
   return (
     <Background>
       <Scroll>
         <ContentContainer>
-          <Image
-            source={{
-              uri:
-                "http://140.112.106.88:8082/" +
-                params.trademarkDetail["_source"]["tmark-image-url_1"],
-            }}
-            style={{
-              width: 300,
-              height: 200,
-              // resizeMode: "contain",
-              // width: 300,
-              borderWidth: 1,
-              borderColor: "#464646",
-            }}
+          <SliderBox
+            sliderBoxHeight={200}
+            parentWidth={300}
+            images={imageArr
+              .filter((x) => params.trademarkDetail["_source"][x])
+              .map(
+                (x) =>
+                  "http://140.112.106.88:8082/" +
+                  params.trademarkDetail["_source"][x]
+              )}
           />
 
           <Text
@@ -166,9 +159,29 @@ const ResultDetail = ({ navigation: { navigate }, route: { params } }) => {
             <Button
               type="clear"
               icon={<Icon name="heart-o" size={20} color="red" />}
-              onPress={() => AddFavorite()}
+              onPress={() => setShowFavorite(true)}
             />
           </View>
+          <BottomSheet
+            isVisible={showFavorite}
+            onBackdropPress={() => setShowFavorite(false)}
+          >
+            {myFavoriteFile.map((l, i) => (
+              <ListItem
+                key={i}
+                containerStyle={l.containerStyle}
+                onPress={() =>
+                  AddFavorite(l["fileId"], params.trademarkDetail["_id"])
+                }
+              >
+                <ListItem.Content>
+                  <ListItem.Title style={l.titleStyle}>
+                    {l["fileName"]}
+                  </ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            ))}
+          </BottomSheet>
         </ContentContainer>
       </Scroll>
     </Background>
