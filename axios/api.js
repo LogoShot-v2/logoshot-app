@@ -214,3 +214,19 @@ export async function PostAddFavoriteFile(fileName) {
     Alert.alert("如需新增我的最愛資料夾，請先登入");
   }
 }
+
+// 新增我的最愛
+export async function PostAddFavorite(fileId, esId) {
+  if (fileId && esId) {
+    return await axios
+      .post("/postAddFavorite", {
+        fileId,
+        esId,
+      })
+      .then((res) => {
+        console.log(res.data["res"]);
+      });
+  } else {
+    console.log(fileId, esId);
+  }
+}
