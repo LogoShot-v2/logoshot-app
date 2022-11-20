@@ -54,7 +54,7 @@ const Signup = ({ navigation: { navigate } }) => {
 
           <LgsButton
             style={{ marginTop: 30 }}
-            title="Signup"
+            title="註冊"
             onPress={() => signIn()}
           />
         </ContentContainer>

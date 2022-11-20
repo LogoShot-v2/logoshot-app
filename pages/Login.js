@@ -115,11 +115,11 @@ const Login = ({ navigation: { navigate } }) => {
           <LgsButton
             style={{ marginTop: 30 }}
             onPress={() => facebooklogin()}
-            title="Facebook Login"
+            title="Facebook 登入"
           />
           <LgsButton
             style={{ marginTop: 30 }}
-            title="Login"
+            title="LogoShot 帳號登入"
             onPress={() => firebaselogin()}
           />
         </ContentContainer>
