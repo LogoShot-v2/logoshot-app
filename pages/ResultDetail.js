@@ -46,7 +46,11 @@ const ResultDetail = ({
   useEffect(() => {
     const asyncfunction = async () => {
       const data = await GetMyFavoriteFiles();
-      setMyFavoriteFile([...data]);
+      if (data) {
+        setMyFavoriteFile([...data]);
+      } else {
+        setShowFavorite(false);
+      }
     };
     if (showFavorite) {
       asyncfunction();
