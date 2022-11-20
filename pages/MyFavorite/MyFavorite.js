@@ -23,8 +23,8 @@ const File = ({ item }, onPressFile) => {
     <TouchableOpacity
       style={{
         ...FONTS.image,
-        marginRight: "auto",
-        marginLeft: "auto",
+        // marginRight: "auto",
+        // marginLeft: "auto",
         marginTop: 20,
       }}
       onPress={() => onPressFile(item)}
@@ -82,6 +82,7 @@ const MyFavorite = ({ navigation: { navigate } }) => {
                 renderItem={(item) => File(item, onPressFile)}
                 keyExtractor={(x) => x["fileId"]}
                 numColumns={3}
+                columnWrapperStyle={{ justifyContent: "space-around" }}
                 contentContainerStyle={{ width: "100%" }}
               />
             ) : null}

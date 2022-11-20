@@ -11,11 +11,12 @@ import {
 import { FONTS } from "../constant";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { Scroll } from "../components/lgsScreen";
+import { Background, ContentContainer, Scroll } from "../components/lgsScreen";
 import { SearchText } from "../axios/api";
 import { set } from "react-native-reanimated";
+import LgsGobackButton from "../components/lgsGobackButton";
 
-const Result = ({ navigation: { navigate }, route: { params } }) => {
+const Result = ({ navigation: { navigate, goBack }, route: { params } }) => {
   const [datesBactches, setDatesBactches] = useState(null);
   const [trademarkDetail, settrademarkDetail] = useState(null);
 
@@ -36,33 +37,35 @@ const Result = ({ navigation: { navigate }, route: { params } }) => {
   return (
     <>
       {params.data !== null ? (
-        <View style={styles.container}>
+        <Background>
           <Scroll contentContainerStyle={{ alignItems: "center" }}>
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 18,
-                marginVertical: 10,
-                marginLeft: 15,
-              }}
-            >
-              {params ? params.data.length : ""} result(s) found.
-            </Text>
+            <ContentContainer>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <LgsGobackButton goBack={goBack} />
+              </View>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 18,
+                  marginVertical: 10,
+                  marginLeft: 15,
+                }}
+              >
+                {params ? params.data.length : ""} result(s) found.
+              </Text>
 
-            <View style={styles.searchResults}>
-              {params.data.map((values, idx) => (
-                <View
-                  style={
-                    idx === 0
-                      ? styles.searchResultsRow
-                      : { ...styles.searchResultsRow, borderTopWidth: 1 }
-                  }
-                  key={idx}
-                >
+              <View style={styles.searchResults}>
+                {params.data.map((values, idx) => (
                   <View
                     style={{
                       ...styles.searchResultsBox,
-                      borderRightWidth: 0.5,
+                      marginBottom: 1,
+                      // borderRightWidth: 0.5,
                     }}
                   >
                     <TouchableOpacity
@@ -90,11 +93,11 @@ const Result = ({ navigation: { navigate }, route: { params } }) => {
                       </Text>
                     </TouchableOpacity>
                   </View>
-                </View>
-              ))}
-            </View>
+                ))}
+              </View>
+            </ContentContainer>
           </Scroll>
-        </View>
+        </Background>
       ) : (
         <View>
           <View
@@ -122,20 +125,18 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   searchResults: {
-    borderWidth: 1,
-    width: 322,
-    // backgroundColor: "red",
+    // borderWidth: 1,
+    width: 321,
+    justifyContent: "space-between",
+    backgroundColor: "#D0D0D0",
     flexDirection: "row",
     flexWrap: "wrap",
-  },
-  searchResultsRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
   searchResultsBox: {
     width: 160,
     height: 200,
     padding: 20,
+    backgroundColor: "white",
   },
   searchResultsButton: {
     alignItems: "center",

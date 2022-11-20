@@ -19,6 +19,7 @@ import LgsCarousel from "../components/carousel";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { GetMyFavoriteFiles, PostAddFavorite } from "../axios/api";
 import { BottomSheet, ListItem } from "@rneui/themed";
+import LgsGobackButton from "../components/lgsGobackButton";
 const imageArr = [
   "tmark-image-url_1",
   "tmark-image-url_2",
@@ -28,7 +29,7 @@ const imageArr = [
 ];
 
 const ResultDetail = ({
-  navigation: { navigate },
+  navigation: { navigate, goBack },
   route: { params },
   slideTime,
 }) => {
@@ -47,12 +48,15 @@ const ResultDetail = ({
       const data = await GetMyFavoriteFiles();
       setMyFavoriteFile([...data]);
     };
-    asyncfunction();
-  }, [navigate]);
+    if (showFavorite) {
+      asyncfunction();
+    }
+  }, [showFavorite]);
 
   const AddFavorite = async (fileId, esId) => {
     //加到我的最愛
     await PostAddFavorite(fileId, esId);
+
     setShowFavorite(false);
   };
 
@@ -60,6 +64,14 @@ const ResultDetail = ({
     <Background>
       <Scroll>
         <ContentContainer>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <LgsGobackButton goBack={goBack} />
+          </View>
           <SliderBox
             sliderBoxHeight={200}
             parentWidth={300}
