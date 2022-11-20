@@ -224,7 +224,8 @@ export async function PostAddFavorite(fileId, esId) {
         esId,
       })
       .then((res) => {
-        console.log(res.data["res"]);
+        console.log(res.data["res"]["fileId"][0][3]);
+        Alert.alert("已將商標加入" + res.data["res"]["fileId"][0][3]);
       });
   } else {
     console.log(fileId, esId);
