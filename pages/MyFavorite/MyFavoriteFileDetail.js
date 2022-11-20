@@ -11,26 +11,6 @@ import { GetMyFavoriteFileDetail } from "../../axios/api";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import LgsGobackButton from "../../components/lgsGobackButton";
 
-const TradeMarkImage = ({ item }) => {
-  return (
-    <>
-      <Image
-        style={{
-          ...FONTS.image,
-          marginRight: "auto",
-          marginLeft: "auto",
-          marginTop: 20,
-        }}
-        source={{
-          uri:
-            "http://140.112.106.88:8082/" +
-            item["_source"]["tmark-image-url_1"],
-        }}
-      />
-    </>
-  );
-};
-
 const MyFavoriteFileDetail = ({
   route: {
     params: { esIds, fileId, fileName },
@@ -38,6 +18,35 @@ const MyFavoriteFileDetail = ({
   navigation: { goBack, navigate },
 }) => {
   const [tradeMarks, setTradeMarks] = useState([]);
+
+  const TradeMarkImage = ({ item }) => {
+    return (
+      <>
+        <TouchableOpacity
+          style={{
+            ...FONTS.image,
+            marginTop: 20,
+          }}
+          onPress={() =>
+            navigate("ResultDetail", {
+              trademarkDetail: item,
+            })
+          }
+        >
+          <Image
+            style={{
+              ...FONTS.image,
+            }}
+            source={{
+              uri:
+                "http://140.112.106.88:8082/" +
+                item["_source"]["tmark-image-url_1"],
+            }}
+          />
+        </TouchableOpacity>
+      </>
+    );
+  };
 
   useEffect(() => {
     const asyncfunction = async () => {
@@ -57,7 +66,9 @@ const MyFavoriteFileDetail = ({
               data={tradeMarks}
               renderItem={(item) => TradeMarkImage(item)}
               numColumns={3}
-              contentContainerStyle={{ width: "100%" }}
+              columnWrapperStyle={{
+                justifyContent: "space-around",
+              }}
             />
           ) : (
             <View style={styles.center}>

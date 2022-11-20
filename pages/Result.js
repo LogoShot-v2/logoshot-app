@@ -36,7 +36,6 @@ const Result = ({ navigation: { navigate, goBack }, route: { params } }) => {
 
   return (
     <>
-      {/* <Background> */}
       {params.data !== null ? (
         <Background>
           <Scroll contentContainerStyle={{ alignItems: "center" }}>
