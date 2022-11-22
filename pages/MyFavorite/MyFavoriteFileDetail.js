@@ -66,7 +66,6 @@ const MyFavoriteFileDetail = ({
       </>
     );
   };
-
   const loadDatas = async () => {
     const data = await GetMyFavoriteFileDetail(fileId);
     setTradeMarks(data);
