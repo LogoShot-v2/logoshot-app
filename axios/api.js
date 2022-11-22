@@ -189,11 +189,13 @@ export async function GetMyFavoriteFiles() {
   }
 }
 // 我的最愛資料夾內容
-export async function GetMyFavoriteFileDetail(esIds) {
-  return await axios.post("/getMyFavoriteFileDetail", { esIds }).then((res) => {
-    // console.log(res.data);
-    return res.data;
-  });
+export async function GetMyFavoriteFileDetail(fileId) {
+  return await axios
+    .post("/getMyFavoriteFileDetail", { fileId })
+    .then((res) => {
+      // console.log(res.data);
+      return res.data;
+    });
 }
 
 // 新增我的最愛資料夾
@@ -215,6 +217,24 @@ export async function PostAddFavoriteFile(fileName) {
   }
 }
 
+// 刪除我的最愛資料夾
+export async function PostDeleteFavoriteFile(fileId) {
+  if (fileId) {
+    return await axios
+      .post("/postDeleteMyFavoriteFile", {
+        fileId,
+      })
+      .then((res) => {
+        console.log(res.data["res"]["fileName"]);
+        Alert.alert("已將" + res.data["res"]["fileName"] + "刪除");
+        return;
+      });
+  } else {
+    console.log(fileId, esId);
+    return;
+  }
+}
+
 // 新增我的最愛
 export async function PostAddFavorite(fileId, esId) {
   if (fileId && esId) {
@@ -230,6 +250,24 @@ export async function PostAddFavorite(fileId, esId) {
       });
   } else {
     console.log(fileId, esId);
+    return;
+  }
+}
+// 刪除我的最愛
+export async function PostDeleteFavorite(fileId, esId, name) {
+  if (fileId && esId) {
+    return await axios
+      .post("/postDeleteFavorite", {
+        fileId,
+        esId,
+      })
+      .then((res) => {
+        // console.log(res.data["res"]["fileId"][0][3]);
+        Alert.alert("已將商標" + name + "刪除");
+        return;
+      });
+  } else {
+    // console.log(fileId, esId);
     return;
   }
 }

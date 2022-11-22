@@ -93,8 +93,8 @@ const ImageLog = ({ navigation: { navigate } }) => {
 
   return (
     <Background>
-      <Scroll>
-        <ContentContainer>
+      <Scroll style={{ background: "red" }}>
+        <ContentContainer style={{ background: "red" }}>
           {datesBactches ? (
             <FlatList
               data={datesBactches}
