@@ -124,11 +124,6 @@ const ResultDetail = ({
             numberOfLines={textShown ? undefined : 3}
           >
             {params.trademarkDetail["_source"]["goods-name"]}
-            {lengthMore
-              ? textShown
-                ? "點擊顯示更少"
-                : "點擊顯示更多"
-              : "點擊顯示更多"}
           </Text>
           {lengthMore ? (
             <Text

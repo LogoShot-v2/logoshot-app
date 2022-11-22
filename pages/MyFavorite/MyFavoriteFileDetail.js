@@ -58,10 +58,10 @@ const MyFavoriteFileDetail = ({
 
   return (
     <Background>
-      <Scroll>
-        <ContentContainer>
-          <LgsGobackButton goBack={goBack}></LgsGobackButton>
-          {tradeMarks.length !== 0 ? (
+      <LgsGobackButton goBack={goBack}></LgsGobackButton>
+      {tradeMarks.length !== 0 ? (
+        <Scroll>
+          <ContentContainer>
             <FlatList
               data={tradeMarks}
               renderItem={(item) => TradeMarkImage(item)}
@@ -70,13 +70,13 @@ const MyFavoriteFileDetail = ({
                 justifyContent: "space-around",
               }}
             />
-          ) : (
-            <View style={styles.center}>
-              <Text>這個資料夾是空的</Text>
-            </View>
-          )}
-        </ContentContainer>
-      </Scroll>
+          </ContentContainer>
+        </Scroll>
+      ) : (
+        <View style={styles.center}>
+          <Text>這個資料夾是空的</Text>
+        </View>
+      )}
     </Background>
   );
 };
@@ -85,6 +85,7 @@ export default MyFavoriteFileDetail;
 
 const styles = StyleSheet.create({
   center: {
+    // backgroundColor: "red",
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
