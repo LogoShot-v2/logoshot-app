@@ -7,10 +7,12 @@ import {
 } from "../../components/lgsScreen";
 import { FONTS } from "../../constant";
 import { StyleSheet, Text, View, FlatList, Image } from "react-native";
-import { GetMyFavoriteFileDetail } from "../../axios/api";
+import { GetMyFavoriteFileDetail, PostDeleteFavorite } from "../../axios/api";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import LgsGobackButton from "../../components/lgsGobackButton";
 import LgsLogo from "../../components/lgsLogo";
+import { BottomSheet, ListItem } from "@rneui/base";
+import { Provider, Portal } from "react-native-paper";
 
 const MyFavoriteFileDetail = ({
   route: {
@@ -19,6 +21,19 @@ const MyFavoriteFileDetail = ({
   navigation: { goBack, navigate },
 }) => {
   const [tradeMarks, setTradeMarks] = useState([]);
+  const [isLongPressBottomVisible, setIsLongPressBottomVisible] =
+    useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const onDelete = async () => {
+    await PostDeleteFavorite(
+      fileId,
+      selectedItem["_id"],
+      selectedItem["_source"]["tmark-name"]
+    );
+    setIsLongPressBottomVisible(false);
+    await loadDatas();
+  };
 
   const TradeMarkImage = ({ item }) => {
     return (
@@ -33,6 +48,10 @@ const MyFavoriteFileDetail = ({
               trademarkDetail: item,
             })
           }
+          onLongPress={() => {
+            setSelectedItem(item);
+            setIsLongPressBottomVisible(true);
+          }}
         >
           <Image
             style={{
@@ -48,38 +67,58 @@ const MyFavoriteFileDetail = ({
       </>
     );
   };
+  const loadDatas = async () => {
+    const data = await GetMyFavoriteFileDetail(fileId);
+    setTradeMarks(data);
+  };
 
   useEffect(() => {
-    const asyncfunction = async () => {
-      const data = await GetMyFavoriteFileDetail(esIds);
-      setTradeMarks(data);
-    };
-    asyncfunction();
+    loadDatas();
   }, [navigate]);
 
   return (
-    <Background>
+    <Provider>
       <LgsLogo />
-      <LgsGobackButton goBack={goBack}></LgsGobackButton>
-      {tradeMarks.length !== 0 ? (
-        <Scroll>
-          <ContentContainer>
-            <FlatList
-              data={tradeMarks}
-              renderItem={(item) => TradeMarkImage(item)}
-              numColumns={3}
-              columnWrapperStyle={{
-                justifyContent: "space-around",
-              }}
-            />
-          </ContentContainer>
-        </Scroll>
-      ) : (
-        <View style={styles.center}>
-          <Text>這個資料夾是空的</Text>
-        </View>
-      )}
-    </Background>
+      <Background>
+        <LgsGobackButton goBack={goBack}></LgsGobackButton>
+        {tradeMarks.length !== 0 ? (
+          <Scroll>
+            <ContentContainer>
+              <FlatList
+                data={tradeMarks}
+                renderItem={(item) => TradeMarkImage(item)}
+                numColumns={3}
+                columnWrapperStyle={{
+                  justifyContent: "space-around",
+                }}
+              />
+              <Portal>
+                <BottomSheet
+                  isVisible={isLongPressBottomVisible}
+                  onBackdropPress={() => setIsLongPressBottomVisible(false)}
+                >
+                  <ListItem onPress={() => onDelete()}>
+                    <ListItem.Content>
+                      <ListItem.Title>
+                        刪除{" "}
+                        {selectedItem
+                          ? selectedItem["_source"]["tmark-name"]
+                          : null}
+                        ?
+                      </ListItem.Title>
+                    </ListItem.Content>
+                  </ListItem>
+                </BottomSheet>
+              </Portal>
+            </ContentContainer>
+          </Scroll>
+        ) : (
+          <View style={styles.center}>
+            <Text>這個資料夾是空的</Text>
+          </View>
+        )}
+      </Background>
+    </Provider>
   );
 };
 
