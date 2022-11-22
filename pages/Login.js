@@ -89,16 +89,9 @@ const Login = ({ navigation: { navigate } }) => {
   };
   return (
     <Background>
+      <LgsGobackButton goBack={goBack} />
       <Scroll>
         <ContentContainer>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <LgsGobackButton goBack={goBack} />
-            {/* <TouchableOpacity onPress={() => logout()}>
-              <Text>logout</Text>
-            </TouchableOpacity> */}
-          </View>
           <LgsTextInput
             style={styles.input}
             placeholder={"請輸入電子郵件"}

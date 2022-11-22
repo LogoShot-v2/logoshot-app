@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   StyleSheet,
   Text,
@@ -41,6 +41,17 @@ const ResultDetail = ({
   ]);
   const [showFavorite, setShowFavorite] = useState(false);
   const [myFavoriteFile, setMyFavoriteFile] = useState([]);
+
+  const [textShown, setTextShown] = useState(false); //To show ur remaining Text
+  const [lengthMore, setLengthMore] = useState(false); //to show the "Read more & Less Line"
+  const toggleNumberOfLines = () => {
+    //To toggle the show text or hide it
+    setTextShown(!textShown);
+  };
+  const onTextLayout = useCallback((e) => {
+    setLengthMore(e.nativeEvent.lines.length >= 3); //to check the text is more than 4 lines or not
+    // console.log(e.nativeEvent);
+  }, []);
   // const _carousel = useCarousel(slideTime)
 
   useEffect(() => {
@@ -66,16 +77,9 @@ const ResultDetail = ({
 
   return (
     <Background>
+      <LgsGobackButton goBack={goBack} />
       <Scroll>
         <ContentContainer>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <LgsGobackButton goBack={goBack} />
-          </View>
           <SliderBox
             sliderBoxHeight={200}
             parentWidth={300}
@@ -92,6 +96,7 @@ const ResultDetail = ({
             style={{
               fontSize: 20,
               marginVertical: 10,
+              color: "#5173B7",
               textDecorationLine: "underline",
             }}
           >
@@ -114,10 +119,31 @@ const ResultDetail = ({
           <Text
             style={{ ...FONTS.h4, color: "#7E7E7E" }}
             ellipsizeMode={"tail"}
-            numberOfLines={3}
+            onPress={toggleNumberOfLines}
+            onTextLayout={onTextLayout}
+            numberOfLines={textShown ? undefined : 3}
           >
             {params.trademarkDetail["_source"]["goods-name"]}
+            {lengthMore
+              ? textShown
+                ? "點擊顯示更少"
+                : "點擊顯示更多"
+              : "點擊顯示更多"}
           </Text>
+          {lengthMore ? (
+            <Text
+              onPress={toggleNumberOfLines}
+              style={{
+                backgroundColor: "#D0D0D0",
+                width: 79,
+                fontSize: 14,
+                color: "black",
+                padding: 2,
+              }}
+            >
+              {textShown ? "顯示更少..." : "顯示更多..."}
+            </Text>
+          ) : null}
 
           <View style={{ flexDirection: "row" }}>
             <Text style={{ ...FONTS.h3, color: "#464646" }}>申請日期 :</Text>
@@ -128,6 +154,7 @@ const ResultDetail = ({
           <Text
             style={{
               fontSize: 20,
+              color: "#5173B7",
               marginVertical: 10,
               textDecorationLine: "underline",
             }}
@@ -143,7 +170,7 @@ const ResultDetail = ({
           {/* <View style={{ flexDirection: "row" }}> */}
           <Text style={{ ...FONTS.h3, color: "#464646" }}>地址 ：</Text>
           <Text
-            style={{ ...FONTS.h4, marginLeft: 10, color: "#7E7E7E" }}
+            style={{ ...FONTS.h4, color: "#7E7E7E" }}
             ellipsizeMode={"tail"}
             numberOfLines={3}
           >

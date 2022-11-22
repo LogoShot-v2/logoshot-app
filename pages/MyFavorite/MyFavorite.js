@@ -82,7 +82,7 @@ const MyFavorite = ({ navigation: { navigate } }) => {
                 renderItem={(item) => File(item, onPressFile)}
                 keyExtractor={(x) => x["fileId"]}
                 numColumns={3}
-                columnWrapperStyle={{ justifyContent: "space-around" }}
+                columnWrapperStyle={{ justifyContent: "space-between" }}
                 contentContainerStyle={{ width: "100%" }}
               />
             ) : null}

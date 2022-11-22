@@ -17,37 +17,31 @@ import { set } from "react-native-reanimated";
 import LgsGobackButton from "../components/lgsGobackButton";
 
 const Result = ({ navigation: { navigate, goBack }, route: { params } }) => {
-  const [datesBactches, setDatesBactches] = useState(null);
+  const [data, setData] = useState([]);
   const [trademarkDetail, settrademarkDetail] = useState(null);
 
   useEffect(() => {
-    setDatesBactches(params);
-    {
-      params.data.length > 1000
-        ? (params.data = params.data.slice(0, 1000))
-        : null;
-    }
-    console.log("hello world");
-    // console.log(params.data[12]["_source"]["tmark-image-url_1"])
-    console.log(params.data.length);
-    // console.log(datesBactches)
-    // console.log("down")
+    addData();
   }, []);
+
+  const addData = () => {
+    if (params.data) {
+      setData(
+        params.data.slice(0, Math.min(data.length + 20, params.data.length))
+      );
+    }
+  };
 
   return (
     <>
-      {params.data !== null ? (
+      {data.length !== 0 ? (
         <Background>
-          <Scroll contentContainerStyle={{ alignItems: "center" }}>
+          <LgsGobackButton goBack={goBack} />
+          <Scroll
+            contentContainerStyle={{ alignItems: "center" }}
+            onScrollEndDrag={() => addData()}
+          >
             <ContentContainer>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <LgsGobackButton goBack={goBack} />
-              </View>
               <Text
                 style={{
                   fontWeight: "bold",
@@ -60,7 +54,7 @@ const Result = ({ navigation: { navigate, goBack }, route: { params } }) => {
               </Text>
 
               <View style={styles.searchResults}>
-                {params.data.map((values, idx) => (
+                {data.map((values, idx) => (
                   <View
                     style={{
                       ...styles.searchResultsBox,

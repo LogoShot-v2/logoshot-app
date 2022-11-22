@@ -3,10 +3,16 @@ import { TouchableOpacity, Image } from "react-native";
 
 const LgsGobackButton = ({ goBack }) => {
   return (
-    <TouchableOpacity onPress={() => goBack()}>
+    <TouchableOpacity
+      onPress={() => goBack()}
+      style={{
+        zIndex: 1,
+        position: "absolute",
+      }}
+    >
       <Image
         source={require("../assets/back.png")}
-        style={{ height: 24, width: 24 }}
+        style={{ height: 50, width: 50 }}
       />
     </TouchableOpacity>
   );
