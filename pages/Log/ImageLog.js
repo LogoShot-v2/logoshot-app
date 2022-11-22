@@ -92,19 +92,17 @@ const ImageLog = ({ navigation: { navigate } }) => {
   }, []);
 
   return (
-    <Background>
-      <Scroll>
-        <ContentContainer>
-          {datesBactches ? (
-            <FlatList
-              data={datesBactches}
-              renderItem={(item) => DateRecord(item, userId, toSearch)}
-              keyExtractor={(item) => item[0]}
-            />
-          ) : null}
-        </ContentContainer>
-      </Scroll>
-    </Background>
+    <Scroll>
+      <ContentContainer>
+        {datesBactches ? (
+          <FlatList
+            data={datesBactches}
+            renderItem={(item) => DateRecord(item, userId, toSearch)}
+            keyExtractor={(item) => item[0]}
+          />
+        ) : null}
+      </ContentContainer>
+    </Scroll>
   );
 };
 

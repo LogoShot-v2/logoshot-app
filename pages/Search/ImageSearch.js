@@ -15,6 +15,7 @@ import {
   StatusBar,
 } from "react-native";
 
+import LgsLogo from "../../components/lgsLogo";
 import LgsDatePicker from "../../components/LgsDatePicker";
 import { Checkbox } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -221,9 +222,10 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
   return (
     <>
       <Background>
+        <LgsLogo />
         <Scroll>
           <ContentContainer>
-            <Text style={FONTS.h1}>圖片搜尋</Text>
+            <Text style={FONTS.h1}> </Text>
             {image.uri ? (
               <>
                 <LgsPhotoIndicator
@@ -405,6 +407,7 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
               ))}
             </BottomSheet>
           </ContentContainer>
+          <View style={{ height: 50 }}></View>
         </Scroll>
       </Background>
     </>

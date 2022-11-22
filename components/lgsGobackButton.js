@@ -7,7 +7,9 @@ const LgsGobackButton = ({ goBack }) => {
       onPress={() => goBack()}
       style={{
         zIndex: 1,
+        marginTop: 10,
         position: "absolute",
+        // backgroundColor: "gainsboro",
       }}
     >
       <Image

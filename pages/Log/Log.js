@@ -7,12 +7,14 @@ import {
 } from "../../components/lgsScreen";
 import { FONTS } from "../../constant";
 import LogBar from "../../navigator/LogBar";
+import LgsLogo from "../../components/lgsLogo";
 
 const Log = () => {
   return (
     <Background>
+      <LgsLogo />
       <View style={styles.container}>
-        <Text style={{ ...FONTS.h1, marginLeft: "10%" }}>瀏覽紀錄</Text>
+        {/* <Text style={{ ...FONTS.h1, marginLeft: "10%" }}>瀏覽紀錄</Text> */}
         <LogBar></LogBar>
       </View>
     </Background>

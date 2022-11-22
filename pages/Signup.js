@@ -8,6 +8,7 @@ import LgsTextInput from "../components/lgsTextInput";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
 import LgsButton from "../components/lgsButton";
 import LgsGobackButton from "../components/lgsGobackButton";
+import LgsLogo from "../components/lgsLogo";
 
 const Signup = ({ navigation: { navigate } }) => {
   const [email, setEmail] = useState("");
@@ -28,12 +29,13 @@ const Signup = ({ navigation: { navigate } }) => {
   };
   return (
     <Background>
+      <LgsLogo />
+      <LgsGobackButton goBack={goBack} />
       <Scroll>
         <ContentContainer>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <LgsGobackButton goBack={goBack} />
             {/* <TouchableOpacity onPress={() => logout()}>
               <Text>logout</Text>
             </TouchableOpacity> */}

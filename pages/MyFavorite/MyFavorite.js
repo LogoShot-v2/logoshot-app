@@ -16,6 +16,7 @@ import {
   Button,
   Paragraph,
 } from "react-native-paper";
+import LgsLogo from "../../components/lgsLogo";
 import LgsTextInput from "../../components/lgsTextInput";
 
 const File = ({ item }, onPressFile) => {
@@ -73,9 +74,10 @@ const MyFavorite = ({ navigation: { navigate } }) => {
   return (
     <Provider>
       <Background>
+        <LgsLogo />
         <Scroll>
           <ContentContainer>
-            <Text style={FONTS.h1}>我的最愛</Text>
+            <Text style={FONTS.h3}> </Text>
             {files ? (
               <FlatList
                 data={files}

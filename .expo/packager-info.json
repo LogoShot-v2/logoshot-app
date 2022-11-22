@@ -2,8 +2,8 @@
   "expoServerPort": 19000,
   "packagerPort": 19000,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://3t-fij.anonymous.logoshot-app.exp.direct",
+  "packagerNgrokUrl": "https://3t-fij.anonymous.logoshot-app.exp.direct",
+  "ngrokPid": 6252,
   "webpackServerPort": null
 }

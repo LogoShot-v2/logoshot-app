@@ -23,6 +23,7 @@ import { Checkbox } from "react-native-paper";
 import { Chip, ThemeProvider, Button, CheckBox } from "react-native-elements";
 import { icons, COLORS, FONTS, SIZES, classCodeList } from "../../constant";
 import RNPickerSelect from "react-native-picker-select";
+import LgsLogo from "../../components/lgsLogo";
 import LgsTextInput from "../../components/lgsTextInput";
 import LgsCheckbox from "../../components/lgsCheckbox";
 import LgsButton from "../../components/lgsButton";
@@ -108,9 +109,10 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
 
   return (
     <Background>
+      <LgsLogo />
       <Scroll>
         <ContentContainer>
-          <Text style={FONTS.h1}>文字商標查詢</Text>
+          <Text style={FONTS.h3}> </Text>
           <LgsTextInput
             placeholder="請輸入關鍵字"
             style={style.input}

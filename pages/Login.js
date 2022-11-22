@@ -8,6 +8,7 @@ import LgsTextInput from "../components/lgsTextInput";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
 import LgsButton from "../components/lgsButton";
 import LgsGobackButton from "../components/lgsGobackButton";
+import LgsLogo from "../components/lgsLogo";
 
 const Login = ({ navigation: { navigate } }) => {
   // 禁區----------------------
@@ -89,6 +90,7 @@ const Login = ({ navigation: { navigate } }) => {
   };
   return (
     <Background>
+      <LgsLogo />
       <LgsGobackButton goBack={goBack} />
       <Scroll>
         <ContentContainer>

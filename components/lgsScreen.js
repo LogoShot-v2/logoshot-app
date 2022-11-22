@@ -20,6 +20,7 @@ const Background = ({ children }) => (
       enabled
       keyboardVerticalOffset={10}
     >
+      <View style={{ height: 50 }}></View>
       {children}
     </KeyboardAvoidingView>
   </SafeAreaView>

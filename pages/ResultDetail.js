@@ -80,6 +80,14 @@ const ResultDetail = ({
       <LgsGobackButton goBack={goBack} />
       <Scroll>
         <ContentContainer>
+          <View
+            style={{
+              height: 50,
+              backgroundColor: "red",
+              width: "100%",
+              marginBottom: 20,
+            }}
+          ></View>
           <SliderBox
             sliderBoxHeight={200}
             parentWidth={300}

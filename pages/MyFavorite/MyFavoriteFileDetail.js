@@ -10,6 +10,7 @@ import { StyleSheet, Text, View, FlatList, Image } from "react-native";
 import { GetMyFavoriteFileDetail } from "../../axios/api";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import LgsGobackButton from "../../components/lgsGobackButton";
+import LgsLogo from "../../components/lgsLogo";
 
 const MyFavoriteFileDetail = ({
   route: {
@@ -58,6 +59,7 @@ const MyFavoriteFileDetail = ({
 
   return (
     <Background>
+      <LgsLogo />
       <LgsGobackButton goBack={goBack}></LgsGobackButton>
       {tradeMarks.length !== 0 ? (
         <Scroll>

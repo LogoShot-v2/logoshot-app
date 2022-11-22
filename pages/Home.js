@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, Button, Alert } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
 import LgsButton from "../components/lgsButton";
+import LgsLogo from "../components/lgsLogo";
 import { icons, COLORS, FONTS, SIZES, classCodeList } from "../constant";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -35,18 +36,8 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
 
   return (
     <Background>
+      <LgsLogo />
       <Scroll contentContainerStyle={styles.container}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginLeft: 30,
-            margintop: 40,
-            // marginRight: 40,
-          }}
-        >
-          <Text style={{ ...FONTS.h1 }}>Logoshot</Text>
-        </View>
         <View
           style={{
             flex: 1,
@@ -103,12 +94,12 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
                     borderRadius: 50,
                     backgroundColor: "#ffffff",
                   }}
-                />)
-              }
+                />
+              )}
               <Text
                 style={{
                   backgroundColor: "#ffffff",
-                  textAlign: 'center',
+                  textAlign: "center",
                   alignItems: "center",
                   borderRadius: 5,
                   margin: 10,
@@ -127,12 +118,16 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
                   borderRadius: 5,
                   width: 300,
                   height: 50,
-                  justifyContent: 'center',
-                  alignItems: 'center'
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
                 onPress={() => logout()}
               >
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>登出</Text>
+                <Text
+                  style={{ fontSize: 20, fontWeight: "bold", color: "white" }}
+                >
+                  登出
+                </Text>
               </TouchableOpacity>
             </>
           ) : (
@@ -146,12 +141,16 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
                   margin: 10,
                   width: 300,
                   height: 50,
-                  justifyContent: 'center',
-                  alignItems: 'center'
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
                 onPress={() => navigate("Login")}
               >
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>登入</Text>
+                <Text
+                  style={{ fontSize: 20, fontWeight: "bold", color: "white" }}
+                >
+                  登入
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={{
@@ -159,20 +158,21 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
                   paddingRight: 10,
                   backgroundColor: "#ffffff",
                   borderWidth: 1,
-                  borderColor: '#939393', // 灰色
+                  borderColor: "#939393", // 灰色
                   borderRadius: 5,
                   margin: 10,
                   width: 300,
                   height: 50,
-                  justifyContent: 'center',
-                  alignItems: 'center'
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
                 onPress={() => navigate("Signup")}
               >
-                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>註冊</Text>
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>註冊</Text>
               </TouchableOpacity>
             </>
           )}
+          <View style={{ height: 80 }}></View>
         </View>
       </Scroll>
     </Background>
