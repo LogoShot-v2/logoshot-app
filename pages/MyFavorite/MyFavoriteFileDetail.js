@@ -6,7 +6,7 @@ import {
   ListBlock,
 } from "../../components/lgsScreen";
 import { FONTS } from "../../constant";
-import { StyleSheet, Text, View, FlatList, Image } from "react-native";
+import { StyleSheet, Text, View, FlatList, Image, Alert } from "react-native";
 import { GetMyFavoriteFileDetail, PostDeleteFavorite } from "../../axios/api";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import LgsGobackButton from "../../components/lgsGobackButton";
@@ -26,13 +26,28 @@ const MyFavoriteFileDetail = ({
   const [selectedItem, setSelectedItem] = useState(null);
 
   const onDelete = async () => {
-    await PostDeleteFavorite(
-      fileId,
-      selectedItem["_id"],
-      selectedItem["_source"]["tmark-name"]
-    );
     setIsLongPressBottomVisible(false);
-    await loadDatas();
+    Alert.alert("確定刪除" + selectedItem["_source"]["tmark-name"] + "？", "", [
+      {
+        text: "取消",
+        onPress: () => {},
+        style: "cancel",
+      },
+      {
+        text: "確認",
+        onPress: () => {
+          const asyncfunction = async () => {
+            await PostDeleteFavorite(
+              fileId,
+              selectedItem["_id"],
+              selectedItem["_source"]["tmark-name"]
+            );
+            await loadDatas();
+          };
+          asyncfunction();
+        },
+      },
+    ]);
   };
 
   const TradeMarkImage = ({ item }) => {
@@ -68,6 +83,7 @@ const MyFavoriteFileDetail = ({
     );
   };
   const loadDatas = async () => {
+    console.log("load data here");
     const data = await GetMyFavoriteFileDetail(fileId);
     setTradeMarks(data);
   };

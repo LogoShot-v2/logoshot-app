@@ -211,6 +211,9 @@ export async function PostAddFavoriteFile(fileName) {
       })
       .then((res) => {
         console.log(res.data["res"]["fileName"]);
+      })
+      .catch((res) => {
+        console.log(res);
       });
   } else {
     Alert.alert("如需新增我的最愛資料夾，請先登入");
@@ -231,6 +234,24 @@ export async function PostDeleteFavoriteFile(fileId) {
       });
   } else {
     console.log(fileId, esId);
+    return;
+  }
+}
+
+export async function PostRenameFavoriteFile(fileId, fileName) {
+  if (fileId && fileName) {
+    return await axios
+      .post("/postRenameMyFavoriteFile", {
+        fileId,
+        fileName,
+      })
+      .then((res) => {
+        console.log(res.data["res"]["fileName"]);
+        Alert.alert("已將檔案命名為" + res.data["res"]["fileName"]);
+        return;
+      });
+  } else {
+    console.log(fileId, fileName);
     return;
   }
 }
