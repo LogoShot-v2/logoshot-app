@@ -30,6 +30,7 @@ const Scroll = styled(ScrollView)`
   height: 100%;
   width: 100%;
   overflow: scroll;
+  background-color: #f6f6f6;
 `;
 const SafeAreaViewContainer = styled(SafeAreaView)`
   height: 100%;
@@ -49,7 +50,10 @@ const ContentContainer = styled(View)`
 `;
 
 const ListBlock = styled(TouchableOpacity)`
-  margin-top: 20;
+  margin-top: 10;
+  margin-bottom: 10;
+  padding-top: 5;
+  padding-bottom: 5;
   border-radius: 20;
   border-color: black;
   border-width: 0.4;

@@ -247,7 +247,9 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Text style={style.blueText}>請將十字移動至商標中心</Text>
+                  <Text style={{ ...style.blueText, fontWeight: "bold" }}>
+                    請將十字拖曳至商標中心
+                  </Text>
                   <TouchableOpacity
                     onPress={() => setIsImagePickerDrawerVisible(true)}
                   >
@@ -316,11 +318,12 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
             <>
               <Text
                 style={{
-                  ...FONTS.h2,
-                  lineHeight: 68,
+                  ...FONTS.h4,
+                  lineHeight: 50,
+                  alignSelf: "center",
                 }}
               >
-                商標註冊期間
+                －商標註冊期間－
               </Text>
               <View style={style.rangeContainer}>
                 <LgsDatePicker
@@ -347,10 +350,15 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
                 ...style.input,
                 borderWidth: 0,
                 flexDirection: "row",
+                marginTop: 20,
                 alignItems: "center",
+                alignSelf: "center",
               }}
             >
-              <Text>進階搜尋</Text>
+              <Text style={{ color: "#406E9F", fontWeight: "bold" }}>
+                {" "}
+                進階搜尋
+              </Text>
               <LgsCheckbox
                 status={advance ? "checked" : "unchecked"}
                 onPress={() => {

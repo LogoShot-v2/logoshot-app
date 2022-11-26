@@ -20,6 +20,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { GetMyFavoriteFiles, PostAddFavorite } from "../axios/api";
 import { BottomSheet, ListItem } from "@rneui/themed";
 import LgsGobackButton from "../components/lgsGobackButton";
+import LgsLogo from "../components/lgsLogo";
 const imageArr = [
   "tmark-image-url_1",
   "tmark-image-url_2",
@@ -77,13 +78,14 @@ const ResultDetail = ({
 
   return (
     <Background>
+      <LgsLogo />
       <LgsGobackButton goBack={goBack} />
       <Scroll>
         <ContentContainer>
           <View
             style={{
-              height: 50,
-              backgroundColor: "red",
+              height: 60,
+              // backgroundColor: "red",
               width: "100%",
               marginBottom: 20,
             }}
@@ -102,30 +104,72 @@ const ResultDetail = ({
 
           <Text
             style={{
-              fontSize: 20,
-              marginVertical: 10,
+              fontSize: 22,
+              fontWeight: "bold",
+              marginVertical: 20,
               color: "#5173B7",
-              textDecorationLine: "underline",
+              alignSelf: "center",
             }}
           >
             商標{" "}
           </Text>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ ...FONTS.h3, color: "#464646" }}>申請案號 :</Text>
-            <Text style={{ ...FONTS.h4, marginLeft: 10, color: "#7E7E7E" }}>
+            <Text
+              style={{
+                ...FONTS.h3,
+                color: "#464646",
+                fontWeight: "bold",
+                marginVertical: 3,
+              }}
+            >
+              申請案號 :
+            </Text>
+            <Text
+              style={{
+                ...FONTS.h4,
+                marginLeft: 10,
+                color: "#7E7E7E",
+                marginVertical: 3,
+              }}
+            >
               {params.trademarkDetail["_source"]["appl-no"]}
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ ...FONTS.h3, color: "#464646" }}>商標名稱 :</Text>
-            <Text style={{ ...FONTS.h4, marginLeft: 10, color: "#7E7E7E" }}>
+            <Text
+              style={{
+                ...FONTS.h3,
+                color: "#464646",
+                fontWeight: "bold",
+                marginVertical: 3,
+              }}
+            >
+              商標名稱 :
+            </Text>
+            <Text
+              style={{
+                ...FONTS.h4,
+                marginLeft: 10,
+                color: "#7E7E7E",
+                marginVertical: 3,
+              }}
+            >
               {params.trademarkDetail["_source"]["tmark-name"]}
             </Text>
           </View>
 
-          <Text style={{ ...FONTS.h3, color: "#464646" }}>商品類別 :</Text>
           <Text
-            style={{ ...FONTS.h4, color: "#7E7E7E" }}
+            style={{
+              ...FONTS.h3,
+              color: "#464646",
+              fontWeight: "bold",
+              marginVertical: 3,
+            }}
+          >
+            商品類別 :
+          </Text>
+          <Text
+            style={{ ...FONTS.h4, color: "#7E7E7E", marginVertical: 3 }}
             ellipsizeMode={"tail"}
             onPress={toggleNumberOfLines}
             onTextLayout={onTextLayout}
@@ -141,6 +185,7 @@ const ResultDetail = ({
                 width: 79,
                 fontSize: 14,
                 color: "black",
+                marginVertical: 3,
                 padding: 2,
               }}
             >
@@ -149,31 +194,73 @@ const ResultDetail = ({
           ) : null}
 
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ ...FONTS.h3, color: "#464646" }}>申請日期 :</Text>
-            <Text style={{ ...FONTS.h4, marginLeft: 10, color: "#7E7E7E" }}>
+            <Text
+              style={{
+                ...FONTS.h3,
+                color: "#464646",
+                fontWeight: "bold",
+                marginVertical: 3,
+              }}
+            >
+              申請日期 :
+            </Text>
+            <Text
+              style={{
+                ...FONTS.h4,
+                marginLeft: 10,
+                color: "#7E7E7E",
+                marginVertical: 3,
+              }}
+            >
               {params.trademarkDetail["_source"]["appl-date"]}
             </Text>
           </View>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 22,
+              fontWeight: "bold",
               color: "#5173B7",
-              marginVertical: 10,
-              textDecorationLine: "underline",
+              marginVertical: 20,
+              alignSelf: "center",
             }}
           >
             申請人{" "}
           </Text>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ ...FONTS.h3, color: "#464646" }}>中文名稱 :</Text>
-            <Text style={{ ...FONTS.h4, marginLeft: 10, color: "#7E7E7E" }}>
+            <Text
+              style={{
+                ...FONTS.h3,
+                color: "#464646",
+                fontWeight: "bold",
+                marginVertical: 3,
+              }}
+            >
+              中文名稱 :
+            </Text>
+            <Text
+              style={{
+                ...FONTS.h4,
+                marginLeft: 10,
+                color: "#7E7E7E",
+                marginVertical: 3,
+              }}
+            >
               {params.trademarkDetail["_source"]["applicant-chinese-name"]}
             </Text>
           </View>
           {/* <View style={{ flexDirection: "row" }}> */}
-          <Text style={{ ...FONTS.h3, color: "#464646" }}>地址 ：</Text>
           <Text
-            style={{ ...FONTS.h4, color: "#7E7E7E" }}
+            style={{
+              ...FONTS.h3,
+              color: "#464646",
+              fontWeight: "bold",
+              marginVertical: 3,
+            }}
+          >
+            地址 ：
+          </Text>
+          <Text
+            style={{ ...FONTS.h4, color: "#7E7E7E", marginVertical: 3 }}
             ellipsizeMode={"tail"}
             numberOfLines={3}
           >
@@ -181,8 +268,24 @@ const ResultDetail = ({
           </Text>
           {/* </View> */}
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ ...FONTS.h3, color: "#464646" }}>國籍 ：</Text>
-            <Text style={{ ...FONTS.h4, marginLeft: 10, color: "#7E7E7E" }}>
+            <Text
+              style={{
+                ...FONTS.h3,
+                color: "#464646",
+                fontWeight: "bold",
+                marginVertical: 3,
+              }}
+            >
+              國籍 ：
+            </Text>
+            <Text
+              style={{
+                ...FONTS.h4,
+                marginLeft: 10,
+                color: "#7E7E7E",
+                marginVertical: 3,
+              }}
+            >
               {
                 params.trademarkDetail["_source"][
                   "applicant-chinese-country-name"
@@ -229,6 +332,14 @@ const ResultDetail = ({
             ))}
           </BottomSheet>
         </ContentContainer>
+        <View
+          style={{
+            height: 70,
+            // backgroundColor: "red",
+            width: "100%",
+            // marginBottom: 20,
+          }}
+        ></View>
       </Scroll>
     </Background>
   );

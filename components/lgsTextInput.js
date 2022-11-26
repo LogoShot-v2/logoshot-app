@@ -26,7 +26,7 @@ const LgsTextInput = ({
       ) : null}
 
       <TextInput
-        style={styles.input}
+        style={{ ...styles.input, backgroundColor: "white", borderWidth: 1 }}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
         onSubmitEditing={Keyboard.dismiss}

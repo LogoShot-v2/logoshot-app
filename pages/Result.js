@@ -15,6 +15,7 @@ import { Background, ContentContainer, Scroll } from "../components/lgsScreen";
 import { SearchText } from "../axios/api";
 import { set } from "react-native-reanimated";
 import LgsGobackButton from "../components/lgsGobackButton";
+import LgsLogo from "../components/lgsLogo";
 
 const Result = ({ navigation: { navigate, goBack }, route: { params } }) => {
   const [data, setData] = useState([]);
@@ -36,21 +37,30 @@ const Result = ({ navigation: { navigate, goBack }, route: { params } }) => {
     <>
       {data.length !== 0 ? (
         <Background>
+          <LgsLogo />
           <LgsGobackButton goBack={goBack} />
           <Scroll
             contentContainerStyle={{ alignItems: "center" }}
             onScrollEndDrag={() => addData()}
           >
             <ContentContainer>
+              <View
+                style={{
+                  height: 5,
+                  // backgroundColor: "red",
+                  width: "100%",
+                  marginBottom: 20,
+                }}
+              ></View>
               <Text
                 style={{
                   fontWeight: "bold",
-                  fontSize: 18,
-                  marginVertical: 10,
+                  fontSize: 15,
+                  marginBottom: 10,
                   marginLeft: 15,
                 }}
               >
-                {params ? params.data.length : ""} result(s) found.
+                約有 {params ? params.data.length : ""} 項搜尋結果
               </Text>
 
               <View style={styles.searchResults}>
@@ -120,17 +130,27 @@ const styles = StyleSheet.create({
   },
   searchResults: {
     // borderWidth: 1,
-    width: 321,
+    width: "100%",
     justifyContent: "space-between",
-    backgroundColor: "#D0D0D0",
+    // backgroundColor: "#D0D0D0",
     flexDirection: "row",
     flexWrap: "wrap",
   },
   searchResultsBox: {
-    width: 160,
+    width: "49%",
     height: 200,
     padding: 20,
+    marginVertical: 5,
     backgroundColor: "white",
+    borderRadius: 30,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    elevation: 3,
   },
   searchResultsButton: {
     alignItems: "center",

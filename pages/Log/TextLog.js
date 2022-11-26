@@ -16,17 +16,36 @@ const Record = ({ item }, userId, toSearch) => {
   return (
     <>
       <ListBlock
-        style={{ flexDirection: "row" }}
+        style={{
+          flexDirection: "row",
+          backgroundColor: "white",
+          borderWidth: 0,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 3,
+            height: 3,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3,
+          elevation: 3,
+        }}
         onPress={() => toSearch(item)}
       >
         <View style={styles.listTextContainer}>
-          <Text style={FONTS.h4}>關鍵字：{item["searchKeywords"]}</Text>
+          <Text style={FONTS.h4}>
+            <Text style={{ ...FONTS.h4, fontWeight: "bold", color: "#406E9F" }}>
+              關鍵字：
+            </Text>
+            {item["searchKeywords"]}
+          </Text>
           <Text
             style={{ ...FONTS.h4 }}
             ellipsizeMode={"tail"}
             numberOfLines={1}
           >
-            應用商品類別:
+            <Text style={{ ...FONTS.h4, fontWeight: "bold", color: "#406E9F" }}>
+              應用商品類別：
+            </Text>
             {item["targetClasscodes"].map((x) => {
               const ind = classCodeList.findIndex(
                 (y) => y.value === x.toString()
@@ -37,8 +56,18 @@ const Record = ({ item }, userId, toSearch) => {
               return x;
             })}
           </Text>
-          <Text style={FONTS.h4}>商標色彩:{item["targetColor"]}</Text>
-          <Text style={FONTS.h4}>申請人：{item["targetApplicant"]}</Text>
+          <Text style={FONTS.h4}>
+            <Text style={{ ...FONTS.h4, fontWeight: "bold", color: "#406E9F" }}>
+              商標色彩：
+            </Text>
+            {item["targetColor"]}
+          </Text>
+          <Text style={FONTS.h4}>
+            <Text style={{ ...FONTS.h4, fontWeight: "bold", color: "#406E9F" }}>
+              申請人：
+            </Text>
+            {item["targetApplicant"]}
+          </Text>
         </View>
       </ListBlock>
     </>
@@ -49,12 +78,13 @@ const DateRecord = ({ item }, userId, toSearch) => {
   return (
     <>
       <View style={styles.dateContainer}>
-        <Text style={FONTS.h3}>
+        <Text style={{ ...FONTS.h3, fontWeight: "bold" }}>
           {DateTime.fromRFC2822(item[0]).toFormat("MMM dd, yyyy")}
         </Text>
       </View>
       <FlatList
         data={item[1]}
+        style={{ padding: 5 }}
         renderItem={(e) => Record(e, userId, toSearch)}
         keyExtractor={(e) => e.searchTime}
       />
@@ -82,34 +112,33 @@ const TextLog = ({ navigation: { navigate } }) => {
   }, []);
 
   return (
-    <Background>
-      <Scroll>
-        <ContentContainer>
-          {datesBactches ? (
-            <FlatList
-              data={datesBactches}
-              renderItem={(item) => DateRecord(item, userId, toSearch)}
-              keyExtractor={(item) => item[0]}
-            />
-          ) : null}
-        </ContentContainer>
-      </Scroll>
-    </Background>
+    <Scroll>
+      <View style={{ height: 60 }}></View>
+      <ContentContainer>
+        {datesBactches ? (
+          <FlatList
+            data={datesBactches}
+            renderItem={(item) => DateRecord(item, userId, toSearch)}
+            keyExtractor={(item) => item[0]}
+          />
+        ) : null}
+      </ContentContainer>
+      <View style={{ height: 80 }}></View>
+    </Scroll>
   );
 };
 
 export default TextLog;
 
 const styles = StyleSheet.create({
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 20,
-  },
   listTextContainer: {
-    flex: 1,
+    flex: 2,
     marginLeft: 20,
-    // paddingTop: 20,
+    alignContent: "center",
+    justifyContent: "center",
+    // backgroundColor: "red",
+    // paddingTop: 50,
+    // paddingBottom: 50,
   },
   dateContainer: {
     marginTop: 20,

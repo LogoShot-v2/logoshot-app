@@ -56,7 +56,12 @@ const MyFavoriteFileDetail = ({
         <TouchableOpacity
           style={{
             ...FONTS.image,
+            marginRight: 5,
+            marginLeft: 5,
             marginTop: 20,
+            // backgroundColor: "white",
+            borderColor: "gray",
+            borderWidth: 1,
           }}
           onPress={() =>
             navigate("ResultDetail", {
@@ -94,18 +99,26 @@ const MyFavoriteFileDetail = ({
 
   return (
     <Provider>
-      <LgsLogo />
       <Background>
+        <LgsLogo />
         <LgsGobackButton goBack={goBack}></LgsGobackButton>
         {tradeMarks.length !== 0 ? (
           <Scroll>
-            <ContentContainer>
+            <View
+              style={{
+                height: 50,
+                // backgroundColor: "red",
+                width: "100%",
+                marginBottom: 20,
+              }}
+            ></View>
+            <ContentContainer style={{ width: "85%" }}>
               <FlatList
                 data={tradeMarks}
                 renderItem={(item) => TradeMarkImage(item)}
                 numColumns={3}
                 columnWrapperStyle={{
-                  justifyContent: "space-around",
+                  justifyContent: "flex-start",
                 }}
               />
               <Portal>
@@ -127,6 +140,14 @@ const MyFavoriteFileDetail = ({
                 </BottomSheet>
               </Portal>
             </ContentContainer>
+            <View
+              style={{
+                height: 40,
+                // backgroundColor: "red",
+                width: "100%",
+                marginBottom: 20,
+              }}
+            ></View>
           </Scroll>
         ) : (
           <View style={styles.center}>

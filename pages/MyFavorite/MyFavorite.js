@@ -30,9 +30,12 @@ const File = ({ item }, onPressFile, onLongPress) => {
     <TouchableOpacity
       style={{
         ...FONTS.image,
-        // marginRight: "auto",
-        // marginLeft: "auto",
+        marginRight: 5,
+        marginLeft: 5,
         marginTop: 20,
+        // backgroundColor: "white",
+        borderColor: "gray",
+        borderWidth: 1,
       }}
       onPress={() => onPressFile(item)}
       onLongPress={() => onLongPress(item)}
@@ -129,15 +132,37 @@ const MyFavorite = ({ navigation: { navigate } }) => {
       <Background>
         <LgsLogo />
         <Scroll>
-          <ContentContainer>
+          <View
+            style={{
+              height: 40,
+              // backgroundColor: "red",
+              width: "100%",
+              marginBottom: 20,
+            }}
+          ></View>
+          <ContentContainer style={{ width: "85%" }}>
             <Text style={FONTS.h3}> </Text>
+            {/* <FlatList
+              data={files}
+              renderItem={(item) => File(item[0], onPressFile, onLongPress)}
+              keyExtractor={(x) => x["fileId"]}
+              numColumns={3}
+              columnWrapperStyle={{
+                justifyContent: "flex-start",
+                // alignSelf: "center",
+              }}
+              contentContainerStyle={{ width: "100%" }}
+            /> */}
             {files ? (
               <FlatList
                 data={files}
                 renderItem={(item) => File(item, onPressFile, onLongPress)}
                 keyExtractor={(x) => x["fileId"]}
                 numColumns={3}
-                columnWrapperStyle={{ justifyContent: "space-between" }}
+                columnWrapperStyle={{
+                  justifyContent: "flex-start",
+                  // alignSelf: "center",
+                }}
                 contentContainerStyle={{ width: "100%" }}
               />
             ) : null}
@@ -224,6 +249,14 @@ const MyFavorite = ({ navigation: { navigate } }) => {
               </BottomSheet>
             </Portal>
           </ContentContainer>
+          <View
+            style={{
+              height: 40,
+              // backgroundColor: "red",
+              width: "100%",
+              marginBottom: 20,
+            }}
+          ></View>
         </Scroll>
       </Background>
     </Provider>

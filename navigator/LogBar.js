@@ -9,11 +9,29 @@ const Tab = createMaterialTopTabNavigator();
 
 const LogBar = () => {
   return (
-    <Tab.Navigator pagerStyle={{ width: "100%" }}>
+    <Tab.Navigator
+      pagerStyle={{ width: "100%" }}
+      screenOptions={{
+        tabBarActiveTintColor: "#406E9F",
+        tabBarInactiveTintColor: "black",
+        tabBarStyle: {
+          marginTop: 10,
+          height: 60,
+          justifyContent: "center",
+          backgroundColor: "white",
+          borderBottomWidth: 1,
+          borderBottomColor: "#406E9F",
+        },
+        tabBarLabelStyle: { fontSize: 18, fontWeight: "bold" },
+      }}
+    >
       <Tab.Screen
         name="ImageLog"
         component={ImageLog}
-        options={{ tabBarLabel: "圖片搜尋", headerShown: false }}
+        options={{
+          tabBarLabel: "圖片搜尋",
+          headerShown: false,
+        }}
       />
       <Tab.Screen
         name="TextLog"

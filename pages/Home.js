@@ -98,7 +98,7 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
               )}
               <Text
                 style={{
-                  backgroundColor: "#ffffff",
+                  // backgroundColor: "#ffffff",
                   textAlign: "center",
                   alignItems: "center",
                   borderRadius: 5,
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     backgroundColor: "green",
   },
   imageStyle: {
-    marginTop: 200,
+    marginTop: 150,
     width: 300,
     height: 300,
   },

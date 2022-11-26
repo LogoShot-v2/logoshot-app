@@ -181,11 +181,12 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
           />
           <Text
             style={{
-              ...FONTS.h2,
-              lineHeight: 68,
+              ...FONTS.h4,
+              lineHeight: 50,
+              alignSelf: "center",
             }}
           >
-            商標註冊期間
+            －商標註冊期間－
           </Text>
           <View
             style={{

@@ -10,11 +10,13 @@ export default StyleSheet.create({
   },
   imagePickerButton: {
     marginVertical: 10,
+    backgroundColor: "white",
     height: 178,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 8,
-    borderWidth: 0.4,
+    borderWidth: 1,
+    borderColor: "black",
   },
   addImageButtonImage: {
     height: 72,
@@ -26,7 +28,7 @@ export default StyleSheet.create({
   },
   photoIndicator: {
     marginTop: 20,
-    borderRadius: 20,
+    borderRadius: 30,
   },
   rangeContainer: {
     flexDirection: "row",
