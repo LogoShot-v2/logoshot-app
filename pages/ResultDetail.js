@@ -322,7 +322,7 @@ const ResultDetail = ({
 
               <Button
                 type="clear"
-                icon={<Icon name="heart-o" size={20} color="red" />}
+                icon={<Icon name="inbox" size={20} color="#FFC700" />}
                 onPress={() => setShowFavorite(true)}
               />
             </View>
