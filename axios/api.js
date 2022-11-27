@@ -136,7 +136,10 @@ export async function SearchText(
   target_color = "",
   target_applicant = "",
   target_startTime = "",
-  target_endTime = ""
+  target_endTime = "",
+  targetDraftC = "",
+  targetDraftE = "",
+  targetDraftJ = ""
 ) {
   const data = new FormData();
   data.append("searchKeywords", searchKeywords);
@@ -147,6 +150,9 @@ export async function SearchText(
   data.append("target_applicant", target_applicant);
   data.append("target_startTime", target_startTime);
   data.append("target_endTime", target_endTime);
+  data.append("target_draft_c", targetDraftC);
+  data.append("target_draft_e", targetDraftE);
+  data.append("target_draft_j", targetDraftJ);
 
   const userInfoStr = await AsyncStorage.getItem("@userInfo");
   const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;

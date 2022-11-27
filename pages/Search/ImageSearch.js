@@ -188,6 +188,13 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
   useEffect(() => {
     const asyncfunction = async () => {
       if (params) {
+        if (
+          params["targetDraftC"] ||
+          params["targetDraftE"] ||
+          params["targetDraftJ"]
+        ) {
+          setAdvance(true);
+        }
         const userInfoStr = await AsyncStorage.getItem("@userInfo");
         const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
         setSearchKeywords(params["searchKeywords"]);
@@ -196,9 +203,6 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
         setTargetApplicant(params["targetApplicant"]);
         setTargetStartTime(params["targetStartTime"]);
         setTargetEndTime(params["targetEndTime"]);
-        setTargetDraftC(params["targetDraftC"]);
-        setTargetDraftE(params["targetDraftE"]);
-        setTargetDraftJ(params["targetDraftJ"]);
         setImage({
           uri:
             "http://140.112.106.82:8081/imagelog/" +
@@ -214,6 +218,11 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
         setImageHeight(Number(params["photoHeight"]));
         setImageWidth(Number(params["photoWidth"]));
         setIsOldImage(true);
+        setTimeout(() => {
+          setTargetDraftC(params["targetDraftC"]);
+          setTargetDraftE(params["targetDraftE"]);
+          setTargetDraftJ(params["targetDraftJ"]);
+        });
       }
     };
     asyncfunction();
