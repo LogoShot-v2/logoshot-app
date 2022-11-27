@@ -27,21 +27,41 @@ import LgsTextInput from "../../components/lgsTextInput";
 
 const File = ({ item }, onPressFile, onLongPress) => {
   return (
-    <TouchableOpacity
-      style={{
-        ...FONTS.image,
-        marginRight: 5,
-        marginLeft: 5,
-        marginTop: 20,
-        // backgroundColor: "white",
-        borderColor: "gray",
-        borderWidth: 1,
-      }}
-      onPress={() => onPressFile(item)}
-      onLongPress={() => onLongPress(item)}
-    >
-      <Text>{item["fileName"]}</Text>
-    </TouchableOpacity>
+    <>
+      {item["fileId"] === -1 ? (
+        // 妍伶你要改樣式就改這個button
+        <TouchableOpacity
+          style={{
+            ...FONTS.image,
+            marginRight: 5,
+            marginLeft: 5,
+            marginTop: 20,
+            borderColor: "gray",
+            borderWidth: 1,
+          }}
+          onPress={() => onPressFile(item)}
+          onLongPress={() => onLongPress(item)}
+        >
+          <Text>{item["fileName"]}</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={{
+            ...FONTS.image,
+            marginRight: 5,
+            marginLeft: 5,
+            marginTop: 20,
+            // backgroundColor: "white",
+            borderColor: "gray",
+            borderWidth: 1,
+          }}
+          onPress={() => onPressFile(item)}
+          onLongPress={() => onLongPress(item)}
+        >
+          <Text>{item["fileName"]}</Text>
+        </TouchableOpacity>
+      )}
+    </>
   );
 };
 
