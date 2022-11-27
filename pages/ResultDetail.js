@@ -149,6 +149,7 @@ const ResultDetail = ({
             <Text
               style={{
                 ...FONTS.h4,
+                flex: 1,
                 marginLeft: 10,
                 color: "#7E7E7E",
                 marginVertical: 3,

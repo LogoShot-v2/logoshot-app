@@ -89,7 +89,11 @@ const Result = ({ navigation: { navigate, goBack }, route: { params } }) => {
                         }}
                         style={styles.searchResultsImage}
                       />
-                      <Text style={styles.searchResultsText}>
+                      <Text
+                        style={styles.searchResultsText}
+                        numberOfLines={3}
+                        ellipsizeMode={"tail"}
+                      >
                         {params.data[idx]["_source"]["tmark-name"].replace(
                           /\s*/g,
                           ""
