@@ -11,6 +11,7 @@ import {
 } from "../../components/lgsScreen";
 import { FONTS, classCodeList } from "../../constant";
 import { DateTime } from "luxon";
+import { ActivityIndicator } from "react-native-paper";
 
 const Record = ({ item }, userId, toSearch) => {
   return (
@@ -106,17 +107,27 @@ const DateRecord = ({ item }, userId, toSearch) => {
 };
 
 const ImageLog = ({ navigation: { navigate } }) => {
-  const [datesBactches, setDatesBactches] = useState();
+  const [rawData, setRawData] = useState(null);
+  const [datesBactches, setDatesBactches] = useState([]);
   const [userId, setUserId] = useState("");
 
   const toSearch = (item) => {
     navigate("ImageSearch", item);
   };
 
+  const addData = () => {
+    if (rawData) {
+      setDatesBactches(
+        rawData.slice(0, Math.min(rawData.length + 1, rawData.length))
+      );
+    }
+  };
+
   useEffect(() => {
     const asyncfunction = async () => {
       const data = await GetSearchingHistory(true);
-      setDatesBactches(data);
+      // setDatesBactches(data);
+      setRawData(data);
       const userInfoStr = await AsyncStorage.getItem("@userInfo");
       const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
       setUserId(userInfo.userId);
@@ -124,20 +135,30 @@ const ImageLog = ({ navigation: { navigate } }) => {
     asyncfunction();
   }, []);
 
+  useEffect(() => {
+    addData();
+  }, rawData);
+
   return (
-    <Scroll>
-      <View style={{ height: 60 }}></View>
-      <ContentContainer>
-        {datesBactches ? (
-          <FlatList
-            data={datesBactches}
-            renderItem={(item) => DateRecord(item, userId, toSearch)}
-            keyExtractor={(item) => item[0]}
-          />
-        ) : null}
-      </ContentContainer>
-      <View style={{ height: 80 }}></View>
-    </Scroll>
+    <>
+      {datesBactches.length === 0 ? (
+        <ActivityIndicator style={{ marginTop: 30 }} />
+      ) : (
+        <Scroll onScrollEndDrag={() => addData()}>
+          <View style={{ height: 60 }}></View>
+          <ContentContainer>
+            {datesBactches ? (
+              <FlatList
+                data={datesBactches}
+                renderItem={(item) => DateRecord(item, userId, toSearch)}
+                keyExtractor={(item) => item[0]}
+              />
+            ) : null}
+          </ContentContainer>
+          <View style={{ height: 80 }}></View>
+        </Scroll>
+      )}
+    </>
   );
 };
 

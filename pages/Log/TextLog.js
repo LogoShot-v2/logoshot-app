@@ -11,6 +11,7 @@ import {
 } from "../../components/lgsScreen";
 import { classCodeList, FONTS } from "../../constant";
 import { DateTime } from "luxon";
+import { ActivityIndicator } from "react-native-paper";
 
 const Record = ({ item }, userId, toSearch) => {
   return (
@@ -93,7 +94,7 @@ const DateRecord = ({ item }, userId, toSearch) => {
 };
 
 const TextLog = ({ navigation: { navigate } }) => {
-  const [datesBactches, setDatesBactches] = useState();
+  const [datesBactches, setDatesBactches] = useState([]);
   const [userId, setUserId] = useState("");
 
   const toSearch = (item) => {
@@ -112,19 +113,25 @@ const TextLog = ({ navigation: { navigate } }) => {
   }, []);
 
   return (
-    <Scroll>
-      <View style={{ height: 60 }}></View>
-      <ContentContainer>
-        {datesBactches ? (
-          <FlatList
-            data={datesBactches}
-            renderItem={(item) => DateRecord(item, userId, toSearch)}
-            keyExtractor={(item) => item[0]}
-          />
-        ) : null}
-      </ContentContainer>
-      <View style={{ height: 80 }}></View>
-    </Scroll>
+    <>
+      {datesBactches.length === 0 ? (
+        <ActivityIndicator style={{ marginTop: 30 }} />
+      ) : (
+        <Scroll>
+          <View style={{ height: 60 }}></View>
+          <ContentContainer>
+            {datesBactches ? (
+              <FlatList
+                data={datesBactches}
+                renderItem={(item) => DateRecord(item, userId, toSearch)}
+                keyExtractor={(item) => item[0]}
+              />
+            ) : null}
+          </ContentContainer>
+          <View style={{ height: 80 }}></View>
+        </Scroll>
+      )}
+    </>
   );
 };
 
