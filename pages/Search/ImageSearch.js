@@ -273,8 +273,21 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
             )}
 
             <DropDownPicker
+              dropDownContainerStyle={{
+                backgroundColor: "#ffffff",
+              }}
+              badgeStyle={{
+                padding: 5,
+                backgroundColor: "red",
+              }}
+              badgeTextStyle={{
+                width: 100,
+                height: 20,
+                fontSize: 8,
+              }}
+              bad
               placeholder="商標搜尋類別"
-              containerStyle={style.input}
+              // containerStyle={style.input}
               searchable={true}
               open={open}
               value={targetClasscodes}
