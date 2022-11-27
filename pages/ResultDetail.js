@@ -28,6 +28,7 @@ import {
   Dialog,
   Button as PaperButton,
 } from "react-native-paper";
+
 const imageArr = [
   "tmark-image-url_1",
   "tmark-image-url_2",
