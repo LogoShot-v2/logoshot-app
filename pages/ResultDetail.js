@@ -360,6 +360,13 @@ const ResultDetail = ({
               </Dialog>
               <BottomSheet
                 isVisible={showFavorite}
+                scrollViewProps={{
+                  style: {
+                    maxHeight: 200,
+                    bottom: 0,
+                    marginTop: "auto",
+                  },
+                }}
                 onBackdropPress={() => setShowFavorite(false)}
               >
                 <ListItem
