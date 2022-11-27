@@ -123,7 +123,7 @@ const MyFavorite = ({ navigation: { navigate } }) => {
     await PostAddFavoriteFile(newFileName);
     await loadDatas();
     setAddDialogVisible(false);
-    setNewFileName("");
+    setNewFileName("新增資料夾");
   };
 
   const renameFile = async () => {
@@ -162,17 +162,6 @@ const MyFavorite = ({ navigation: { navigate } }) => {
           ></View>
           <ContentContainer style={{ width: "85%" }}>
             <Text style={FONTS.h3}> </Text>
-            {/* <FlatList
-              data={files}
-              renderItem={(item) => File(item[0], onPressFile, onLongPress)}
-              keyExtractor={(x) => x["fileId"]}
-              numColumns={3}
-              columnWrapperStyle={{
-                justifyContent: "flex-start",
-                // alignSelf: "center",
-              }}
-              contentContainerStyle={{ width: "100%" }}
-            /> */}
             {files ? (
               <FlatList
                 data={files}

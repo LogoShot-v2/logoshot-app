@@ -210,13 +210,16 @@ export async function PostAddFavoriteFile(fileName) {
         fileName,
       })
       .then((res) => {
-        console.log(res.data["res"]["fileName"]);
+        console.log(res.data["res"]["fileName"], res.data["res"]["fileId"]);
+        return res.data["res"]["fileId"];
       })
       .catch((res) => {
         console.log(res);
+        return;
       });
   } else {
     Alert.alert("如需新增我的最愛資料夾，請先登入");
+    return;
   }
 }
 
