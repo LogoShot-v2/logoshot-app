@@ -14,11 +14,10 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ntuim.logoshot"
     },
     "android": {
       "adaptiveIcon": {
@@ -43,7 +42,6 @@
           "userTrackingPermission": false
         }
       ]
-
     ]
   }
 }
