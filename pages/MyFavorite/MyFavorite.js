@@ -36,13 +36,24 @@ const File = ({ item }, onPressFile, onLongPress) => {
             marginRight: 5,
             marginLeft: 5,
             marginTop: 20,
-            borderColor: "gray",
-            borderWidth: 1,
+            backgroundColor: "#406E9F",
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 2,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3,
+            elevation: 3,
+            // borderColor: "white",
+            // borderWidth: 3,
           }}
           onPress={() => onPressFile(item)}
           onLongPress={() => onLongPress(item)}
         >
-          <Text>{item["fileName"]}</Text>
+          <Text style={{ color: "white", fontSize: 30 }}>
+            {item["fileName"]}
+          </Text>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
@@ -51,14 +62,24 @@ const File = ({ item }, onPressFile, onLongPress) => {
             marginRight: 5,
             marginLeft: 5,
             marginTop: 20,
-            // backgroundColor: "white",
-            borderColor: "gray",
+            backgroundColor: "aliceblue",
+            borderColor: "#406E9F",
             borderWidth: 1,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0.5,
+              height: 0.5,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3,
+            elevation: 3,
           }}
           onPress={() => onPressFile(item)}
           onLongPress={() => onLongPress(item)}
         >
-          <Text>{item["fileName"]}</Text>
+          <Text style={{ color: "#406E9F", fontWeight: "bold" }}>
+            {item["fileName"]}
+          </Text>
         </TouchableOpacity>
       )}
     </>

@@ -60,8 +60,14 @@ const MyFavoriteFileDetail = ({
             marginLeft: 5,
             marginTop: 20,
             // backgroundColor: "white",
-            borderColor: "gray",
-            borderWidth: 1,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0.5,
+              height: 0.5,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3,
+            elevation: 3,
           }}
           onPress={() =>
             navigate("ResultDetail", {
@@ -76,6 +82,8 @@ const MyFavoriteFileDetail = ({
           <Image
             style={{
               ...FONTS.image,
+              borderColor: "#406E9F",
+              borderWidth: 1,
             }}
             source={{
               uri:
