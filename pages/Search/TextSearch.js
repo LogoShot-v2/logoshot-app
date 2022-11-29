@@ -147,7 +147,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
       <LgsLogo />
       <Scroll>
         <ContentContainer>
-          <Text style={FONTS.h3}> </Text>
+          <View style={{ height: 50 }}></View>
           <LgsTextInput
             placeholder="請輸入關鍵字"
             style={{ ...style.input, marginTop: 20 }}
@@ -307,7 +307,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             </>
           ) : null}
           <LgsButton
-            // style={{ width: "100%", marginTop: 40 }}
+            style={{ ...style.input, borderWidth: 0 }}
             title="搜尋"
             onPress={() => onSearch()}
             onChangeText={settarget_endTime}

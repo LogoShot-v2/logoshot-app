@@ -234,7 +234,7 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
         <LgsLogo />
         <Scroll>
           <ContentContainer>
-            <Text style={FONTS.h1}> </Text>
+            <View style={{ height: 50 }}></View>
             {image.uri ? (
               <>
                 <LgsPhotoIndicator
