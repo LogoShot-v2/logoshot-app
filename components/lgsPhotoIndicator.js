@@ -64,7 +64,6 @@ const LgsPhotoIndicator = ({
         position: "relative",
         alignItems: "center",
         justifyContent: "center",
-        // backgroundColor: "red",
         ...style,
       }}
     >

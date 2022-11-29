@@ -36,7 +36,8 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
 
   return (
     <Background>
-      <LgsLogo />
+      <LgsLogo isHome={true} name={name} image={image} logout={logout} />
+
       <Scroll contentContainerStyle={styles.container}>
         <View
           style={{
@@ -62,19 +63,7 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
         >
           {name ? (
             <>
-              {/* <TouchableOpacity
-                style={{
-                  paddingLeft: 10,
-                  paddingRight: 10,
-                  backgroundColor: "#406E9F",
-                  borderRadius: 5,
-                  marginTop: 10,
-                  marginLeft: 10,
-                }}
-                onPress={() => logout()}
-              >
-                <Text>登出</Text>
-              </TouchableOpacity> */}
+              {/*               
               {image ? (
                 <Image
                   source={{ uri: image.data.url }}
@@ -128,7 +117,7 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
                 >
                   登出
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </>
           ) : (
             <>

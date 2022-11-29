@@ -1,8 +1,19 @@
 import { BackgroundImage } from "@rneui/base";
-import { View, Text, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { FONTS } from "../constant";
 
-const LgsLogo = ({}) => {
+const LgsLogo = ({
+  isHome = false,
+  name = "",
+  image = null,
+  logout = () => {},
+}) => {
   return (
     <BackgroundImage
       source={require("../assets/logobg.jpg")}
@@ -10,14 +21,10 @@ const LgsLogo = ({}) => {
         flexDirection: "row",
         alignItems: "center",
         position: "absolute",
-        // backgroundColor: "gainsboro",
         zIndex: 1,
-        // marginLeft: 30,
         marginTop: 10,
         flexDirection: "row",
         borderBottomColor: "black",
-        // margintop: 40,
-        // marginRight: 40,
       }}
     >
       <Text
@@ -43,6 +50,57 @@ const LgsLogo = ({}) => {
       >
         shot
       </Text>
+
+      {isHome ? (
+        <View
+          style={{
+            width: "30%",
+            // backgroundColor: "red",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+        >
+          {name ? (
+            <>
+              {image ? (
+                <Image
+                  source={{ uri: image.data.url }}
+                  style={{
+                    height: 30,
+                    width: 30,
+                    borderRadius: 15,
+                  }}
+                />
+              ) : null}
+              <Text
+                style={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: 5,
+                  margin: 10,
+                  width: image ? undefined : "60%",
+                }}
+                numberOfLines={1}
+                ellipsizeMode={"tail"}
+              >
+                {name}
+              </Text>
+              <TouchableOpacity
+                style={{
+                  paddingLeft: 10,
+                  paddingRight: 10,
+                  backgroundColor: "#406E9F",
+                  borderRadius: 5,
+                  marginRight: 10,
+                }}
+                onPress={() => logout()}
+              >
+                <Text style={{ fontSize: 15 }}>登出</Text>
+              </TouchableOpacity>
+            </>
+          ) : null}
+        </View>
+      ) : null}
     </BackgroundImage>
   );
 };
