@@ -52,7 +52,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
   const [date, setDate] = useState();
 
   const [target_startTime, settarget_startTime] = useState(
-    DateTime.fromFormat("2010-01-01", "yyyy-mm-dd").toFormat("yyyy/MM/dd")
+    DateTime.fromFormat("2000-01-01", "yyyy-mm-dd").toFormat("yyyy/MM/dd")
   );
   const [target_endTime, settarget_endTime] = useState(
     DateTime.now().toFormat("yyyy/MM/dd")
@@ -186,7 +186,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             }}
             badgeStyle={{
               padding: 5,
-              backgroundColor: "red",
+              // backgroundColor: "red",
             }}
             badgeTextStyle={{
               width: 100,

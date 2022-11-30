@@ -65,7 +65,7 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
   const [targetColor, setTargetColor] = useState("");
   const [targetApplicant, setTargetApplicant] = useState("");
   const [targetStartTime, setTargetStartTime] = useState(
-    DateTime.fromFormat("2010-01-01", "yyyy-mm-dd").toFormat("yyyy/MM/dd")
+    DateTime.fromFormat("2000-01-01", "yyyy-mm-dd").toFormat("yyyy/MM/dd")
   );
   const [targetEndTime, setTargetEndTime] = useState(
     DateTime.now().toFormat("yyyy/MM/dd")
@@ -287,7 +287,7 @@ const ImageSearch = ({ navigation: { navigate }, route: { params } }) => {
               }}
               badgeStyle={{
                 padding: 5,
-                backgroundColor: "red",
+                // backgroundColor: "red",
               }}
               badgeTextStyle={{
                 width: 100,

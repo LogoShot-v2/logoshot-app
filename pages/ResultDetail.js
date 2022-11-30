@@ -36,18 +36,13 @@ const imageArr = [
   "tmark-image-url_4",
   "tmark-image-url_5",
 ];
+const windowWidth = Dimensions.get("window").width;
 
 const ResultDetail = ({
   navigation: { navigate, goBack },
   route: { params },
   slideTime,
 }) => {
-  const [images, setimages] = useState([
-    "https://source.unsplash.com/1024x768/?nature",
-    "https://source.unsplash.com/1024x768/?water",
-    "https://source.unsplash.com/1024x768/?girl",
-    "https://source.unsplash.com/1024x768/?tree", // Network image
-  ]);
   const [showFavorite, setShowFavorite] = useState(false);
   const [myFavoriteFile, setMyFavoriteFile] = useState([]);
 
@@ -55,14 +50,17 @@ const ResultDetail = ({
   const [lengthMore, setLengthMore] = useState(false); //to show the "Read more & Less Line"
   const [addDialogVisible, setAddDialogVisible] = useState(false);
   const [newFileName, setNewFileName] = useState("新增資料夾");
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+
   const toggleNumberOfLines = () => {
-    //To toggle the show text or hide it
     setTextShown(!textShown);
   };
+
   const onTextLayout = useCallback((e) => {
-    setLengthMore(e.nativeEvent.lines.length >= 3); //to check the text is more than 4 lines or not
-    // console.log(e.nativeEvent);
+    setLengthMore(e.nativeEvent.lines.length >= 3);
   }, []);
+
   const addFile = async () => {
     const fileId = await PostAddFavoriteFile(newFileName);
     setAddDialogVisible(false);
@@ -70,6 +68,12 @@ const ResultDetail = ({
     if (fileId) {
       await AddFavorite(fileId, params.trademarkDetail["_id"]);
     }
+  };
+
+  const AddFavorite = async (fileId, esId) => {
+    //加到我的最愛
+    await PostAddFavorite(fileId, esId);
+    setShowFavorite(false);
   };
 
   useEffect(() => {
@@ -86,12 +90,36 @@ const ResultDetail = ({
     }
   }, [showFavorite]);
 
-  const AddFavorite = async (fileId, esId) => {
-    //加到我的最愛
-    await PostAddFavorite(fileId, esId);
-
-    setShowFavorite(false);
-  };
+  useEffect(() => {
+    if (params) {
+      // console.log(imageArr);
+      imageArr
+        .filter((x) => params.trademarkDetail["_source"][x])
+        .forEach((x) => {
+          // console.log(x);
+          const uri =
+            "http://140.112.106.88:8082/" +
+            params.trademarkDetail["_source"][x];
+          Image.getSize(
+            uri,
+            (w, h) => {
+              console.log("h", h);
+              console.log("w", w);
+              if (w > width) {
+                setWidth(w);
+              }
+              if (h > height) {
+                setHeight(h);
+              }
+              setTimeout(() => {});
+            },
+            (err) => {
+              console.log("getSize err", err);
+            }
+          );
+        });
+    }
+  }, [params]);
 
   return (
     <Provider>
@@ -103,14 +131,15 @@ const ResultDetail = ({
             <View
               style={{
                 height: 60,
-                // backgroundColor: "red",
                 width: "100%",
                 marginBottom: 20,
               }}
             ></View>
             <SliderBox
-              sliderBoxHeight={200}
-              parentWidth={300}
+              sliderBoxHeight={(windowWidth * 0.8 * height) / (width || 1)}
+              parentWidth={windowWidth * 0.8}
+              dotColor="#464646"
+              inactiveDotColor="#D0D0D0"
               images={imageArr
                 .filter((x) => params.trademarkDetail["_source"][x])
                 .map(
