@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, Text, View, Alert, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Facebook from "expo-facebook";
+import { Button } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as AppleAuthentication from "expo-apple-authentication";
 import { LoginToFireBase, SignInToFireBase } from "../axios/api";
 import LgsTextInput from "../components/lgsTextInput";
 import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
@@ -47,7 +49,7 @@ const Login = ({ navigation: { navigate } }) => {
       }
     } catch ({ message }) {
       console.log(message);
-      alert(`Facebook Login Error: ${message}`);
+      Alert.alert(`Facebook Login Error: ${message}`);
     }
   };
   const firebaselogin = async () => {
@@ -67,23 +69,44 @@ const Login = ({ navigation: { navigate } }) => {
       Alert.alert("Logged in!");
       navigate("Home", localData);
     } catch (e) {
-      alert(e.data);
+      Alert.alert(e.data);
     }
   };
-  const signIn = async () => {
-    const signInStatus = await SignInToFireBase(email, password);
-
-    Alert.alert(
-      `驗證信已寄至${signInStatus}，請至信箱中點擊連結完成驗證。（請小心，驗證信有可能會被信箱中被歸類為垃圾信件）`
-    );
+  const applelogin = async () => {
+    try {
+      const credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+      // signed in
+      if (credential.fullName.givenName) {
+        await AsyncStorage.setItem(
+          "@appleInfo",
+          JSON.stringify(credential.fullName)
+        );
+      }
+      const appleInfoStr = await AsyncStorage.getItem("@appleInfo");
+      const appleInfo = JSON.parse(appleInfoStr);
+      const name = appleInfo.givenName;
+      await AsyncStorage.setItem(
+        "@userInfo",
+        JSON.stringify({
+          userId: credential.user,
+          name: name,
+          userType: "apple",
+        })
+      );
+      console.log(credential.user);
+      const localData = await AsyncStorage.getItem("@userInfo");
+      Alert.alert("Logged in!", `Hi ${name}!`);
+      navigate("Home", localData);
+    } catch (e) {
+      Alert.alert("Apple Login Error !");
+    }
   };
 
-  // const logout = async () => {
-  //   await AsyncStorage.clear();
-  //   // console.log("logout clear:", await AsyncStorage.getAllKeys());
-  //   Alert.alert("Logged out!");
-  //   navigate("Home", {});
-  // };
   // 禁區----------------------
   const goBack = () => {
     navigate("Home");
@@ -107,16 +130,41 @@ const Login = ({ navigation: { navigate } }) => {
             value={password}
             onChangeText={setPassword}
           />
+
           <LgsButton
             style={{ marginTop: 30 }}
-            onPress={() => facebooklogin()}
-            title="Facebook 登入"
-          />
-          <LgsButton
-            style={{ marginTop: 30 }}
-            title="LogoShot 帳號登入"
+            title="登入 Logoshot 帳號"
             onPress={() => firebaselogin()}
           />
+          <View
+            style={{
+              marginTop: 30,
+              flexDirection: "row",
+              height: 45,
+              alignItems: "flex-end",
+              justifyContent: "center",
+              // backgroundColor: "red",
+            }}
+          >
+            <TouchableOpacity
+              style={{ ...styles.outerSourceButton, marginRight: "30%" }}
+              onPress={() => applelogin()}
+            >
+              <Image
+                source={require("../assets/apple.png")}
+                style={{ width: 20, height: 22.5 }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.outerSourceButton}
+              onPress={() => facebooklogin()}
+            >
+              <Image
+                source={require("../assets/facebook.png")}
+                style={{ width: 20, height: 20 }}
+              />
+            </TouchableOpacity>
+          </View>
         </ContentContainer>
       </Scroll>
     </Background>
@@ -134,5 +182,15 @@ const styles = StyleSheet.create({
   input: {
     marginTop: 40,
     borderRadius: 8,
+  },
+  outerSourceButton: {
+    borderRadius: 25,
+    height: 50,
+    width: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#7E7E7E",
+    //
   },
 });

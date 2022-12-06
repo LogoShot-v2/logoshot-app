@@ -1,10 +1,11 @@
 {
   "expo": {
-    "name": "loghoshot-frontend",
-    "slug": "loghoshot-frontend",
-    "version": "1.0.0",
+    "name": "Logo Shot",
+    "slug": "LogoShot",
+    "version": "2.0.2",
+    "privacy": "public",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Logoshot.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -17,13 +18,27 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ntuim.logoshot"
+      "bundleIdentifier": "meow.logoshot",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "$(PRODUCT_NAME)在商標搜尋中提供了以圖搜圖的功能，若希望使用此功能，請打開相簿權限",
+        "NSCameraUsageDescription": "$(PRODUCT_NAME)在商標搜尋中提供了以圖搜圖的功能，若希望能在使用此功能時運用相機拍攝，請打開相機權限",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone",
+        "SKAdNetworkItems": [
+          {
+            "SKAdNetworkIdentifier": "v9wttpbfk9.skadnetwork"
+          },
+          {
+            "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
+          }
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -42,6 +57,11 @@
           "userTrackingPermission": false
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "d3247822-4099-486c-9fcc-fc9077ccf993"
+      }
+    }
   }
 }
