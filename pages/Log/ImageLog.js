@@ -44,7 +44,7 @@ const Record = ({ item }, userId, toSearch) => {
           style={{
             ...FONTS.image,
             borderWidth: 0.5,
-            borderColor: "#acb5be",
+            borderColor: "#FFF5E0",
             // height: "120%",
             zIndex: 1,
             marginTop: -10,
@@ -142,7 +142,7 @@ const ImageLog = ({ navigation: { navigate } }) => {
   return (
     <>
       {datesBactches.length === 0 ? (
-        <ActivityIndicator style={{ marginTop: 30 }} />
+        <ActivityIndicator  color="#dad7cd" style={{ marginTop: 30 }} />
       ) : (
         <Scroll onScrollEndDrag={() => addData()}>
           <View style={{ height: 60 }}></View>
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     alignContent: "center",
     justifyContent: "center",
-    // backgroundColor: "red",
+    //backgroundColor: "red",
     // paddingTop: 50,
     // paddingBottom: 50,
   },

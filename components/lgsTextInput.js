@@ -26,7 +26,7 @@ const LgsTextInput = ({
       ) : null}
 
       <TextInput
-        style={{ ...styles.input, backgroundColor: "white", borderWidth: 1 }}
+        style={{ ...styles.input, backgroundColor: "white", borderWidth: 1,  borderColor: "#FFFFFF" }}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
         onSubmitEditing={Keyboard.dismiss}
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   input: {
     padding: 10,
     borderWidth: 0.5,
-    borderRadius: 8,
+    borderRadius: 15,
     height: 50,
   },
 });

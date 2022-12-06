@@ -36,7 +36,8 @@ const File = ({ item }, onPressFile, onLongPress) => {
             marginRight: 5,
             marginLeft: 5,
             marginTop: 20,
-            backgroundColor: "#406E9F",
+            backgroundColor: "#f4a261",
+            borderColor: '#ddd',
             shadowColor: "#000",
             shadowOffset: {
               width: 2,
