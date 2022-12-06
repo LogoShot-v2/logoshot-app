@@ -25,6 +25,7 @@ export default LgsCheckbox;
 
 const styles = StyleSheet.create({
   container: {
+    borderColor: "#FFFFFF",
     height: 20,
     width: 20,
   },

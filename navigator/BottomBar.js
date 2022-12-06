@@ -7,14 +7,20 @@ import MyFavorite from "../pages/MyFavorite/MyFavorite";
 import Log from "../pages/Log/Log";
 import Home from "../pages/Home";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import style from "../pages/Search/style";
 
 const Tab = createBottomTabNavigator();
 
 const BottomBar = () => {
   return (
     
-    <Tab.Navigator>
+    <Tab.Navigator
+    screenOptions={{
+      tabBarActiveTintColor: '#f4a261',
+    }}
+    >
       <Tab.Screen
+   
         name="Home"
         component={Home}
         options={{
@@ -84,10 +90,13 @@ const BottomBar = () => {
           unmountOnBlur: true,
           tabBarLabel: "瀏覽紀錄",
           headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="history" color={color} size={26} />
+     
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons name="history" color={ color} size={26} />
           ),
+   
         }}
+        
       />
     </Tab.Navigator>
   );
