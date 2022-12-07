@@ -115,7 +115,7 @@ const TextLog = ({ navigation: { navigate } }) => {
   return (
     <>
       {datesBactches.length === 0 ? (
-        <ActivityIndicator style={{ marginTop: 30 }} />
+        <ActivityIndicator  color= "#dad7cd" style={{ marginTop: 30}} />
       ) : (
         <Scroll>
           <View style={{ height: 60 }}></View>

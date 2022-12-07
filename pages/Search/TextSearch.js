@@ -184,6 +184,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             dropDownContainerStyle={{
               backgroundColor: "#ffffff",
             }}
+            style={{ ...style.input,  borderColor: "#FFFFFF"}}
             badgeStyle={{
               padding: 5,
               // backgroundColor: "red",
@@ -208,8 +209,9 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             mode="BADGE"
           />
           <DropDownPicker
+             style={{ ...style.input,  borderColor: "#FFFFFF"}}
             placeholder="商標色彩"
-            containerStyle={style.input}
+       
             open={colorOpen}
             value={targetColor}
             items={colorList}

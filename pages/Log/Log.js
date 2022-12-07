@@ -11,7 +11,7 @@ import LgsLogo from "../../components/lgsLogo";
 
 const Log = () => {
   return (
-    <Background>
+    <Background >
       <LgsLogo />
       <View style={styles.container}>
         {/* <Text style={{ ...FONTS.h1, marginLeft: "10%" }}>瀏覽紀錄</Text> */}
@@ -25,6 +25,7 @@ export default Log;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#FFF5E0',
     display: "flex",
     width: "100%",
     height: "100%",

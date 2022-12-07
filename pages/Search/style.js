@@ -23,6 +23,7 @@ export default StyleSheet.create({
     width: 64,
   },
   input: {
+
     marginVertical: 10,
     height: 50,
   },

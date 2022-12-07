@@ -30,7 +30,7 @@ const Scroll = styled(ScrollView)`
   height: 100%;
   width: 100%;
   overflow: scroll;
-  background-color: #f6f6f6;
+  background-color: #FFF5E0;
 `;
 const SafeAreaViewContainer = styled(SafeAreaView)`
   height: 100%;
