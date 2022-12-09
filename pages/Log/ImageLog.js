@@ -141,22 +141,32 @@ const ImageLog = ({ navigation: { navigate } }) => {
 
   return (
     <>
-      {datesBactches.length === 0 ? (
-        <ActivityIndicator  color="#dad7cd" style={{ marginTop: 30 }} />
-      ) : (
-        <Scroll onScrollEndDrag={() => addData()}>
-          <View style={{ height: 60 }}></View>
-          <ContentContainer>
-            {datesBactches ? (
-              <FlatList
-                data={datesBactches}
-                renderItem={(item) => DateRecord(item, userId, toSearch)}
-                keyExtractor={(item) => item[0]}
-              />
-            ) : null}
-          </ContentContainer>
-          <View style={{ height: 80 }}></View>
+      {!rawData ? (
+        <Scroll>
+          <ActivityIndicator color="#dad7cd" style={{ marginTop: 30 }} />
         </Scroll>
+      ) : (
+        <>
+          {datesBactches.length === 0 ? (
+            <Scroll>
+              <Text>尚未有搜尋紀錄</Text>
+            </Scroll>
+          ) : (
+            <Scroll onScrollEndDrag={() => addData()}>
+              <View style={{ height: 60 }}></View>
+              <ContentContainer style={{}}>
+                {datesBactches ? (
+                  <FlatList
+                    data={datesBactches}
+                    renderItem={(item) => DateRecord(item, userId, toSearch)}
+                    keyExtractor={(item) => item[0]}
+                  />
+                ) : null}
+              </ContentContainer>
+              <View style={{ height: 80 }}></View>
+            </Scroll>
+          )}
+        </>
       )}
     </>
   );

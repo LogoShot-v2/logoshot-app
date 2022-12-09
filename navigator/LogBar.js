@@ -10,7 +10,7 @@ const Tab = createMaterialTopTabNavigator();
 const LogBar = () => {
   return (
     <Tab.Navigator
-      pagerStyle={{ width: "100%" }}
+      pagerStyle={{ width: "100%", backgroundColor: "#FFF5E0" }}
       screenOptions={{
         tabBarActiveTintColor: "#406E9F",
         tabBarInactiveTintColor: "black",

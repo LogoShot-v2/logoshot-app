@@ -94,7 +94,8 @@ const DateRecord = ({ item }, userId, toSearch) => {
 };
 
 const TextLog = ({ navigation: { navigate } }) => {
-  const [datesBactches, setDatesBactches] = useState([]);
+  // const [rawData, setRawData] = useState(null);
+  const [datesBactches, setDatesBactches] = useState(null);
   const [userId, setUserId] = useState("");
 
   const toSearch = (item) => {
@@ -104,6 +105,7 @@ const TextLog = ({ navigation: { navigate } }) => {
   useEffect(() => {
     const asyncfunction = async () => {
       const data = await GetSearchingHistory(false);
+      // setRawData(data);
       setDatesBactches(data);
       const userInfoStr = await AsyncStorage.getItem("@userInfo");
       const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
@@ -114,22 +116,32 @@ const TextLog = ({ navigation: { navigate } }) => {
 
   return (
     <>
-      {datesBactches.length === 0 ? (
-        <ActivityIndicator  color= "#dad7cd" style={{ marginTop: 30}} />
-      ) : (
+      {!datesBactches ? (
         <Scroll>
-          <View style={{ height: 60 }}></View>
-          <ContentContainer>
-            {datesBactches ? (
-              <FlatList
-                data={datesBactches}
-                renderItem={(item) => DateRecord(item, userId, toSearch)}
-                keyExtractor={(item) => item[0]}
-              />
-            ) : null}
-          </ContentContainer>
-          <View style={{ height: 80 }}></View>
+          <ActivityIndicator color="#dad7cd" style={{ marginTop: 30 }} />
         </Scroll>
+      ) : (
+        <>
+          {datesBactches.length === 0 ? (
+            <Scroll>
+              <Text>尚未有搜尋紀錄</Text>
+            </Scroll>
+          ) : (
+            <Scroll>
+              <View style={{ height: 60 }}></View>
+              <ContentContainer>
+                {datesBactches ? (
+                  <FlatList
+                    data={datesBactches}
+                    renderItem={(item) => DateRecord(item, userId, toSearch)}
+                    keyExtractor={(item) => item[0]}
+                  />
+                ) : null}
+              </ContentContainer>
+              <View style={{ height: 80 }}></View>
+            </Scroll>
+          )}
+        </>
       )}
     </>
   );

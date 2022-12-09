@@ -82,7 +82,7 @@ const MyFavoriteFileDetail = ({
           <Image
             style={{
               ...FONTS.image,
-              borderColor: "#406E9F",
+              borderColor: "#f4a261",
               borderWidth: 1,
             }}
             source={{

@@ -75,7 +75,7 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
                 style={{
                   paddingLeft: 10,
                   paddingRight: 10,
-                  backgroundColor: "#FFF5E0",
+                  backgroundColor: "#f4a261",
                   borderRadius: 5,
                   margin: 10,
                   width: 300,

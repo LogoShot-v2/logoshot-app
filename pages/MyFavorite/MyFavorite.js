@@ -29,7 +29,6 @@ const File = ({ item }, onPressFile, onLongPress) => {
   return (
     <>
       {item["fileId"] === -1 ? (
-        // 妍伶你要改樣式就改這個button
         <TouchableOpacity
           style={{
             ...FONTS.image,
@@ -37,7 +36,7 @@ const File = ({ item }, onPressFile, onLongPress) => {
             marginLeft: 5,
             marginTop: 20,
             backgroundColor: "#f4a261",
-            borderColor: '#ddd',
+            borderColor: "#ddd",
             shadowColor: "#000",
             shadowOffset: {
               width: 2,
@@ -63,8 +62,8 @@ const File = ({ item }, onPressFile, onLongPress) => {
             marginRight: 5,
             marginLeft: 5,
             marginTop: 20,
-            backgroundColor: "aliceblue",
-            borderColor: "#406E9F",
+            backgroundColor: "white",
+            borderColor: "#f4a261",
             borderWidth: 1,
             shadowColor: "#000",
             shadowOffset: {
@@ -78,7 +77,7 @@ const File = ({ item }, onPressFile, onLongPress) => {
           onPress={() => onPressFile(item)}
           onLongPress={() => onLongPress(item)}
         >
-          <Text style={{ color: "#406E9F", fontWeight: "bold" }}>
+          <Text style={{ color: "#f4a261", fontWeight: "bold" }}>
             {item["fileName"]}
           </Text>
         </TouchableOpacity>
