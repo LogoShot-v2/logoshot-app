@@ -69,7 +69,7 @@ const Login = ({ navigation: { navigate } }) => {
       Alert.alert("Logged in!");
       navigate("Home", localData);
     } catch (e) {
-      Alert.alert(e.data);
+      // Alert.alert(e.data);
     }
   };
   const applelogin = async () => {
@@ -134,6 +134,7 @@ const Login = ({ navigation: { navigate } }) => {
           <LgsButton
             style={{ marginTop: 30 }}
             title="登入 Logoshot 帳號"
+            disabled={!email || !password}
             onPress={() => firebaselogin()}
           />
           <View

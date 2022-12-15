@@ -8,11 +8,19 @@ import { StyleSheet, Text, View, Alert } from "react-native";
 // 登入
 export async function LoginToFireBase(email, password) {
   // console.log(34);
+
   return await axios
     .post("/login", { email: email, password: password })
     .then((res) => {
       // console.log(res);
       return res.data;
+    })
+    .catch((res) => {
+      Alert.alert(
+        "伺服器出錯，請聯絡系統服務人員協助處理",
+        "來訊信箱：ntuim2022@gmail.com"
+      );
+      return;
     });
 }
 
@@ -31,7 +39,10 @@ export async function SignInToFireBase(email, password) {
       }
     })
     .catch((res) => {
-      Alert.alert("註冊失敗，請檢查是否已註冊過");
+      Alert.alert(
+        "註冊失敗，請檢查是否已註冊過，或通知系統服務人員協助處理",
+        "來訊信箱：ntuim2022@gmail.com"
+      );
       return;
     });
 }
