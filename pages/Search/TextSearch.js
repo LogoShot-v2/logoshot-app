@@ -184,7 +184,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             dropDownContainerStyle={{
               backgroundColor: "#ffffff",
             }}
-            style={{ ...style.input,  borderColor: "#FFFFFF"}}
+            style={{ ...style.input, borderColor: "#FFFFFF" }}
             badgeStyle={{
               padding: 5,
               // backgroundColor: "red",
@@ -209,9 +209,8 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
             mode="BADGE"
           />
           <DropDownPicker
-             style={{ ...style.input,  borderColor: "#FFFFFF"}}
+            style={{ ...style.input, borderColor: "#FFFFFF" }}
             placeholder="商標色彩"
-       
             open={colorOpen}
             value={targetColor}
             items={colorList}
@@ -240,22 +239,16 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
           >
             －商標註冊期間－
           </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              alignItems: "center",
-              // backgroundColor: "green",
-            }}
-          >
+          <View style={style.rangeContainer}>
             <LgsDatePicker
               value={target_startTime}
               onChange={settarget_startTime}
             />
             <Text
               style={{
-                ...FONTS.h2,
-                margin: 5,
+                marginHorizontal: 6,
+                textAlignVertical: "center",
+                alignSelf: "center",
               }}
             >
               ~
