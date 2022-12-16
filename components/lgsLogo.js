@@ -13,6 +13,7 @@ const LgsLogo = ({
   name = "",
   image = null,
   logout = () => {},
+  showDeleteAccount = () => {},
 }) => {
   return (
     <BackgroundImage
@@ -82,6 +83,7 @@ const LgsLogo = ({
                 }}
                 numberOfLines={1}
                 ellipsizeMode={"tail"}
+                onLongPress={() => showDeleteAccount()}
               >
                 {name}
               </Text>

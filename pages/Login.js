@@ -54,6 +54,7 @@ const Login = ({ navigation: { navigate } }) => {
   };
   const firebaselogin = async () => {
     try {
+      // console.log(email, password);
       const loginDatas = await LoginToFireBase(email, password);
       await AsyncStorage.setItem(
         "@userInfo",

@@ -16,10 +16,20 @@ export async function LoginToFireBase(email, password) {
       return res.data;
     })
     .catch((res) => {
-      Alert.alert(
-        "伺服器出錯，請聯絡系統服務人員協助處理",
-        "來訊信箱：ntuim2022@gmail.com"
-      );
+      console.log(res.data);
+      if (res.data === "INVALID_PASSWORD") {
+        Alert.alert("密碼錯誤");
+      } else if (res.data === "EMAIL_NOT_FOUND") {
+        Alert.alert(
+          "帳戶未註冊，請先至登入頁面註冊。或利用 Facebook、Apple 帳戶登入。"
+        );
+      } else {
+        Alert.alert(
+          "伺服器出錯，請檢查帳戶是否已註冊，或聯絡系統服務人員協助處理",
+          "來訊信箱：ntuim2022@gmail.com"
+        );
+      }
+
       return;
     });
 }
@@ -44,6 +54,49 @@ export async function SignInToFireBase(email, password) {
         "來訊信箱：ntuim2022@gmail.com"
       );
       return;
+    });
+}
+
+// 刪除 firebase 帳戶
+export async function PostDeleteFirebaseAccount(email, password) {
+  return await axios
+    .post("/deleteFirebaseAccount", { email: email, password: password })
+    .then((res) => {
+      if (res.status === 200) {
+        return res.data;
+      }
+    })
+    .catch((res) => {
+      if (res.data === "INVALID_PASSWORD") {
+        Alert.alert("密碼錯誤");
+      } else {
+        Alert.alert(
+          "伺服器出錯，請聯絡系統服務人員協助處理",
+          "來訊信箱：ntuim2022@gmail.com"
+        );
+      }
+      return;
+    });
+}
+// 刪除外部帳戶
+export async function PostDeleteOuterAccount() {
+  const userInfoStr = await AsyncStorage.getItem("@userInfo");
+  const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
+  const userId = userInfo ? userInfo.userId : "1234delete";
+  const userType = userInfo ? userInfo.userType : "manualdelete";
+  return await axios
+    .post("/deleteOuterAccount", {
+      userId: userId,
+      userType: userType,
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((res) => {
+      Alert.alert(
+        "伺服器出錯，請聯絡系統服務人員協助處理",
+        "來訊信箱：ntuim2022@gmail.com"
+      );
     });
 }
 
