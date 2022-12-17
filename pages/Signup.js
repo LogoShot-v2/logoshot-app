@@ -57,6 +57,7 @@ const Signup = ({ navigation: { navigate } }) => {
           <LgsButton
             style={{ marginTop: 30 }}
             title="註冊 Logoshot 帳號"
+            disabled={!email || !password}
             onPress={() => signIn()}
           />
         </ContentContainer>
