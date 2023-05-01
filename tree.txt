@@ -1,0 +1,76 @@
+C:\USERS\DONKEY\DESKTOP\LOGOSHOT-APP
+¢x  .DS_Store
+¢x  .gitignore
+¢x  App.js
+¢x  app.json
+¢x  babel.config.js
+¢x  devices.json
+¢x  eas.json
+¢x  jsconfig.json
+¢x  package-lock.json
+¢x  package.json
+¢x  README.md
+¢x  tree.txt
+¢x  yarn-error.log
+¢x  yarn.lock
+¢x  
+¢u¢w.expo
+¢u¢w.expo-shared
+¢u¢w.vscode
+¢u¢wassets
+¢x          
+¢u¢waxios
+¢x      api.js
+¢x      axios.js
+¢x      
+¢u¢wcodegen
+¢x      component.py
+¢x      
+¢u¢wcomponents
+¢x      carousel.js
+¢x      lgsButton.js
+¢x      lgsCheckbox.js
+¢x      LgsDatePicker.js
+¢x      lgsDraggablePin.js
+¢x      lgsGobackButton.js
+¢x      lgsLogo.js
+¢x      lgsPhotoIndicator.js
+¢x      lgsScreen.js
+¢x      lgsTextInput.js
+¢x      
+¢u¢wconstant
+¢x      classCodeList.js
+¢x      icons.js
+¢x      index.js
+¢x      theme.js
+¢x      
+¢u¢wdebug
+¢x          
+¢u¢wnavigator
+¢x      Base.js
+¢x      BottomBar.js
+¢x      LogBar.js
+¢x      
+¢u¢wnode_modules
+¢x          
+¢|¢wpages
+    ¢x  Home.js
+    ¢x  Login.js
+    ¢x  Result.js
+    ¢x  ResultDetail.js
+    ¢x  Signup.js
+    ¢x  
+    ¢u¢wLog
+    ¢x      ImageLog.js
+    ¢x      Log.js
+    ¢x      TextLog.js
+    ¢x      
+    ¢u¢wMyFavorite
+    ¢x      MyFavorite.js
+    ¢x      MyFavoriteFileDetail.js
+    ¢x      
+    ¢|¢wSearch
+            ImageSearch.js
+            style.js
+            TextSearch.js
+            

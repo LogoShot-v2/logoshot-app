@@ -13,14 +13,12 @@ const Tab = createBottomTabNavigator();
 
 const BottomBar = () => {
   return (
-    
     <Tab.Navigator
-    screenOptions={{
-      tabBarActiveTintColor: '#f4a261',
-    }}
+      screenOptions={{
+        tabBarActiveTintColor: "#f4a261",
+      }}
     >
       <Tab.Screen
-   
         name="Home"
         component={Home}
         options={{
@@ -90,13 +88,11 @@ const BottomBar = () => {
           unmountOnBlur: true,
           tabBarLabel: "瀏覽紀錄",
           headerShown: false,
-     
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="history" color={ color} size={26} />
+
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="history" color={color} size={26} />
           ),
-   
         }}
-        
       />
     </Tab.Navigator>
   );

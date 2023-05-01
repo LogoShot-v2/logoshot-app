@@ -1,20 +1,7 @@
-import React, { useCallback } from "react";
-import {
-  TextInput,
-  Text,
-  StyleSheet,
-  View,
-  Keyboard,
-  Image,
-  Dimensions,
-} from "react-native";
-import { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { StyleSheet, Image, Dimensions } from "react-native";
 import LgsDraggablePin from "./lgsDraggablePin";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import {
-  GestureHandlerRootView,
-  PanGestureHandler,
-} from "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // const windowWidth = Dimensions.get("window").width;
 // const windowHeight = Dimensions.get("window").height;
@@ -30,9 +17,6 @@ const LgsPhotoIndicator = ({
   setHeight,
   setIndicator,
 }) => {
-  // const [width, setWidth] = useState(0);
-  // const [height, setHeight] = useState(0);
-
   const drag = (x, y) => {
     // console.log("dragging", x, y);
     // setIndicator(x, y);
@@ -95,12 +79,3 @@ const LgsPhotoIndicator = ({
 };
 
 export default LgsPhotoIndicator;
-
-const styles = StyleSheet.create({
-  // indicator: {
-  //   color: "white",
-  //   textShadowColor: "#585858",
-  //   textShadowRadius: 10,
-  //   textShadowOffset: { width: 1, height: 1 },
-  // },
-});

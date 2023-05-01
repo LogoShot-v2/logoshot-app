@@ -1,11 +1,5 @@
 import { BackgroundImage } from "@rneui/base";
-import {
-  View,
-  Text,
-  ImageBackground,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { FONTS } from "../constant";
 
 const LgsLogo = ({
@@ -52,7 +46,7 @@ const LgsLogo = ({
         shot
       </Text>
 
-      {isHome ? (
+      {isHome && (
         <View
           style={{
             width: "30%",
@@ -62,9 +56,9 @@ const LgsLogo = ({
             alignItems: "center",
           }}
         >
-          {name ? (
+          {name && (
             <>
-              {image ? (
+              {image && (
                 <Image
                   source={{ uri: image.data.url }}
                   style={{
@@ -73,7 +67,7 @@ const LgsLogo = ({
                     borderRadius: 15,
                   }}
                 />
-              ) : null}
+              )}
               <Text
                 style={{
                   backgroundColor: "#ffffff",
@@ -100,9 +94,9 @@ const LgsLogo = ({
                 <Text style={{ fontSize: 15 }}>登出</Text>
               </TouchableOpacity>
             </>
-          ) : null}
+          )}
         </View>
-      ) : null}
+      )}
     </BackgroundImage>
   );
 };

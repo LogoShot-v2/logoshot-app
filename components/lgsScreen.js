@@ -1,12 +1,8 @@
 import {
-  StyleSheet,
-  Text,
   View,
-  // SafeAreaView,
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Image,
 } from "react-native";
 import React from "react";
 import styled from "styled-components/native";
@@ -30,7 +26,7 @@ const Scroll = styled(ScrollView)`
   height: 100%;
   width: 100%;
   overflow: scroll;
-  background-color: #FFF5E0;
+  background-color: #fff5e0;
 `;
 const SafeAreaViewContainer = styled(SafeAreaView)`
   height: 100%;

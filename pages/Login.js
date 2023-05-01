@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, Alert, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Facebook from "expo-facebook";

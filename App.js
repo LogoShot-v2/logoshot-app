@@ -1,6 +1,6 @@
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import * as React from "react";
-import { StyleSheet, Text, View, LogBox } from "react-native";
+import { LogBox } from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import Root from "./navigator/Base";

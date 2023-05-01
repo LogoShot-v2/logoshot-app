@@ -26,10 +26,9 @@ import * as ImagePicker from "expo-image-picker";
 import LgsTextInput from "../../components/lgsTextInput";
 import LgsCheckbox from "../../components/lgsCheckbox";
 import LgsPhotoIndicator from "../../components/lgsPhotoIndicator";
-// import { ScrollView } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import LgsButton from "../../components/lgsButton";
-import { SearchImage, Searching, TextSearch } from "../../axios/api";
+import { SearchImage } from "../../axios/api";
 import {
   Background,
   Scroll,

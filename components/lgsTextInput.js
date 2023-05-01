@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-
+import React from "react";
 import { TextInput, Text, StyleSheet, View, Keyboard } from "react-native";
-import { icons, COLORS, FONTS, SIZES } from "../constant";
+import { FONTS, SIZES } from "../constant";
 
 const LgsTextInput = ({
   placeholder,
@@ -13,7 +12,7 @@ const LgsTextInput = ({
 }) => {
   return (
     <View style={style}>
-      {title ? (
+      {title && (
         <Text
           style={{
             ...FONTS.h1,
@@ -23,10 +22,14 @@ const LgsTextInput = ({
         >
           {title}
         </Text>
-      ) : null}
-
+      )}
       <TextInput
-        style={{ ...styles.input, backgroundColor: "white", borderWidth: 1,  borderColor: "#FFFFFF" }}
+        style={{
+          ...styles.input,
+          backgroundColor: "white",
+          borderWidth: 1,
+          borderColor: "#FFFFFF",
+        }}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
         onSubmitEditing={Keyboard.dismiss}

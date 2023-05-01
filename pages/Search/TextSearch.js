@@ -279,7 +279,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
               }}
             />
           </View>
-          {advance ? (
+          {advance && (
             <>
               <LgsTextInput
                 value={targetDraftC}
@@ -300,7 +300,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
                 placeholder={"輸入圖樣日文"}
               ></LgsTextInput>
             </>
-          ) : null}
+          )}
           <LgsButton
             style={{ ...style.input, borderWidth: 0 }}
             title="搜尋"
@@ -311,7 +311,7 @@ const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
               (searchKeywords !== "") & (isLoading !== true) ? false : true
             }
           />
-          {isLoading ? <ActivityIndicator /> : null}
+          {isLoading && <ActivityIndicator />}
         </ContentContainer>
         <View style={{ minHeight: 60 }}></View>
       </Scroll>

@@ -1,10 +1,10 @@
 {
-  "hostType": "lan",
+  "hostType": "tunnel",
   "lanType": "ip",
   "dev": true,
   "minify": false,
   "urlRandomness": "3t-fij",
   "https": false,
-  "scheme": "exp+logoshot",
+  "scheme": "exp+donkey",
   "devClient": false
 }

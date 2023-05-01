@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "Logo Shot",
-    "slug": "LogoShot",
-    "version": "2.0.7",
+    "slug": "logoShot",
+    "version": "3.0.0",
     "privacy": "public",
     "orientation": "portrait",
     "icon": "./assets/Logoshot.png",
@@ -15,7 +15,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "meow.logoshot",
@@ -38,7 +40,9 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "permissions": ["android.permission.RECORD_AUDIO"]
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -60,7 +64,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "d3247822-4099-486c-9fcc-fc9077ccf993"
+        "projectId": "c2c2c0d1-5a7b-4593-b94a-89ef77847f5f"
       }
     }
   }
