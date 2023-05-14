@@ -61,14 +61,13 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
   };
 
   useEffect(() => {
-    const asyncFunction = async () => {
+    (async () => {
       const userInfoStr = await AsyncStorage.getItem("@userInfo");
       const userInfo = userInfoStr != null ? JSON.parse(userInfoStr) : null;
       setName(userInfo ? userInfo.name : null);
       setImage(userInfo ? userInfo.image : null);
       setIsOuterAccount(userInfo ? userInfo.userType !== "firebase" : false);
-    };
-    asyncFunction();
+    })();
   }, [params, name]);
 
   const logout = async () => {

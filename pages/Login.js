@@ -13,10 +13,10 @@ import LgsGobackButton from "../components/lgsGobackButton";
 import LgsLogo from "../components/lgsLogo";
 
 const Login = ({ navigation: { navigate } }) => {
-  // 禁區----------------------
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // 禁區----------------------
   const facebooklogin = async () => {
     try {
       await Facebook.initializeAsync({
