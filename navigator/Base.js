@@ -7,7 +7,6 @@ import MyFavoriteFileDetail from "../pages/MyFavorite/MyFavoriteFileDetail";
 import Result from "../pages/Result";
 import ResultDetail from "../pages/ResultDetail";
 import Signup from "../pages/Signup";
-
 const Base = createStackNavigator();
 const BASEMAP = {
   Base: BottomBar,
@@ -18,7 +17,7 @@ const BASEMAP = {
   MyFavoriteFileDetail,
 };
 
-const Root = () => {
+export default () => {
   return (
     <Base.Navigator>
       {Object.keys(BASEMAP).map((name) => (
@@ -33,5 +32,3 @@ const Root = () => {
     </Base.Navigator>
   );
 };
-
-export default Root;

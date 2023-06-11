@@ -55,8 +55,10 @@ const ListBlock = styled(TouchableOpacity)`
   border-width: 0.4;
 `;
 
-export { ListBlock };
-export { Background };
-export { Scroll };
-export { SafeAreaViewContainer };
-export { ContentContainer };
+export {
+  ListBlock,
+  Background,
+  Scroll,
+  SafeAreaViewContainer,
+  ContentContainer,
+};

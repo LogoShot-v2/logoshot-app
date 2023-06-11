@@ -1,13 +1,12 @@
-import * as React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import * as React from "react";
 import "react-native-gesture-handler";
 import ImageLog from "../pages/Log/ImageLog";
 import TextLog from "../pages/Log/TextLog";
 
 const Tab = createMaterialTopTabNavigator();
 
-const LogBar = () => {
+export default () => {
   return (
     <Tab.Navigator
       pagerStyle={{ width: "100%", backgroundColor: "#FFF5E0" }}
@@ -41,5 +40,3 @@ const LogBar = () => {
     </Tab.Navigator>
   );
 };
-
-export default LogBar;

@@ -1,17 +1,16 @@
-import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import * as React from "react";
 import "react-native-gesture-handler";
-import TextSearch from "../pages/Search/TextSearch";
-import ImageSearch from "../pages/Search/ImageSearch";
-import MyFavorite from "../pages/MyFavorite/MyFavorite";
-import Log from "../pages/Log/Log";
-import Home from "../pages/Home";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import style from "../pages/Search/style";
+import Home from "../pages/Home";
+import Log from "../pages/Log/Log";
+import MyFavorite from "../pages/MyFavorite/MyFavorite";
+import ImageSearch from "../pages/Search/ImageSearch";
+import TextSearch from "../pages/Search/TextSearch";
 
 const Tab = createBottomTabNavigator();
 
-const BottomBar = () => {
+export default () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -49,7 +48,6 @@ const BottomBar = () => {
           ),
         }}
       />
-
       <Tab.Screen
         name="ImageSearch"
         component={ImageSearch}
@@ -89,7 +87,6 @@ const BottomBar = () => {
           unmountOnBlur: true,
           tabBarLabel: "瀏覽紀錄",
           headerShown: false,
-
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="history" color={color} size={26} />
           ),
@@ -98,5 +95,3 @@ const BottomBar = () => {
     </Tab.Navigator>
   );
 };
-
-export default BottomBar;

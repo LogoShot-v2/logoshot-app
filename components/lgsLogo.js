@@ -7,7 +7,7 @@ const LgsLogo = ({
   name = "",
   image = null,
   logout = () => {},
-  showDeleteAccount = () => {},
+  showDeleteAccount = () => {}, //顯示 delete account 頁面
 }) => {
   return (
     <BackgroundImage
@@ -45,8 +45,7 @@ const LgsLogo = ({
       >
         shot
       </Text>
-
-      {isHome && (
+      {isHome && ( //如果是 home 右上角的使用者資訊
         <View
           style={{
             width: "30%",
@@ -70,10 +69,8 @@ const LgsLogo = ({
               )}
               <Text
                 style={{
-                  backgroundColor: "#ffffff",
-                  borderRadius: 5,
                   margin: 10,
-                  width: image ? undefined : "60%",
+                  // width: !image ? undefined : "60%",
                 }}
                 numberOfLines={1}
                 ellipsizeMode={"tail"}
@@ -83,15 +80,15 @@ const LgsLogo = ({
               </Text>
               <TouchableOpacity
                 style={{
-                  paddingLeft: 10,
-                  paddingRight: 10,
+                  paddingHorizontal: 10,
+                  paddingVertical: 5,
                   backgroundColor: "#406E9F",
-                  borderRadius: 5,
+                  borderRadius: 15,
                   marginRight: 10,
                 }}
                 onPress={() => logout()}
               >
-                <Text style={{ fontSize: 15 }}>登出</Text>
+                <Text style={{ fontSize: 15, color: "#FFFFFF" }}>登出</Text>
               </TouchableOpacity>
             </>
           )}

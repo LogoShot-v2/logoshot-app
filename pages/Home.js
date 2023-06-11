@@ -1,27 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, Button, Alert } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
-import * as AppleAuthentication from "expo-apple-authentication";
-import LgsButton from "../components/lgsButton";
-import LgsLogo from "../components/lgsLogo";
-import { icons, COLORS, FONTS, SIZES, classCodeList } from "../constant";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import LgsTextInput from "../components/lgsTextInput";
+import { BottomSheet, ListItem } from "@rneui/base";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Image, Alert } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import {
   Provider,
   Portal,
   Dialog,
-  Paragraph,
   Button as PaperButton,
 } from "react-native-paper";
+import LgsLogo from "../components/lgsLogo";
 import {
   PostDeleteFirebaseAccount,
   PostDeleteOuterAccount,
 } from "../axios/api";
+import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
+import LgsTextInput from "../components/lgsTextInput";
 
-import { BottomSheet, ListItem } from "@rneui/base";
-const Home = ({ navigation: { navigate }, route: { params } }) => {
+export default ({ navigation: { navigate }, route: { params } }) => {
   const [image, setImage] = useState(null);
   const [name, setName] = useState(null);
   const [isOuterAccount, setIsOuterAccount] = useState(null);
@@ -95,14 +91,13 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
           logout={logout}
           showDeleteAccount={() => setBottemSheetVisible(true)}
         />
-
         <Scroll contentContainerStyle={styles.container}>
           <ContentContainer>
             <View
               style={{
                 flex: 1,
                 flexDirection: "column",
-                alignItems: "center", //Centered vertically
+                alignItems: "center",
                 justifyContent: "center",
               }}
             >
@@ -120,7 +115,7 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
                 // backgroundColor: "red",
               }}
             >
-              {name ? null : (
+              {!name && (
                 <>
                   <TouchableOpacity
                     style={{
@@ -256,16 +251,12 @@ const Home = ({ navigation: { navigate }, route: { params } }) => {
   );
 };
 
-export default Home;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    //backgroundColor: 'green'
   },
   center: {
-    alignItems: "center", //Centered vertically
+    alignItems: "center",
     justifyContent: "center",
     backgroundColor: "green",
   },

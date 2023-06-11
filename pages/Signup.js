@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Alert } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import * as Facebook from "expo-facebook";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LoginToFireBase, SignInToFireBase } from "../axios/api";
-import LgsTextInput from "../components/lgsTextInput";
-import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
+import React, { useState } from "react";
+import { StyleSheet, Alert } from "react-native";
+import { SignInToFireBase } from "../axios/api";
 import LgsButton from "../components/lgsButton";
 import LgsGobackButton from "../components/lgsGobackButton";
 import LgsLogo from "../components/lgsLogo";
+import { Background, Scroll, ContentContainer } from "../components/lgsScreen";
+import LgsTextInput from "../components/lgsTextInput";
 
 const Signup = ({ navigation: { navigate } }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [signUpData, setSignUpData] = useState({ email: "", password: "" });
   const signIn = async () => {
+    const { email, password } = signUpData;
     const signInStatus = await SignInToFireBase(email, password);
-
     if (signInStatus) {
       Alert.alert(
         `驗證信已寄至${signInStatus}，請至信箱中點擊連結完成驗證。（請小心，驗證信有可能會被信箱中被歸類為垃圾信件）`
@@ -24,41 +20,41 @@ const Signup = ({ navigation: { navigate } }) => {
     }
   };
 
-  const goBack = async () => {
-    navigate("Home");
+  const handleChange = (name) => (value) => {
+    setSignUpData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
+
   return (
     <Background>
       <LgsLogo />
-      <LgsGobackButton goBack={goBack} />
+      <LgsGobackButton
+        goBack={() => {
+          navigate("Home");
+        }}
+      />
       <Scroll>
         <ContentContainer>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            {/* <TouchableOpacity onPress={() => logout()}>
-              <Text>logout</Text>
-            </TouchableOpacity> */}
-          </View>
           <LgsTextInput
             style={styles.input}
             placeholder={"請輸入電子郵件"}
-            value={email}
-            onChangeText={setEmail}
+            value={signUpData.email}
+            onChangeText={handleChange("email")}
           />
           <LgsTextInput
             style={styles.input}
             secureTextEntry={true}
             placeholder={"請輸入密碼"}
-            value={password}
-            onChangeText={setPassword}
+            value={signUpData.password}
+            onChangeText={handleChange("password")}
           />
-
           <LgsButton
             style={{ marginTop: 30 }}
             title="註冊 Logoshot 帳號"
-            disabled={!email || !password}
-            onPress={() => signIn()}
+            disabled={!signUpData.email || !signUpData.password}
+            onPress={signIn}
           />
         </ContentContainer>
       </Scroll>

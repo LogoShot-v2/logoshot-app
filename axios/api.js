@@ -5,37 +5,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 // import { images, icons, COLORS, FONTS, SIZES } from "../constant/";
 
-// 登入
-export async function LoginToFireBase(email, password) {
-  // console.log(34);
-
-  return await axios
-    .post("/login", { email: email, password: password })
-    .then((res) => {
-      // console.log(res);
-      return res.data;
-    })
-    .catch((res) => {
-      console.log(res.data);
-      if (res.data === "INVALID_PASSWORD") {
-        Alert.alert("密碼錯誤");
-      } else if (res.data === "EMAIL_NOT_FOUND") {
-        Alert.alert(
-          "帳戶未註冊，請先至登入頁面註冊。或利用 Facebook、Apple 帳戶登入。"
-        );
-      } else {
-        Alert.alert(
-          "伺服器出錯，請檢查帳戶是否已註冊，或聯絡系統服務人員協助處理",
-          "來訊信箱：ntuim2022@gmail.com"
-        );
-      }
-
-      return;
-    });
-}
-
 // 註冊
 export async function SignInToFireBase(email, password) {
+  console.log(email, password);
   return await axios
     .post("/registerVerify", {
       email: email,

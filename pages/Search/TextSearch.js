@@ -1,44 +1,22 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import {
-  Keyboard,
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  Image,
-  ImageStore,
-  TouchableOpacity,
-  Alert,
-  Navigator,
-  Pressable,
-  ActivityIndicator,
-  Platform,
-} from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-// import { DateTimePicker } from "@react-native-community/datetimepicker";
-import DatePicker from "react-native-datepicker";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { Checkbox } from "react-native-paper";
-import { Chip, ThemeProvider, Button, CheckBox } from "react-native-elements";
-import { icons, COLORS, FONTS, SIZES, classCodeList } from "../../constant";
-import RNPickerSelect from "react-native-picker-select";
+import { Keyboard, View, Text, Alert, ActivityIndicator } from "react-native";
+import { FONTS, classCodeList } from "../../constant";
 import LgsLogo from "../../components/lgsLogo";
 import LgsTextInput from "../../components/lgsTextInput";
 import LgsCheckbox from "../../components/lgsCheckbox";
 import LgsButton from "../../components/lgsButton";
-import { RotateInDownLeft } from "react-native-reanimated";
 import {
   Background,
   Scroll,
   ContentContainer,
 } from "../../components/lgsScreen";
-
 import { SearchText } from "../../axios/api";
 import DropDownPicker from "react-native-dropdown-picker";
 import style from "./style";
 import LgsDatePicker from "../../components/LgsDatePicker";
 import { DateTime } from "luxon";
+
 const TextSearch = ({ navigation: { navigate }, route: { params } }) => {
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
   const [searchKeywords, setsearchKeywords] = useState("");
